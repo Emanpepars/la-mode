@@ -4,10 +4,10 @@ import 'package:my_ecommerce_app/core/utils/app_images.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_components.dart';
-import '../../../../core/utils/text_styles.dart';
-import '../widgets/sale_widget.dart';
+import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/app_components.dart';
+import '../../../../../core/utils/text_styles.dart';
+import '../../widgets/sale_widget.dart';
 
 class AllTab extends StatelessWidget {
   const AllTab({super.key});
@@ -21,7 +21,7 @@ class AllTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
-            height: 60.h,
+            height: 80.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: 8,
@@ -31,9 +31,33 @@ class AllTab extends StatelessWidget {
                     : SizedBox(width: 2.w);
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const CircleAvatar(
+                return CircleAvatar(
                   backgroundColor: AppColors.lightGray,
-                  radius: 35.0,
+                  // Set the background color of the CircleAvatar
+                  radius: 45.0,
+                  child: Container(
+                    height: index == 2 || index == 3
+                        ? 45.h
+                        : index == 4
+                            ? 33.h
+                            : 40.h,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        opacity: index == 2 || index == 4 ? 1 : 0.4,
+                        colorFilter: const ColorFilter.mode(
+                            AppColors.lightGray, BlendMode.darken),
+                        image: AssetImage(
+                          homeProvider.categoriesAvatar[index]["image"]!,
+                        ),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        homeProvider.categoriesAvatar[index]["title"]!,
+                        style: roboto12W400(),
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
@@ -197,7 +221,7 @@ class AllTab extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-                left: 20.w, right: 20.w, top: 20.h, bottom: 10.h),
+                left: 20.w, right: 20.w, top: 20.h, bottom: 50.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -213,7 +237,10 @@ class AllTab extends StatelessWidget {
                   width: 800.w,
                   child: GridView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => CollectionCard(image: homeProvider.collection[index]["image"]!, text: homeProvider.collection[index]["text"]!,),
+                    itemBuilder: (context, index) => CollectionCard(
+                      image: homeProvider.collection[index]["image"]!,
+                      text: homeProvider.collection[index]["text"]!,
+                    ),
                     itemCount: 4,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

@@ -1,12 +1,21 @@
-import 'package:flutter/widgets.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/all_tab_bar.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/kids_tab_bar.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/men_tab_bar.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/women_tab_bar.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/cart_tab.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/fav_tab.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/profile_tab.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/settings_tab.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/tab_view_tabs/kids_tab_bar.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/tab_view_tabs/men_tab_bar.dart';
+import 'package:my_ecommerce_app/features/home/presentation/pages/tab_view_tabs/women_tab_bar.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../../../../../core/utils/app_colors.dart';
+import '../../pages/tab_view_tabs/all_tab.dart';
+import '../../pages/bottom_tabs/home_tab_bar.dart';
 
 class HomeProvider extends ChangeNotifier {
-
   int currentPageIndex = 0;
 
   onPageChanged(value) {
@@ -15,7 +24,6 @@ class HomeProvider extends ChangeNotifier {
   }
 
   List<Widget> tabBar = const [AllTab(), WomenTab(), MenTab(), KidTab()];
-
   List<Map<String, String>> collection = const [
     {
       "image": AppImages.winter,
@@ -56,32 +64,104 @@ class HomeProvider extends ChangeNotifier {
   ];
   List<Map<String, String>> categoriesAvatar = const [
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.tShirt,
       "title": "T-shirts",
     },
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.hoodie,
       "title": "Hoodies",
     },
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.pants,
       "title": "Pants",
     },
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.skirt,
       "title": "Skirts",
     },
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.footwear,
       "title": "Footwear",
     },
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.accessories,
       "title": "Accessories",
     },
     {
-      "image": AppImages.onboard1,
+      "image": AppImages.more,
       "title": "More!",
     },
   ];
+
+  List<PersistentBottomNavBarItem> navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.home),
+        title: "Home",
+        activeColorPrimary: AppColors.gold,
+        inactiveColorPrimary: AppColors.silverDark,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.shopping_bag),
+        title: "cart",
+        activeColorPrimary: AppColors.gold,
+        inactiveColorPrimary: AppColors.silverDark,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.favorite),
+        title: "Favorites",
+        activeColorPrimary: AppColors.gold,
+        inactiveColorPrimary: AppColors.silverDark,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.settings),
+        title: "Settings",
+        activeColorPrimary: AppColors.gold,
+        inactiveColorPrimary: AppColors.silverDark,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.person),
+        title: "Profile",
+        activeColorPrimary: AppColors.gold,
+        inactiveColorPrimary: AppColors.silverDark,
+      ),
+    ];
+  }
+
+  List<Widget> buildScreens() {
+    return [
+      HomeTab(),
+      CartTab(),
+      FavTab(),
+      SettingsTab(),
+      ProfileTab(),
+    ];
+  }
+
+  late PageController pageController;
+  late Timer pageChangeTimer;
+
+  HomeProvider() {
+    pageController = PageController();
+    pageChangeTimer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
+      // Change page automatically every 5 seconds
+      nextPage();
+    });
+  }
+
+  // Method to change to the next page
+  void nextPage() {
+    if (currentPageIndex < sales.length - 1) {
+     currentPageIndex ++;
+    } else {
+      currentPageIndex =0;
+      notifyListeners();
+    }
+    pageController.animateToPage(
+      currentPageIndex,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
+    notifyListeners();
+  }
 }

@@ -13,4 +13,11 @@ class AppImages {
   static const String spring = "$baseImage/spring_collection.png";
   static const String summer = "$baseImage/summer_collection.png";
   static const String autumn = "$baseImage/autumn_collection.png";
+  static const String tShirt = "$baseImage/tshirt.png";
+  static const String skirt = "$baseImage/skirts.png";
+  static const String pants = "$baseImage/pants.png";
+  static const String accessories = "$baseImage/watch.png";
+  static const String hoodie = "$baseImage/hoodie.png";
+  static const String footwear = "$baseImage/footwear.png";
+  static const String more = "$baseImage/more.png";
 }

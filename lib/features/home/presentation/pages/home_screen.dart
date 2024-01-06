@@ -1,162 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_provider.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_icons.dart';
-import '../../../../core/utils/text_styles.dart';
+import '../manager/provider/home_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    PersistentTabController controller =
+        PersistentTabController(initialIndex: 0);
     var homeProvider = Provider.of<HomeProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: DefaultTabController(
-        length: 4,
-        child: NestedScrollView(
-          floatHeaderSlivers: true,
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                floating: true,
-                //snap: true,
-                //  pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    color: Colors.white,
-                    child: AppBar(
-                      elevation: 0,
-                      backgroundColor: Colors.white,
-                      leading: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.menu, color: AppColors.primary),
-                      ),
-                      title: Text(
-                        "Home",
-                        style: roboto20(weight: FontWeight.w700),
-                      ),
-                      actions: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 7.w),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.notifications_on,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(110.0),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 40.h,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 15.w),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: AppColors.silverM),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  padding: EdgeInsets.symmetric(vertical: 2.h),
-                                  child: TextField(
-                                    cursorColor: AppColors.silverDark,
-                                    decoration: InputDecoration(
-                                      hintText: "Search",
-                                      hintStyle: roboto16().copyWith(
-                                        color: AppColors.silverDark,
-                                      ),
-                                      prefixIcon: const Image(
-                                        image: AssetImage(
-                                          AppIcons.search,
-                                        ),
-                                        color: AppColors.silverDark,
-                                      ),
-                                      border: InputBorder.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 9.w),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Image(
-                                  image: AssetImage(AppIcons.filter),
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 45.h,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 20.w),
-                                child: const Text("FOR YOU"),
-                              ),
-                            ),
-                            SizedBox(width: 30.w),
-                            Expanded(
-                              flex: 2,
-                              child: TabBar(
-                                labelColor: AppColors.gold,
-                                labelStyle: roboto14(),
-                                unselectedLabelColor: AppColors.primary,
-                                unselectedLabelStyle: roboto12W400(),
-                                indicatorColor: AppColors.gold,
-                                indicatorSize: TabBarIndicatorSize.label,
-                                isScrollable: true,
-                                tabs: const [
-                                  Tab(text: 'All'),
-                                  Tab(text: 'Women'),
-                                  Tab(text: 'Men'),
-                                  Tab(text: 'Kids'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              SingleChildScrollView(
-                child: homeProvider.tabBar[0],
-              ),
-              const Center(child: Text('Tab 2 content')),
-              const Center(child: Text('Tab 3 content')),
-              const Center(child: Text('Tab 3 content')),
-            ],
-          ),
+      body: PersistentTabView(
+        context,
+        controller: controller,
+        screens: homeProvider.buildScreens(),
+        items: homeProvider.navBarsItems(),
+        confineInSafeArea: true,
+        backgroundColor: Colors.white,
+        // Default is Colors.white.
+        handleAndroidBackButtonPress: true,
+        // Default is true.
+        resizeToAvoidBottomInset: true,
+        // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+        stateManagement: true,
+        // Default is true.
+        hideNavigationBarWhenKeyboardShows: true,
+        // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+        decoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(30.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5), // You can change the color
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes the position of the shadow
+            ),
+          ],
         ),
+        popAllScreensOnTapOfSelectedTab: true,
+        popActionScreens: PopActionScreensType.all,
+        itemAnimationProperties: const ItemAnimationProperties(
+          // Navigation Bar's items animation properties.
+          duration: Duration(milliseconds: 200),
+          curve: Curves.ease,
+        ),
+        screenTransitionAnimation: const ScreenTransitionAnimation(
+          // Screen transition animation on change of selected tab.
+          animateTabTransition: true,
+          curve: Curves.linear,
+          duration: Duration(milliseconds: 200),
+        ),
+        navBarStyle:
+            NavBarStyle.style12, // Choose the nav bar style with this property.
       ),
     );
   }
 }
+

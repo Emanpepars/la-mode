@@ -12,10 +12,10 @@ class FlashSale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var homeProvider = Provider.of<HomeProvider>(context);
-      return Container(
+    return Container(
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       width: 340.w,
-      height: 130.h,
+      height: 140.h,
       decoration: const BoxDecoration(
         color: AppColors.primary,
         borderRadius: BorderRadius.all(
@@ -26,7 +26,7 @@ class FlashSale extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 12.h),
+            padding: EdgeInsets.symmetric(vertical: 15.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -62,7 +62,8 @@ class FlashSale extends StatelessWidget {
                   child: SizedBox(
                     width: 135.w,
                     child: Text(
-                      homeProvider.sales[homeProvider.currentPageIndex]["description"]!,
+                      homeProvider.sales[homeProvider.currentPageIndex]
+                          ["description"]!,
                       style: roboto12W400(
                         color: Colors.white,
                       ),
@@ -98,6 +99,7 @@ class FlashSale extends StatelessWidget {
           SizedBox(width: 10.w),
           Expanded(
             child: PageView.builder(
+              controller: homeProvider.pageController,
               onPageChanged: (value) {
                 homeProvider.onPageChanged(value);
               },
