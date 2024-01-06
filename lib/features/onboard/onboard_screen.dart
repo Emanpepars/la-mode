@@ -28,7 +28,9 @@ class OnBoardScreen extends StatelessWidget {
               },
               itemBuilder: (BuildContext context, int index) {
                 return AppComponents.onboardImage(
-                    onboardProvider.onboardList[index]["image"]!);
+                    onboardImg: onboardProvider.onboardList[index]["image"]!,
+                    skip: onboardProvider.currentPageIndex !=
+                        onboardProvider.onboardList.length - 1);
               },
               itemCount: onboardProvider.onboardList.length,
             ),
@@ -60,13 +62,13 @@ class OnBoardScreen extends StatelessWidget {
           Text(
             onboardProvider.onboardList[onboardProvider.currentPageIndex]
                 ["title"]!,
-            style: roboto20W600(),
+            style: roboto20(),
           ),
           SizedBox(
             height: 20.h,
           ),
           SizedBox(
-            width: 300.w,
+            width: 250.w,
             child: Text(
               onboardProvider.onboardList[onboardProvider.currentPageIndex]
                   ["description"]!,
