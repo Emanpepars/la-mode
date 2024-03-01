@@ -1,26 +1,44 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:my_ecommerce_app/core/utils/app_images.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/cart_tab.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/fav_tab.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/profile_tab.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/bottom_tabs/settings_tab.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/tab_view_tabs/kids_tab_bar.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/tab_view_tabs/men_tab_bar.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/tab_view_tabs/women_tab_bar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
-import '../../pages/tab_view_tabs/all_tab.dart';
+import '../../../../../core/utils/app_images.dart';
+import '../../pages/bottom_tabs/cart_tab.dart';
+import '../../pages/bottom_tabs/fav_tab.dart';
 import '../../pages/bottom_tabs/home_tab_bar.dart';
+import '../../pages/bottom_tabs/profile_tab.dart';
+import '../../pages/bottom_tabs/settings_tab.dart';
+import '../../pages/tab_view_tabs/all_tab.dart';
+import '../../pages/tab_view_tabs/kids_tab_bar.dart';
+import '../../pages/tab_view_tabs/men_tab_bar.dart';
+import '../../pages/tab_view_tabs/women_tab_bar.dart';
+import 'home_state.dart';
 
-class HomeProvider extends ChangeNotifier {
-  int currentPageIndex = 0;
+class HomeCubit extends Cubit<HomeState> {
+  late Timer timer;
 
-  onPageChanged(value) {
-    currentPageIndex = value;
-    notifyListeners();
+  HomeCubit() : super(HomeInitial()) {
+    timer = Timer.periodic(const Duration(milliseconds: 50000000), (timer) {
+      nextPage();
+    });
+  }
+
+  static HomeCubit get(context) => BlocProvider.of(context);
+
+  int currentFlashSalePageIndex = 0;
+  int currentTabIndex = 0;
+
+  void onTabChanged(value) {
+    currentTabIndex = value;
+    emit(HomeOnTabChangedState());
+  }
+
+  void onPageChanged(value) {
+    currentFlashSalePageIndex = value;
+    emit(HomeOnPageChangedState());
   }
 
   List<Widget> tabBar = const [AllTab(), WomenTab(), MenTab(), KidTab()];
@@ -130,38 +148,48 @@ class HomeProvider extends ChangeNotifier {
 
   List<Widget> buildScreens() {
     return [
-      HomeTab(),
-      CartTab(),
-      FavTab(),
-      SettingsTab(),
-      ProfileTab(),
+      const HomeTab(),
+      const CartTab(),
+      const FavTab(),
+      const SettingsTab(),
+      const ProfileTab(),
     ];
   }
 
-  late PageController pageController;
-  late Timer pageChangeTimer;
+  PageController flashSalePageController = PageController(initialPage: 0);
 
-  HomeProvider() {
-    pageController = PageController();
-    pageChangeTimer = Timer.periodic(const Duration(seconds: 4), (Timer timer) {
-      // Change page automatically every 5 seconds
-      nextPage();
-    });
-  }
+  PersistentTabController controller = PersistentTabController(initialIndex: 0);
 
   // Method to change to the next page
   void nextPage() {
-    if (currentPageIndex < sales.length - 1) {
-     currentPageIndex ++;
+    if (currentFlashSalePageIndex < sales.length - 1) {
+      currentFlashSalePageIndex++;
     } else {
-      currentPageIndex =0;
-      notifyListeners();
+      currentFlashSalePageIndex = 0;
+      emit(HomeOnPageChangedState());
     }
-    pageController.animateToPage(
-      currentPageIndex,
+    flashSalePageController.animateToPage(
+      currentFlashSalePageIndex,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastLinearToSlowEaseIn,
     );
-    notifyListeners();
+    emit(HomeOnPageChangedState());
+  }
+
+  String selectedSortOption = 'price';
+  final List<String> selectedFilterOptions = [];
+
+  void onMultiSelectFilterAlert(String string) {
+    if (selectedFilterOptions.contains(string)) {
+      selectedFilterOptions.remove(string);
+    } else {
+      selectedFilterOptions.add(string);
+    }
+    emit(HomeOnPageChangedState());
+  }
+
+  void onSingleFilterAlertChanged(String? value) {
+    selectedSortOption = value.toString();
+    emit(HomeOnPageChangedState());
   }
 }

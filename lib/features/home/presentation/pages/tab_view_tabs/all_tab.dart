@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -14,7 +13,6 @@ class AllTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var homeProvider = Provider.of<HomeProvider>(context);
     return Container(
       color: Colors.white,
       child: Column(
@@ -33,27 +31,32 @@ class AllTab extends StatelessWidget {
               separatorBuilder: (BuildContext context, int index) {
                 return CircleAvatar(
                   backgroundColor: AppColors.lightGray,
-                  // Set the background color of the CircleAvatar
                   radius: 45.0,
                   child: Container(
-                    height: index == 2 || index == 3
+                    height: index == 2
                         ? 45.h
                         : index == 4
-                            ? 33.h
-                            : 40.h,
+                            ? 30.h
+                            : index == 5 || index == 6
+                                ? 42.h
+                                : index == 3
+                                    ? 50.h
+                                    : 38.h,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         opacity: index == 2 || index == 4 ? 1 : 0.4,
                         colorFilter: const ColorFilter.mode(
                             AppColors.lightGray, BlendMode.darken),
                         image: AssetImage(
-                          homeProvider.categoriesAvatar[index]["image"]!,
+                          HomeCubit.get(context).categoriesAvatar[index]
+                              ["image"]!,
                         ),
                       ),
                     ),
                     child: Center(
                       child: Text(
-                        homeProvider.categoriesAvatar[index]["title"]!,
+                        HomeCubit.get(context).categoriesAvatar[index]
+                            ["title"]!,
                         style: roboto12W400(),
                       ),
                     ),
@@ -87,23 +90,19 @@ class AllTab extends StatelessWidget {
               ),
               SizedBox(
                 height: 220.h,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => index == 0
-                              ? SizedBox(
-                                  width: 25.w,
-                                )
-                              : SizedBox(
-                                  width: 10.w,
-                                ),
-                          separatorBuilder: (context, index) =>
-                              const ProductCard(),
-                          itemCount: 6),
-                    )
-                  ],
+                child: Expanded(
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => index == 0
+                        ? SizedBox(
+                            width: 25.w,
+                          )
+                        : SizedBox(
+                            width: 10.w,
+                          ),
+                    separatorBuilder: (context, index) => const ProductCard(),
+                    itemCount: 6,
+                  ),
                 ),
               ),
             ],
@@ -234,19 +233,18 @@ class AllTab extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 220.h,
-                  width: 800.w,
                   child: GridView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) => CollectionCard(
-                      image: homeProvider.collection[index]["image"]!,
-                      text: homeProvider.collection[index]["text"]!,
+                      image: HomeCubit.get(context).collection[index]["image"]!,
+                      text: HomeCubit.get(context).collection[index]["text"]!,
                     ),
                     itemCount: 4,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 16.0,
                       crossAxisSpacing: 10.0,
-                      childAspectRatio: 17.w / 19.h,
+                      childAspectRatio: 16.w / 19.h,
                     ),
                   ),
                 ),

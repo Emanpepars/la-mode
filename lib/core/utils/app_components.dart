@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
 import 'package:my_ecommerce_app/core/utils/text_styles.dart';
 
+import '../../features/home/presentation/widgets/my_yellow_button.dart';
 import 'app_colors.dart';
 import 'app_icons.dart';
 
@@ -81,6 +82,7 @@ class MyButton extends StatelessWidget {
       height: 40.h,
       width: double.infinity,
       decoration: BoxDecoration(
+        color: color,
         border: Border.all(
           color: AppColors.primary,
           width: 1,
@@ -91,6 +93,9 @@ class MyButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.sp)),
+          ),
         ),
         child: Text(
           text,
@@ -197,15 +202,7 @@ class ProductCard extends StatelessWidget {
               ),
             ],
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.lightYellow),
-            onPressed: () {},
-            child: Text(
-              "Add To Cart",
-              style: roboto14(weight: FontWeight.w700),
-            ),
-          ),
+          MyYellowButton(text: "Add To Cart", onPressed: () {}),
         ],
       ),
     );
