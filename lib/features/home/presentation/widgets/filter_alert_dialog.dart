@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/core/utils/app_components.dart';
+import 'package:my_ecommerce_app/core/utils/text_styles.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_state.dart';
 
@@ -19,16 +20,18 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) => AlertDialog(
-        contentPadding:
-            EdgeInsets.only(left: 2.w, top: 6.h, right: 0.w, bottom: 6.h),
         backgroundColor: Colors.white,
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
             RadioListTile(
+              contentPadding: EdgeInsets.only(left: 6.w),
               activeColor: AppColors.gold,
-              title: const Text('Price: High to Low'),
+              title: Text(
+                'Price: High to Low',
+                style: roboto16W500(),
+              ),
               value: 'price_high_to_low',
               groupValue: HomeCubit.get(context).selectedSortOption,
               onChanged: (value) {
@@ -37,8 +40,12 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               controlAffinity: ListTileControlAffinity.trailing,
             ),
             RadioListTile(
+              contentPadding: EdgeInsets.only(left: 6.w),
               activeColor: AppColors.gold,
-              title: const Text('Price: Low to High'),
+              title: Text(
+                'Price: Low to High',
+                style: roboto16W500(),
+              ),
               value: 'price_low_to_high',
               groupValue: HomeCubit.get(context).selectedSortOption,
               onChanged: (value) {
@@ -47,10 +54,20 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               controlAffinity: ListTileControlAffinity.trailing,
             ),
             CheckboxListTile(
-              checkboxShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4.sp))),
               activeColor: AppColors.gold,
-              title: const Text('Rating'),
+              contentPadding: EdgeInsets.only(
+                left: 6.w,
+              ),
+              checkboxShape: RoundedRectangleBorder(
+                side: const BorderSide(
+                  color: AppColors.gold,
+                ),
+                borderRadius: BorderRadius.circular(4.sp),
+              ),
+              title: Text(
+                'Rating',
+                style: roboto16W500(),
+              ),
               value: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('Rating'),
@@ -59,10 +76,14 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               },
             ),
             CheckboxListTile(
+              contentPadding: EdgeInsets.only(left: 6.w),
               checkboxShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4.sp))),
               activeColor: AppColors.gold,
-              title: const Text('Newest'),
+              title: Text(
+                'Newest',
+                style: roboto16W500(),
+              ),
               value: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('newest'),
@@ -71,10 +92,14 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               },
             ),
             CheckboxListTile(
+              contentPadding: EdgeInsets.only(left: 6.w),
               checkboxShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4.sp))),
               activeColor: AppColors.gold,
-              title: const Text('Best Matches'),
+              title: Text(
+                'Best Matches',
+                style: roboto16W500(),
+              ),
               value: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('best_matches'),
@@ -83,10 +108,14 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               },
             ),
             CheckboxListTile(
+              contentPadding: EdgeInsets.only(left: 6.w),
               checkboxShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(4.sp))),
               activeColor: AppColors.gold,
-              title: const Text('Best Popular'),
+              title: Text(
+                'Best Popular',
+                style: roboto16W500(),
+              ),
               value: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('best_popular'),
@@ -95,21 +124,21 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               },
             ),
             Container(
-              height: 100,
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              height: 50.h,
+              padding: EdgeInsets.only(right: 4.w, left: 4.w),
               child: Row(
                 children: [
                   Expanded(
                     child: MyButton(
                         textColor: AppColors.primary,
-                        color: Colors.white,
+                        color: Colors.transparent,
                         text: 'Cancel',
                         onPressed: () {
                           Navigator.pop(context);
                         }),
                   ),
                   SizedBox(
-                    width: 10.w,
+                    width: 20.w,
                   ),
                   Expanded(
                     child: MyButton(

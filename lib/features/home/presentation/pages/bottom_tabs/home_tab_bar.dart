@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_state.dart';
 import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/app_icons.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../widgets/filter_alert_dialog.dart';
-import '../../widgets/notification_icon.dart';
 import '../../widgets/tab_label.dart';
 
 class HomeTab extends StatelessWidget {

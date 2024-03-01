@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
 import 'package:my_ecommerce_app/core/utils/text_styles.dart';
-
-import '../../features/home/presentation/widgets/my_yellow_button.dart';
+import 'package:badges/badges.dart' as badges;
 import 'app_colors.dart';
 import 'app_icons.dart';
 
@@ -284,6 +284,71 @@ class ShopBy extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class MyYellowButton extends StatelessWidget {
+  final Function()? onPressed;
+  final String text;
+
+  const MyYellowButton(
+      {required this.text, required this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: AppColors.lightYellow),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: roboto14(weight: FontWeight.w700),
+      ),
+    );
+  }
+}
+class NotificationIcon extends StatelessWidget {
+  final int notificationCount;
+  final Function()? onPressed;
+
+  const NotificationIcon({
+    this.onPressed,
+    required this.notificationCount,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final bool showCounter = notificationCount > 0;
+
+    return showCounter
+        ? badges.Badge(
+      position: badges.BadgePosition.topEnd(
+        top: 7.h,
+        end: 9.5.w,
+      ),
+      badgeAnimation: const badges.BadgeAnimation.slide(
+        curve: Curves.decelerate,
+      ),
+      badgeStyle: const badges.BadgeStyle(
+        badgeColor: AppColors.gold,
+        // borderSide: BorderSide(color: Colors.white, width: 3.w),
+      ),
+      badgeContent: const SizedBox(),
+      child: IconButton(
+        onPressed: onPressed,
+        icon: SvgPicture.asset(
+          AppIcons.notification,
+          height: 25.h,
+        ),
+      ),
+    )
+        : IconButton(
+      onPressed: onPressed,
+      icon: SvgPicture.asset(
+        AppIcons.notification,
+        height: 20.h,
       ),
     );
   }

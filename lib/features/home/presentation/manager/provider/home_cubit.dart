@@ -179,7 +179,7 @@ class HomeCubit extends Cubit<HomeState> {
   String selectedSortOption = 'price';
   final List<String> selectedFilterOptions = [];
 
-  void onMultiSelectFilterAlert(String string) {
+   onMultiSelectFilterAlert(String string) {
     if (selectedFilterOptions.contains(string)) {
       selectedFilterOptions.remove(string);
     } else {
