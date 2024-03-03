@@ -3,6 +3,8 @@ class AppImages {
   static const String splash = "$baseImage/splash.png";
   static const String findMatchingDress =
       "$baseImage/find_matching_dresses.png";
+  static const String findPants = "$baseImage/find_pants.png";
+  static const String fakeSeller = "$baseImage/person.png";
   static const String onboard1 = "$baseImage/onboard1.png";
   static const String onboard2 = "$baseImage/onboard2.png";
   static const String onboard3 = "$baseImage/onboard3.png";

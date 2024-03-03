@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
+import 'package:my_ecommerce_app/features/category/presentation/pages/category_screen.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -29,35 +31,49 @@ class AllTab extends StatelessWidget {
                     : SizedBox(width: 2.w);
               },
               separatorBuilder: (BuildContext context, int index) {
-                return CircleAvatar(
-                  backgroundColor: AppColors.lightGray,
-                  radius: 45.0,
-                  child: Container(
-                    height: index == 2
-                        ? 45.h
-                        : index == 4
-                            ? 30.h
-                            : index == 5 || index == 6
-                                ? 42.h
-                                : index == 3
-                                    ? 50.h
-                                    : 38.h,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        opacity: index == 2 || index == 4 ? 1 : 0.4,
-                        colorFilter: const ColorFilter.mode(
-                            AppColors.lightGray, BlendMode.darken),
-                        image: AssetImage(
-                          HomeCubit.get(context).categoriesAvatar[index]
-                              ["image"]!,
+                return InkWell(
+                  onTap: () {
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: CategoryScreen(
+                        categoryTitle: HomeCubit.get(context)
+                            .categoriesAvatar[index]["title"]!,
+                      ),
+                      withNavBar: true, // OPTIONAL VALUE. True by default.
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                    );
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: AppColors.lightGray,
+                    radius: 45.0,
+                    child: Container(
+                      height: index == 2
+                          ? 45.h
+                          : index == 4
+                              ? 30.h
+                              : index == 5 || index == 6
+                                  ? 42.h
+                                  : index == 3
+                                      ? 50.h
+                                      : 38.h,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          opacity: index == 2 || index == 4 ? 1 : 0.4,
+                          colorFilter: const ColorFilter.mode(
+                              AppColors.lightGray, BlendMode.darken),
+                          image: AssetImage(
+                            HomeCubit.get(context).categoriesAvatar[index]
+                                ["image"]!,
+                          ),
                         ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        HomeCubit.get(context).categoriesAvatar[index]
-                            ["title"]!,
-                        style: roboto12W400(),
+                      child: Center(
+                        child: Text(
+                          HomeCubit.get(context).categoriesAvatar[index]
+                              ["title"]!,
+                          style: roboto12W400(),
+                        ),
                       ),
                     ),
                   ),
@@ -90,19 +106,17 @@ class AllTab extends StatelessWidget {
               ),
               SizedBox(
                 height: 220.h,
-                child: Expanded(
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => index == 0
-                        ? SizedBox(
-                            width: 25.w,
-                          )
-                        : SizedBox(
-                            width: 10.w,
-                          ),
-                    separatorBuilder: (context, index) => const ProductCard(),
-                    itemCount: 6,
-                  ),
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => index == 0
+                      ? SizedBox(
+                          width: 25.w,
+                        )
+                      : SizedBox(
+                          width: 10.w,
+                        ),
+                  separatorBuilder: (context, index) => const ProductCard(),
+                  itemCount: 6,
                 ),
               ),
             ],

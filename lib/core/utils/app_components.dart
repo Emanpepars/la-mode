@@ -4,6 +4,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
 import 'package:my_ecommerce_app/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:my_ecommerce_app/features/product_details/presentation/pages/product_details_screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import '../../features/home/presentation/widgets/filter_alert_dialog.dart';
+import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';
 import 'app_icons.dart';
 
@@ -61,6 +65,199 @@ class AppComponents {
   }
 }
 
+class FirstPart extends StatelessWidget {
+  final String appBarTitle;
+  final bool centerTitle;
+  final IconData? leadingIcon;
+  final int currentTabIndex;
+  final List<Widget>? actions;
+  final List<Widget> tabBarView;
+  final Function onTabChanged;
+
+  const FirstPart({
+    super.key,
+    required this.appBarTitle,
+    this.centerTitle = false,
+    this.leadingIcon = Icons.arrow_back,
+    this.actions,
+    required this.currentTabIndex,
+    required this.tabBarView,
+    required this.onTabChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: NestedScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              floating: true,
+              //snap: true,
+              //  pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  color: Colors.white,
+                  child: AppBar(
+                    backgroundColor: Colors.white,
+                    leading: IconButton(
+                      onPressed: () {},
+                      icon: Icon(leadingIcon, color: AppColors.primary),
+                    ),
+                    title: Text(
+                      appBarTitle,
+                      style: roboto20(
+                        weight: FontWeight.w700,
+                      ),
+                    ),
+                    centerTitle: centerTitle,
+                    actions: actions,
+                  ),
+                ),
+              ),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(90.h),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 40.h,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.silverM),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                child: TextField(
+                                  cursorColor: AppColors.silverDark,
+                                  style: roboto16().copyWith(
+                                    color: Colors.black,
+                                  ),
+                                  decoration: InputDecoration(
+                                    hintText: "Search",
+                                    hintStyle: roboto16().copyWith(
+                                      color: AppColors.silverDark,
+                                    ),
+                                    prefixIcon: const Image(
+                                      image: AssetImage(
+                                        AppIcons.search,
+                                      ),
+                                      color: AppColors.silverDark,
+                                    ),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 1.w, left: 5.w),
+                            child: IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const FilterAlertDialog();
+                                  },
+                                );
+                              },
+                              icon: Image(
+                                image: const AssetImage(AppIcons.filter),
+                                color: AppColors.primary,
+                                width: 30.w,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      child: SizedBox(
+                        height: 17.h,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 10.w),
+                                child: const Text("FOR YOU"),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 25.w,
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 10.w),
+                                child: TabBar(
+                                  onTap: (value) {
+                                    onTabChanged(value);
+                                  },
+                                  labelColor: AppColors.gold,
+                                  labelStyle: roboto14(),
+                                  dividerColor: Colors.transparent,
+                                  tabAlignment: TabAlignment.start,
+                                  unselectedLabelColor: AppColors.primary,
+                                  unselectedLabelStyle: roboto12W400(),
+                                  indicatorColor: AppColors.gold,
+                                  indicatorPadding:
+                                      EdgeInsets.only(top: 16.5.h, left: 10.w),
+                                  indicator: const BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: AppColors.gold,
+                                  ),
+                                  indicatorSize: TabBarIndicatorSize.label,
+                                  isScrollable: true,
+                                  tabs: [
+                                    TabLabel(
+                                      text: 'All',
+                                      isSelected: currentTabIndex == 0,
+                                    ),
+                                    TabLabel(
+                                      text: 'Women',
+                                      isSelected: currentTabIndex == 1,
+                                    ),
+                                    TabLabel(
+                                      text: 'Men',
+                                      isSelected: currentTabIndex == 2,
+                                    ),
+                                    TabLabel(
+                                      text: 'Kids',
+                                      isSelected: currentTabIndex == 3,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ];
+        },
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          children: tabBarView,
+        ),
+      ),
+    );
+  }
+}
+
 class MyButton extends StatelessWidget {
   final Color color;
   final TextStyle? style;
@@ -87,14 +284,14 @@ class MyButton extends StatelessWidget {
           color: AppColors.primary,
           width: 1,
         ),
-        borderRadius: BorderRadius.all(Radius.circular(5.sp)),
+        borderRadius: BorderRadius.all(Radius.circular(12.sp)),
       ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5.sp)),
+            borderRadius: BorderRadius.all(Radius.circular(12.sp)),
           ),
         ),
         child: Text(
@@ -111,99 +308,111 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160.w,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: AppColors.silverM,
+    return InkWell(
+      onTap: () {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: const ProductDetailsScreen(),
+          withNavBar: false, // OPTIONAL VALUE. True by default.
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
+      },
+      child: Container(
+        width: 160.w,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.silverM,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(11),
+          ),
         ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(11),
-        ),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 8.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6.0),
-            child: Stack(
-              alignment: AlignmentDirectional.bottomStart,
-              children: [
-                Image(
-                  image: const AssetImage(
-                    AppImages.onboard1,
+        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  Image(
+                    image: const AssetImage(
+                      AppImages.onboard1,
+                    ),
+                    width: 200.w,
+                    height: 120.h,
+                    fit: BoxFit.cover,
                   ),
-                  width: 200.w,
-                  height: 120.h,
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                  child: CircleAvatar(
-                    radius: 12,
-                    backgroundColor: AppColors.lightGray,
-                    child: Image(
-                      image: const AssetImage(
-                        AppIcons.heart,
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: AppColors.lightGray,
+                      child: Image(
+                        image: const AssetImage(
+                          AppIcons.heart,
+                        ),
+                        color: AppColors.primary,
+                        width: 15.w,
+                        height: 15.h,
                       ),
-                      color: AppColors.primary,
-                      width: 15.w,
-                      height: 15.h,
                     ),
                   ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Shirt blouse",
+                      style: roboto14(weight: FontWeight.w600),
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          size: 15,
+                          color: AppColors.gold,
+                        ),
+                        Text(
+                          "4.5",
+                          style: roboto12W400().copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.silverDark),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "\$39",
+                      style:
+                          roboto18W500().copyWith(fontWeight: FontWeight.w900),
+                    ),
+                    SizedBox(width: 5.w),
+                    const Text(""),
+                  ],
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Shirt blouse",
-                    style: roboto14(weight: FontWeight.w600),
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        size: 15,
-                        color: AppColors.gold,
-                      ),
-                      Text(
-                        "4.5",
-                        style: roboto12W400().copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.silverDark),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "\$39",
-                    style: roboto18W500().copyWith(fontWeight: FontWeight.w900),
-                  ),
-                  SizedBox(width: 5.w),
-                  const Text(""),
-                ],
-              ),
-            ],
-          ),
-          MyYellowButton(text: "Add To Cart", onPressed: () {}),
-        ],
+            MyYellowButton(text: "Add To Cart", onPressed: () {}),
+          ],
+        ),
       ),
     );
   }
@@ -258,10 +467,10 @@ class ShopBy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 20.w),
+      padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 10.w),
       child: ClipRRect(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(12),
+        borderRadius: BorderRadius.all(
+          Radius.circular(10.sp),
         ),
         child: ElevatedButton(
           onPressed: () {},
@@ -308,6 +517,7 @@ class MyYellowButton extends StatelessWidget {
     );
   }
 }
+
 class NotificationIcon extends StatelessWidget {
   final int notificationCount;
   final Function()? onPressed;
@@ -324,32 +534,84 @@ class NotificationIcon extends StatelessWidget {
 
     return showCounter
         ? badges.Badge(
-      position: badges.BadgePosition.topEnd(
-        top: 7.h,
-        end: 9.5.w,
-      ),
-      badgeAnimation: const badges.BadgeAnimation.slide(
-        curve: Curves.decelerate,
-      ),
-      badgeStyle: const badges.BadgeStyle(
-        badgeColor: AppColors.gold,
-        // borderSide: BorderSide(color: Colors.white, width: 3.w),
-      ),
-      badgeContent: const SizedBox(),
-      child: IconButton(
-        onPressed: onPressed,
-        icon: SvgPicture.asset(
-          AppIcons.notification,
-          height: 25.h,
-        ),
-      ),
-    )
+            position: badges.BadgePosition.topEnd(
+              top: 7.h,
+              end: 9.5.w,
+            ),
+            badgeAnimation: const badges.BadgeAnimation.slide(
+              curve: Curves.decelerate,
+            ),
+            badgeStyle: const badges.BadgeStyle(
+              badgeColor: AppColors.gold,
+              // borderSide: BorderSide(color: Colors.white, width: 3.w),
+            ),
+            badgeContent: const SizedBox(),
+            child: IconButton(
+              onPressed: onPressed,
+              icon: SvgPicture.asset(
+                AppIcons.notification,
+                height: 25.h,
+              ),
+            ),
+          )
         : IconButton(
-      onPressed: onPressed,
-      icon: SvgPicture.asset(
-        AppIcons.notification,
-        height: 20.h,
-      ),
-    );
+            onPressed: onPressed,
+            icon: SvgPicture.asset(
+              AppIcons.notification,
+              height: 20.h,
+            ),
+          );
+  }
+}
+
+class BagIcon extends StatelessWidget {
+  final int bagCount;
+  final Function()? onPressed;
+
+  const BagIcon({
+    this.onPressed,
+    required this.bagCount,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final bool showCounter = bagCount > 0;
+
+    return showCounter
+        ? badges.Badge(
+            position: badges.BadgePosition.topEnd(
+              top: 0.h,
+              end: 4.w,
+            ),
+            badgeAnimation: const badges.BadgeAnimation.slide(
+              curve: Curves.decelerate,
+            ),
+            badgeStyle: const badges.BadgeStyle(
+              badgeColor: AppColors.gold,
+            ),
+            badgeContent: Text(
+              "$bagCount",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 10.sp,
+              ),
+            ),
+            child: IconButton(
+              onPressed: onPressed,
+              icon: SvgPicture.asset(
+                AppIcons.bag,
+                height: 20.h,
+              ),
+            ),
+          )
+        : IconButton(
+            onPressed: onPressed,
+            icon: SvgPicture.asset(
+              AppIcons.bag,
+              height: 20.h,
+            ),
+          );
   }
 }

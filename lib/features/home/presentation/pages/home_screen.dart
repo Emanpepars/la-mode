@@ -20,12 +20,9 @@ class HomeScreen extends StatelessWidget {
             context,
             controller: HomeCubit.get(context).controller,
             screens: HomeCubit.get(context).buildScreens(),
-            items: HomeCubit.get(context).navBarsItems(),
+            items: HomeCubit.get(context).navBarsItems(context),
             confineInSafeArea: true,
             backgroundColor: Colors.white,
-            resizeToAvoidBottomInset: true,
-            // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-
             hideNavigationBarWhenKeyboardShows: true,
             decoration: NavBarDecoration(
               borderRadius: BorderRadius.only(
@@ -49,7 +46,6 @@ class HomeScreen extends StatelessWidget {
               curve: Curves.ease,
             ),
             screenTransitionAnimation: const ScreenTransitionAnimation(
-              // Screen transition animation on change of selected tab.
               animateTabTransition: true,
               curve: Curves.linear,
               duration: Duration(milliseconds: 200),

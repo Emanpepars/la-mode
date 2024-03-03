@@ -111,7 +111,7 @@ class HomeCubit extends Cubit<HomeState> {
     },
   ];
 
-  List<PersistentBottomNavBarItem> navBarsItems() {
+  List<PersistentBottomNavBarItem> navBarsItems(context) {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.home),
@@ -179,7 +179,7 @@ class HomeCubit extends Cubit<HomeState> {
   String selectedSortOption = 'price';
   final List<String> selectedFilterOptions = [];
 
-   onMultiSelectFilterAlert(String string) {
+  onMultiSelectFilterAlert(String string) {
     if (selectedFilterOptions.contains(string)) {
       selectedFilterOptions.remove(string);
     } else {

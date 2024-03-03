@@ -32,11 +32,16 @@ TextStyle roboto12W400({Color? color = AppColors.primary}) =>
     GoogleFonts.roboto(
         fontSize: 12.sp, fontWeight: FontWeight.w400, color: color);
 
-TextStyle roboto18W500({Color? color = AppColors.primary}) =>
-    GoogleFonts.roboto(
-        fontSize: 18.sp, fontWeight: FontWeight.w500, color: color);
+TextStyle roboto18W500(
+        {Color? color = AppColors.primary,
+        FontWeight? fontWeight = FontWeight.w500}) =>
+    GoogleFonts.roboto(fontSize: 18.sp, fontWeight: fontWeight, color: color);
 
+TextStyle roboto8W400({Color? color = AppColors.primary}) => GoogleFonts.roboto(
+    fontSize: 8.sp, fontWeight: FontWeight.w400, color: color);
 
-TextStyle roboto8W400({Color? color = AppColors.primary}) =>
-    GoogleFonts.roboto(
-        fontSize: 8.sp, fontWeight: FontWeight.w400, color: color);
+TextStyle robotoCustomize(
+        {Color? color = AppColors.primary,
+        double? fontSize = 16,
+        FontWeight? fontWeigh = FontWeight.w500}) =>
+    GoogleFonts.roboto(fontSize: fontSize, fontWeight: fontWeigh, color: color);

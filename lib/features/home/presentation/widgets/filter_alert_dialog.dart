@@ -125,22 +125,24 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
             ),
             Container(
               height: 50.h,
-              padding: EdgeInsets.only(right: 4.w, left: 4.w),
+              padding: EdgeInsets.only(right: 5.w, left: 2.w, top: 4.h),
               child: Row(
                 children: [
                   Expanded(
+                    flex: 3,
                     child: MyButton(
                         textColor: AppColors.primary,
-                        color: Colors.transparent,
-                        text: 'Cancel',
+                        color: Colors.white,
+                        text: 'Reset All',
                         onPressed: () {
                           Navigator.pop(context);
                         }),
                   ),
                   SizedBox(
-                    width: 20.w,
+                    width: 15.w,
                   ),
                   Expanded(
+                    flex: 2,
                     child: MyButton(
                         text: 'Apply',
                         onPressed: () {
