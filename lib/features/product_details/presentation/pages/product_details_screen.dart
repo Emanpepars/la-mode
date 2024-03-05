@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_ecommerce_app/config/routes.dart';
 import 'package:my_ecommerce_app/features/product_details/presentation/manager/product_details_cubit.dart';
 import 'package:my_ecommerce_app/features/product_details/presentation/manager/product_details_state.dart';
 import 'package:readmore/readmore.dart';
@@ -382,13 +383,18 @@ class ProductDetailsScreen extends StatelessWidget {
                             "Rating and reviews",
                             style: roboto18W500(fontWeight: FontWeight.w800),
                           ),
-                          Text(
-                            "View reviews",
-                            style: roboto16W500(
-                              color: AppColors.silverDark,
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.review);
+                            },
+                            child: Text(
+                              "View reviews",
+                              style: roboto16W500(
+                                color: AppColors.silverDark,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ],
                       ),
@@ -578,38 +584,34 @@ class ProductDetailsScreen extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(25.sp),
               ),
+              color: Colors.white,
             ),
-            child: FloatingActionButton(
-              backgroundColor: Colors.white,
-              elevation: 100.h,
-              onPressed: () {},
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 50.h,
-                        child: const MyButton(
-                          text: "Add To Bag",
-                          textColor: AppColors.primary,
-                          color: Colors.white,
-                        ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 50.h,
+                      child: const MyButton(
+                        text: "Add To Bag",
+                        textColor: AppColors.primary,
+                        color: Colors.white,
                       ),
                     ),
-                    SizedBox(
-                      width: 20.w,
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 50.h,
-                        child: const MyButton(
-                          text: "Buy Now",
-                        ),
+                  ),
+                  SizedBox(
+                    width: 20.w,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      height: 50.h,
+                      child: const MyButton(
+                        text: "Buy Now",
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

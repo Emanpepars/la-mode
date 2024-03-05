@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
 import 'package:my_ecommerce_app/features/category/presentation/pages/category_screen.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:my_ecommerce_app/features/sellers/presentation/pages/sellers_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
@@ -125,7 +126,17 @@ class AllTab extends StatelessWidget {
             height: 10.h,
           ),
           const ShopBy(shopBy: "Shop by Brand"),
-          const ShopBy(shopBy: "Shop by Seller"),
+          ShopBy(
+            shopBy: "Shop by Seller",
+            onPressed: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const SellersScreen(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+            },
+          ),
           const ShopBy(shopBy: "New Collection"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),

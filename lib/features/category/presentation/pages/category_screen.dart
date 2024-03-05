@@ -17,6 +17,7 @@ class CategoryScreen extends StatelessWidget {
         builder: (context, state) => Scaffold(
           body: FirstPart(
             appBarTitle: categoryTitle,
+            withBag: true,
             currentTabIndex: CategoryCubit.get(context).currentTabIndex,
             tabBarView: [
               SingleChildScrollView(
@@ -25,10 +26,6 @@ class CategoryScreen extends StatelessWidget {
               const Center(child: Text('ًWoman content')),
               const Center(child: Text('Men content')),
               const Center(child: Text('Kids content')),
-            ],
-            actions: [
-              const BagIcon(bagCount: 4),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
             ],
             onTabChanged: CategoryCubit.get(context).onTabChanged,
           ),

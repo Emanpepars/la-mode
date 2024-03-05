@@ -6,7 +6,6 @@ import 'package:my_ecommerce_app/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:my_ecommerce_app/features/product_details/presentation/pages/product_details_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import '../../features/home/presentation/widgets/filter_alert_dialog.dart';
 import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';
 import 'app_icons.dart';
@@ -67,22 +66,20 @@ class AppComponents {
 
 class FirstPart extends StatelessWidget {
   final String appBarTitle;
-  final bool centerTitle;
   final IconData? leadingIcon;
+  final bool withBag;
   final int currentTabIndex;
-  final List<Widget>? actions;
   final List<Widget> tabBarView;
   final Function onTabChanged;
 
   const FirstPart({
     super.key,
     required this.appBarTitle,
-    this.centerTitle = false,
     this.leadingIcon = Icons.arrow_back,
-    this.actions,
     required this.currentTabIndex,
     required this.tabBarView,
     required this.onTabChanged,
+    this.withBag = false,
   });
 
   @override
@@ -102,21 +99,14 @@ class FirstPart extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 background: Container(
                   color: Colors.white,
-                  child: AppBar(
-                    backgroundColor: Colors.white,
-                    leading: IconButton(
-                      onPressed: () {},
-                      icon: Icon(leadingIcon, color: AppColors.primary),
-                    ),
-                    title: Text(
-                      appBarTitle,
-                      style: roboto20(
-                        weight: FontWeight.w700,
-                      ),
-                    ),
-                    centerTitle: centerTitle,
-                    actions: actions,
-                  ),
+                  child: withBag
+                      ? AppBarWithBag(
+                          appBarTitle: appBarTitle,
+                        )
+                      : AppBarWithOutBag(
+                          appBarTitle: appBarTitle,
+                          leadingIcon: leadingIcon,
+                        ),
                 ),
               ),
               bottom: PreferredSize(
@@ -162,14 +152,7 @@ class FirstPart extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(right: 1.w, left: 5.w),
                             child: IconButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return const FilterAlertDialog();
-                                  },
-                                );
-                              },
+                              onPressed: () {},
                               icon: Image(
                                 image: const AssetImage(AppIcons.filter),
                                 color: AppColors.primary,
@@ -254,6 +237,73 @@ class FirstPart extends StatelessWidget {
           children: tabBarView,
         ),
       ),
+    );
+  }
+}
+
+class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
+  final String appBarTitle;
+
+  const AppBarWithBag({
+    super.key,
+    required this.appBarTitle,
+  });
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      title: Text(
+        appBarTitle,
+        style: roboto20(
+          weight: FontWeight.w700,
+        ),
+      ),
+      centerTitle: false,
+      actions: [
+        const BagIcon(bagCount: 4),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
+      ],
+    );
+  }
+}
+
+class AppBarWithOutBag extends StatelessWidget {
+  final String appBarTitle;
+  final IconData? leadingIcon;
+
+  const AppBarWithOutBag({
+    super.key,
+    required this.appBarTitle,
+    this.leadingIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      leading: IconButton(
+        onPressed: () {},
+        icon: Icon(leadingIcon, color: AppColors.primary),
+      ),
+      title: Text(
+        appBarTitle,
+        style: roboto20(
+          weight: FontWeight.w700,
+        ),
+      ),
+      centerTitle: true,
+      actions: [
+        Padding(
+          padding: EdgeInsets.only(right: 5.w),
+          child: const NotificationIcon(
+            notificationCount: 5,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -461,8 +511,9 @@ class CollectionCard extends StatelessWidget {
 
 class ShopBy extends StatelessWidget {
   final String shopBy;
+  final Function()? onPressed;
 
-  const ShopBy({required this.shopBy, super.key});
+  const ShopBy({required this.shopBy, this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -473,7 +524,7 @@ class ShopBy extends StatelessWidget {
           Radius.circular(10.sp),
         ),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed?? (){},
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.lightGray, elevation: 0),
           child: Container(

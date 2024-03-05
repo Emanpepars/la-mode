@@ -8,14 +8,9 @@ import 'package:my_ecommerce_app/features/home/presentation/manager/provider/hom
 
 import '../../../../core/utils/app_colors.dart';
 
-class FilterAlertDialog extends StatefulWidget {
-  const FilterAlertDialog({super.key});
+class SortAlertDialog extends StatelessWidget {
+  const SortAlertDialog({super.key});
 
-  @override
-  FilterAlertDialogState createState() => FilterAlertDialogState();
-}
-
-class FilterAlertDialogState extends State<FilterAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -129,7 +124,7 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 9,
                     child: MyButton(
                         textColor: AppColors.primary,
                         color: Colors.white,
@@ -142,7 +137,7 @@ class FilterAlertDialogState extends State<FilterAlertDialog> {
                     width: 15.w,
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 7,
                     child: MyButton(
                         text: 'Apply',
                         onPressed: () {

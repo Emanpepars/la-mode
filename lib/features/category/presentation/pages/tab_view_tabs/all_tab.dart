@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/core/utils/app_images.dart';
-
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/text_styles.dart';
+import '../../../../home/presentation/widgets/sort_alert_dialog.dart';
+import '../../../../sellers/presentation/pages/sellers_screen.dart';
 
 class AllTab extends StatelessWidget {
   const AllTab({super.key});
@@ -35,7 +37,14 @@ class AllTab extends StatelessWidget {
                       style: roboto12W400(color: AppColors.silverDark),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const SortAlertDialog();
+                            },
+                          );
+                        },
                         icon: const Icon(Icons.keyboard_arrow_down))
                   ],
                 ),
@@ -140,7 +149,17 @@ class AllTab extends StatelessWidget {
             ],
           ),
           const ShopBy(shopBy: "Shop by Brand"),
-          const ShopBy(shopBy: "Shop by Seller"),
+          ShopBy(
+            shopBy: "Shop by Seller",
+            onPressed: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const SellersScreen(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+            },
+          ),
           const ShopBy(shopBy: "New Collection"),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),

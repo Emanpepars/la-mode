@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_state.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -13,16 +12,7 @@ class HomeTab extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) => FirstPart(
         appBarTitle: 'Home',
-        centerTitle: true,
         leadingIcon: Icons.menu,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 5.w),
-            child: const NotificationIcon(
-              notificationCount: 5,
-            ),
-          ),
-        ],
         currentTabIndex: HomeCubit.get(context).currentTabIndex,
         tabBarView: [
           SingleChildScrollView(
