@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/product_details/presentation/manager/product_details_state.dart';
+import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
 
 import '../../../../core/utils/app_images.dart';
 

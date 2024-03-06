@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/category/presentation/pages/tab_view_tabs/all_tab.dart';
-import 'package:my_ecommerce_app/features/category/presentation/pages/tab_view_tabs/kids_tab_bar.dart';
-import 'package:my_ecommerce_app/features/category/presentation/pages/tab_view_tabs/men_tab_bar.dart';
-import 'package:my_ecommerce_app/features/category/presentation/pages/tab_view_tabs/women_tab_bar.dart';
+import 'package:la_mode/features/category/presentation/pages/tab_view_tabs/all_tab.dart';
+import 'package:la_mode/features/category/presentation/pages/tab_view_tabs/kids_tab_bar.dart';
+import 'package:la_mode/features/category/presentation/pages/tab_view_tabs/men_tab_bar.dart';
+import 'package:la_mode/features/category/presentation/pages/tab_view_tabs/women_tab_bar.dart';
 
 import 'category_state.dart';
 

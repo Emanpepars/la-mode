@@ -1,16 +1,23 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:my_ecommerce_app/provider/OnBoardProider.dart';
-import 'package:provider/provider.dart';
-
 import 'app.dart';
+import 'core/utils/cache_helper.dart';
 
-void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => OnBoardProvider()),
-    BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit(),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await EasyLocalization.ensureInitialized();
+  await CacheHelper.init();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ar')],
+
+      /// --- file lang path ---- ///
+      path: 'assets/translations',
+      fallbackLocale:
+          Locale(CacheHelper.getData("lang") == "Arabic" ? 'ar' : 'en'),
+      child: const MyApp(),
     ),
-  ], child: const MyApp()));
+  );
 }

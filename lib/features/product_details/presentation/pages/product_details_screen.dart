@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/config/routes.dart';
-import 'package:my_ecommerce_app/features/product_details/presentation/manager/product_details_cubit.dart';
-import 'package:my_ecommerce_app/features/product_details/presentation/manager/product_details_state.dart';
+import 'package:la_mode/config/routes.dart';
+import 'package:la_mode/features/product_details/presentation/manager/product_details_cubit.dart';
+import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_components.dart';
@@ -84,7 +84,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   child: Icon(
                                     Icons.favorite_border,
                                     size: 24.sp,
-                                    color: AppColors.primary,
+                                    color: AppColors.lightColor,
                                   ),
                                 ),
                               ],
@@ -269,10 +269,10 @@ class ProductDetailsScreen extends StatelessWidget {
                         trimCollapsedText: 'Read more',
                         trimExpandedText: 'Read less',
                         moreStyle: roboto16(
-                          color: AppColors.primary,
+                          color: AppColors.lightColor,
                         ),
                         lessStyle: roboto16(
-                          color: AppColors.primary,
+                          color: AppColors.lightColor,
                         ),
                         style: roboto16(
                           color: AppColors.silverDark,
@@ -321,7 +321,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                     color: ProductDetailsCubit.get(context)
                                                 .sizeSelectedIndex ==
                                             index
-                                        ? AppColors.primary
+                                        ? AppColors.lightColor
                                         : AppColors.lightGray,
                                     text: ProductDetailsCubit.get(context)
                                         .sizes[index],
@@ -595,7 +595,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       height: 50.h,
                       child: const MyButton(
                         text: "Add To Bag",
-                        textColor: AppColors.primary,
+                        textColor: AppColors.lightColor,
                         color: Colors.white,
                       ),
                     ),

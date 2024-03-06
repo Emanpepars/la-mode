@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/app_images.dart';
-import 'package:my_ecommerce_app/features/category/presentation/pages/category_screen.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:my_ecommerce_app/features/sellers/presentation/pages/sellers_screen.dart';
+import 'package:la_mode/core/utils/app_images.dart';
+import 'package:la_mode/features/category/presentation/pages/category_screen.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/sellers/presentation/pages/sellers_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
@@ -25,10 +25,11 @@ class AllTab extends StatelessWidget {
             height: 80.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: 8,
+              itemCount: HomeCubit.get(context).categoriesAvatar.length + 1,
               itemBuilder: (BuildContext context, int index) {
-                return index == 0
-                    ? SizedBox(width: 20.w)
+                return index == 0 ||
+                        index == HomeCubit.get(context).categoriesAvatar.length
+                    ? SizedBox(width: 10.w)
                     : SizedBox(width: 2.w);
               },
               separatorBuilder: (BuildContext context, int index) {
@@ -90,7 +91,7 @@ class AllTab extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: 25.w, right: 25.w, top: 20.h, bottom: 10.h),
+                    left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -109,13 +110,9 @@ class AllTab extends StatelessWidget {
                 height: 220.h,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => index == 0
-                      ? SizedBox(
-                          width: 25.w,
-                        )
-                      : SizedBox(
-                          width: 10.w,
-                        ),
+                  itemBuilder: (context, index) => SizedBox(
+                    width: 10.w,
+                  ),
                   separatorBuilder: (context, index) => const ProductCard(),
                   itemCount: 6,
                 ),
@@ -139,7 +136,7 @@ class AllTab extends StatelessWidget {
           ),
           const ShopBy(shopBy: "New Collection"),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             child: Container(
               width: double.infinity,
               height: 300.h,
@@ -162,8 +159,10 @@ class AllTab extends StatelessWidget {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                    left: 25.w, right: 25.w, top: 10.h, bottom: 10.h),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                  vertical: 10.h,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -185,13 +184,9 @@ class AllTab extends StatelessWidget {
                     Expanded(
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => index == 0
-                              ? SizedBox(
-                                  width: 25.w,
-                                )
-                              : SizedBox(
-                                  width: 10.w,
-                                ),
+                          itemBuilder: (context, index) => SizedBox(
+                                width: 10.w,
+                              ),
                           separatorBuilder: (context, index) =>
                               const ProductCard(),
                           itemCount: 6),
@@ -205,7 +200,7 @@ class AllTab extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                    left: 25.w, right: 25.w, top: 20.h, bottom: 10.h),
+                    left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -227,13 +222,9 @@ class AllTab extends StatelessWidget {
                     Expanded(
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => index == 0
-                              ? SizedBox(
-                                  width: 25.w,
-                                )
-                              : SizedBox(
-                                  width: 10.w,
-                                ),
+                          itemBuilder: (context, index) => SizedBox(
+                                width: 10.w,
+                              ),
                           separatorBuilder: (context, index) =>
                               const ProductCard(),
                           itemCount: 6),
@@ -245,7 +236,7 @@ class AllTab extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-                left: 20.w, right: 20.w, top: 20.h, bottom: 50.h),
+                left: 10.w, right: 10.w, top: 20.h, bottom: 50.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -267,9 +258,9 @@ class AllTab extends StatelessWidget {
                     itemCount: 4,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 16.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 16.w / 19.h,
+                      mainAxisSpacing: 14.w,
+                      crossAxisSpacing: 10.h,
+                      childAspectRatio: 15.7.w / 19.h,
                     ),
                   ),
                 ),

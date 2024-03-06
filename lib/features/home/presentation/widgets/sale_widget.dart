@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_state.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_state.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/text_styles.dart';
@@ -14,11 +14,11 @@ class FlashSale extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 20.w),
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
         width: 340.w,
         height: 145.h,
         decoration: const BoxDecoration(
-          color: AppColors.primary,
+          color: AppColors.lightColor,
           borderRadius: BorderRadius.all(
             Radius.circular(30),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/app_colors.dart';
-import 'package:my_ecommerce_app/core/utils/app_components.dart';
-import 'package:my_ecommerce_app/provider/OnBoardProider.dart';
+import 'package:la_mode/core/utils/app_colors.dart';
+import 'package:la_mode/core/utils/app_components.dart';
+import 'package:la_mode/provider/OnBoardProider.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/utils/text_styles.dart';
@@ -50,7 +50,7 @@ class OnBoardScreen extends StatelessWidget {
                           : 15.w,
                       decoration: BoxDecoration(
                         color: onboardProvider.currentPageIndex == index
-                            ? AppColors.primary
+                            ? AppColors.lightColor
                             : AppColors.silverM,
                         borderRadius: BorderRadius.circular(5),
                       ),
@@ -98,7 +98,7 @@ class OnBoardScreen extends StatelessWidget {
                         child: MyButton(
                           text: "back",
                           color: Colors.white,
-                          textColor: AppColors.primary,
+                          textColor: AppColors.lightColor,
                           onPressed: () {
                             onboardProvider.onBackButton();
                             pageController.animateToPage(

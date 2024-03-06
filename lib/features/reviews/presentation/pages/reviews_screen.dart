@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/text_styles.dart';
-import 'package:my_ecommerce_app/features/reviews/presentation/manager/reviews_cubit.dart';
-import 'package:my_ecommerce_app/features/reviews/presentation/manager/reviews_state.dart';
+import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/reviews/presentation/manager/reviews_cubit.dart';
+import 'package:la_mode/features/reviews/presentation/manager/reviews_state.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_components.dart';
@@ -26,7 +26,7 @@ class ReviewsScreen extends StatelessWidget {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
+              horizontal: 15.w,
             ),
             child: ListView.separated(
               itemBuilder: (context, index) => Column(
@@ -45,7 +45,7 @@ class ReviewsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: 260.w,
+                            width: 270.w,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

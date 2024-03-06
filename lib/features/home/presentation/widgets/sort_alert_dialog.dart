@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/app_components.dart';
-import 'package:my_ecommerce_app/core/utils/text_styles.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_state.dart';
+import 'package:la_mode/core/utils/app_components.dart';
+import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_state.dart';
 
 import '../../../../core/utils/app_colors.dart';
 
@@ -126,7 +126,7 @@ class SortAlertDialog extends StatelessWidget {
                   Expanded(
                     flex: 9,
                     child: MyButton(
-                        textColor: AppColors.primary,
+                        textColor: AppColors.lightColor,
                         color: Colors.white,
                         text: 'Reset All',
                         onPressed: () {
