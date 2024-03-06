@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/category/presentation/manager/category_cubit.dart';
-import 'package:my_ecommerce_app/features/category/presentation/manager/category_state.dart';
+import 'package:la_mode/features/category/presentation/manager/category_cubit.dart';
+import 'package:la_mode/features/category/presentation/manager/category_state.dart';
 import '../../../../core/utils/app_components.dart';
 
 class CategoryScreen extends StatelessWidget {

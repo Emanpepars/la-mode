@@ -1,4 +1,4 @@
-# my_ecommerce_app
+# la_mode
 
 A new Flutter project.
 

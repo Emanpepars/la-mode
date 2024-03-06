@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/app_components.dart';
-import 'package:my_ecommerce_app/core/utils/text_styles.dart';
-import 'package:my_ecommerce_app/features/sellers/presentation/manager/sellers_cubit.dart';
-import 'package:my_ecommerce_app/features/sellers/presentation/manager/sellers_state.dart';
-import 'package:my_ecommerce_app/features/sellers/presentation/widgets/seller_card.dart';
+import 'package:la_mode/core/utils/app_components.dart';
+import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/sellers/presentation/manager/sellers_cubit.dart';
+import 'package:la_mode/features/sellers/presentation/manager/sellers_state.dart';
+import 'package:la_mode/features/sellers/presentation/widgets/seller_card.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../home/presentation/widgets/sort_alert_dialog.dart';
@@ -25,7 +25,7 @@ class SellersScreen extends StatelessWidget {
             appBarTitle: "Sellers",
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: SingleChildScrollView(
               child: Column(
                 children: [

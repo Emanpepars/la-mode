@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_ecommerce_app/core/utils/app_images.dart';
-import 'package:my_ecommerce_app/core/utils/text_styles.dart';
+import 'package:la_mode/core/utils/app_images.dart';
+import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:my_ecommerce_app/features/product_details/presentation/pages/product_details_screen.dart';
-import 'package:my_ecommerce_app/main_cubit/main_cubit.dart';
+import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
+import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';

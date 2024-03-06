@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/config/routes.dart';
-import 'package:my_ecommerce_app/main_cubit/main_cubit.dart';
-import 'package:my_ecommerce_app/main_cubit/main_state.dart';
-import 'package:my_ecommerce_app/provider/OnBoardProider.dart';
+import 'package:la_mode/config/routes.dart';
+import 'package:la_mode/main_cubit/main_cubit.dart';
+import 'package:la_mode/main_cubit/main_state.dart';
+import 'package:la_mode/provider/OnBoardProider.dart';
 import 'package:provider/provider.dart';
 
 import 'core/utils/app_themeing.dart';

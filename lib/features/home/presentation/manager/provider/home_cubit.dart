@@ -121,6 +121,7 @@ class HomeCubit extends Cubit<HomeState> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.shopping_bag),
+        //icon: SvgPicture.asset(AppIcons.bag),
         title: "cart",
         activeColorPrimary: AppColors.gold,
         inactiveColorPrimary: AppColors.silverDark,

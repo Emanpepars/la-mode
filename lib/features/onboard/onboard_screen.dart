@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/app_colors.dart';
-import 'package:my_ecommerce_app/core/utils/app_components.dart';
-import 'package:my_ecommerce_app/provider/OnBoardProider.dart';
+import 'package:la_mode/core/utils/app_colors.dart';
+import 'package:la_mode/core/utils/app_components.dart';
+import 'package:la_mode/provider/OnBoardProider.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/utils/text_styles.dart';

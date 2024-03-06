@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../manager/provider/home_state.dart';
 

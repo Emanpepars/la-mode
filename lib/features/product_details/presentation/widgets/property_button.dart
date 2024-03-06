@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_ecommerce_app/core/utils/app_colors.dart';
-import 'package:my_ecommerce_app/core/utils/text_styles.dart';
+import 'package:la_mode/core/utils/app_colors.dart';
+import 'package:la_mode/core/utils/text_styles.dart';
 
 class PropertyButton extends StatelessWidget {
   final Color color;

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/reviews/presentation/manager/reviews_state.dart';
+import 'package:la_mode/features/reviews/presentation/manager/reviews_state.dart';
 
 import '../../domain/entities/review_entity.dart';
 

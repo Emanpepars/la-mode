@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_ecommerce_app/core/utils/app_components.dart';
-import 'package:my_ecommerce_app/features/category/presentation/pages/category_screen.dart';
-import 'package:my_ecommerce_app/features/home/presentation/pages/home_screen.dart';
-import 'package:my_ecommerce_app/features/onboard/onboard_screen.dart';
-import 'package:my_ecommerce_app/features/reviews/presentation/pages/reviews_screen.dart';
+import 'package:la_mode/core/utils/app_components.dart';
+import 'package:la_mode/features/category/presentation/pages/category_screen.dart';
+import 'package:la_mode/features/home/presentation/pages/home_screen.dart';
+import 'package:la_mode/features/onboard/onboard_screen.dart';
+import 'package:la_mode/features/reviews/presentation/pages/reviews_screen.dart';
 
 import '../features/product_details/presentation/pages/product_details_screen.dart';
 import '../features/sellers/presentation/pages/sellers_screen.dart';

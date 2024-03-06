@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_state.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_state.dart';
 import '../../../../../core/utils/app_components.dart';
 
 class HomeTab extends StatelessWidget {

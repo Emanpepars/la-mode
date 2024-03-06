@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_ecommerce_app/core/utils/app_images.dart';
+import 'package:la_mode/core/utils/app_images.dart';
 
 class OnBoardProvider extends ChangeNotifier {
   int currentPageIndex = 0;

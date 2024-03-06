@@ -1,6 +1,7 @@
 class AppImages {
   static const String baseImage = "assets/images";
   static const String splash = "$baseImage/splash.png";
+  static const String laModeLogo = "$baseImage/la_mode_logo.png";
   static const String findMatchingDress =
       "$baseImage/find_matching_dresses.png";
   static const String findPants = "$baseImage/find_pants.png";

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_ecommerce_app/features/sellers/presentation/manager/sellers_state.dart';
+import 'package:la_mode/features/sellers/presentation/manager/sellers_state.dart';
 
 import '../../domain/entities/seller_entity.dart';
 

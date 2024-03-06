@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_ecommerce_app/core/utils/app_colors.dart';
+import 'package:la_mode/core/utils/app_colors.dart';
 
 class MyThemeData {
   static ThemeData lightTheme = ThemeData(
