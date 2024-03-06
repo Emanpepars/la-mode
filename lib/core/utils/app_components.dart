@@ -5,6 +5,7 @@ import 'package:my_ecommerce_app/core/utils/app_images.dart';
 import 'package:my_ecommerce_app/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:my_ecommerce_app/features/product_details/presentation/pages/product_details_screen.dart';
+import 'package:my_ecommerce_app/main_cubit/main_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';
@@ -53,7 +54,7 @@ class AppComponents {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: color ?? AppColors.primary,
+          backgroundColor: color ?? AppColors.lightColor,
         ),
         child: Text(
           text,
@@ -155,7 +156,7 @@ class FirstPart extends StatelessWidget {
                               onPressed: () {},
                               icon: Image(
                                 image: const AssetImage(AppIcons.filter),
-                                color: AppColors.primary,
+                                color: AppColors.lightColor,
                                 width: 30.w,
                               ),
                             ),
@@ -190,7 +191,7 @@ class FirstPart extends StatelessWidget {
                                   labelStyle: roboto14(),
                                   dividerColor: Colors.transparent,
                                   tabAlignment: TabAlignment.start,
-                                  unselectedLabelColor: AppColors.primary,
+                                  unselectedLabelColor: AppColors.lightColor,
                                   unselectedLabelStyle: roboto12W400(),
                                   indicatorColor: AppColors.gold,
                                   indicatorPadding:
@@ -287,7 +288,7 @@ class AppBarWithOutBag extends StatelessWidget {
       backgroundColor: Colors.white,
       leading: IconButton(
         onPressed: () {},
-        icon: Icon(leadingIcon, color: AppColors.primary),
+        icon: Icon(leadingIcon, color: AppColors.lightColor),
       ),
       title: Text(
         appBarTitle,
@@ -299,8 +300,13 @@ class AppBarWithOutBag extends StatelessWidget {
       actions: [
         Padding(
           padding: EdgeInsets.only(right: 5.w),
-          child: const NotificationIcon(
-            notificationCount: 5,
+          child: IconButton(
+            onPressed: () {
+              MainCubit.get(context).toggleLanguage(context, "Arabic");
+            },
+            icon: const NotificationIcon(
+              notificationCount: 5,
+            ),
           ),
         ),
       ],
@@ -317,7 +323,7 @@ class MyButton extends StatelessWidget {
 
   const MyButton(
       {required this.text,
-      this.color = AppColors.primary,
+      this.color = AppColors.lightColor,
       this.style,
       this.textColor = Colors.white,
       this.onPressed,
@@ -331,7 +337,7 @@ class MyButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
-          color: AppColors.primary,
+          color: AppColors.lightColor,
           width: 1,
         ),
         borderRadius: BorderRadius.all(Radius.circular(12.sp)),
@@ -405,7 +411,7 @@ class ProductCard extends StatelessWidget {
                         image: const AssetImage(
                           AppIcons.heart,
                         ),
-                        color: AppColors.primary,
+                        color: AppColors.lightColor,
                         width: 15.w,
                         height: 15.h,
                       ),
@@ -524,7 +530,7 @@ class ShopBy extends StatelessWidget {
           Radius.circular(10.sp),
         ),
         child: ElevatedButton(
-          onPressed: onPressed?? (){},
+          onPressed: onPressed ?? () {},
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.lightGray, elevation: 0),
           child: Container(
@@ -538,7 +544,7 @@ class ShopBy extends StatelessWidget {
                 ),
                 const Icon(
                   Icons.arrow_forward,
-                  color: AppColors.primary,
+                  color: AppColors.lightColor,
                 ),
               ],
             ),

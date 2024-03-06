@@ -28,7 +28,7 @@ class CuRatingBar extends StatelessWidget {
           height: 10.h,
           child: LinearProgressIndicator(
             value: value,
-            color: AppColors.primary,
+            color: AppColors.lightColor,
             backgroundColor: AppColors.lightGray,
             borderRadius: BorderRadius.all(
               Radius.circular(

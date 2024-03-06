@@ -23,6 +23,8 @@ dependencies:
   flutter_svg: ^2.0.10+1
   readmore: ^2.2.0
   flutter_rating_bar: ^4.0.1
+  shared_preferences: ^2.2.2
+  easy_localization: ^3.0.5
 
 dev_dependencies:
   flutter_test:
@@ -38,6 +40,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/translations/
+
 
   # fonts:
   #   - family: Schyler

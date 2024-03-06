@@ -126,7 +126,7 @@ class SortAlertDialog extends StatelessWidget {
                   Expanded(
                     flex: 9,
                     child: MyButton(
-                        textColor: AppColors.primary,
+                        textColor: AppColors.lightColor,
                         color: Colors.white,
                         text: 'Reset All',
                         onPressed: () {

@@ -28,7 +28,7 @@ class PropertyButton extends StatelessWidget {
           text,
           style: roboto16W500(
             color: isAvailable
-                ? color == AppColors.primary
+                ? color == AppColors.lightColor
                     ? Colors.white
                     : Colors.black
                 : AppColors.silverM,

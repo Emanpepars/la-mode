@@ -50,7 +50,7 @@ class OnBoardScreen extends StatelessWidget {
                           : 15.w,
                       decoration: BoxDecoration(
                         color: onboardProvider.currentPageIndex == index
-                            ? AppColors.primary
+                            ? AppColors.lightColor
                             : AppColors.silverM,
                         borderRadius: BorderRadius.circular(5),
                       ),
@@ -98,7 +98,7 @@ class OnBoardScreen extends StatelessWidget {
                         child: MyButton(
                           text: "back",
                           color: Colors.white,
-                          textColor: AppColors.primary,
+                          textColor: AppColors.lightColor,
                           onPressed: () {
                             onboardProvider.onBackButton();
                             pageController.animateToPage(

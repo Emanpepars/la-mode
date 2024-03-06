@@ -18,7 +18,7 @@ class FlashSale extends StatelessWidget {
         width: 340.w,
         height: 145.h,
         decoration: const BoxDecoration(
-          color: AppColors.primary,
+          color: AppColors.lightColor,
           borderRadius: BorderRadius.all(
             Radius.circular(30),
           ),

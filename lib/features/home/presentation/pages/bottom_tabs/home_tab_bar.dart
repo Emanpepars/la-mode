@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_ecommerce_app/features/home/presentation/manager/provider/home_cubit.dart';
@@ -11,7 +12,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) => FirstPart(
-        appBarTitle: 'Home',
+        appBarTitle: 'Home'.tr(),
         leadingIcon: Icons.menu,
         currentTabIndex: HomeCubit.get(context).currentTabIndex,
         tabBarView: [
