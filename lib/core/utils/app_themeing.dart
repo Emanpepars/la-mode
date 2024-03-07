@@ -20,6 +20,9 @@ class MyThemeData {
       surface: AppColors.lightColor,
       onSurface: Colors.black,
     ),
+    drawerTheme: const DrawerThemeData(
+      backgroundColor: Colors.white,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0.0,

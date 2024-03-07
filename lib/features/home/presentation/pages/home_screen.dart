@@ -33,15 +33,13 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset:
-                      const Offset(0, 3), // changes the position of the shadow
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
             popAllScreensOnTapOfSelectedTab: true,
             popActionScreens: PopActionScreensType.all,
             itemAnimationProperties: const ItemAnimationProperties(
-              // Navigation Bar's items animation properties.
               duration: Duration(milliseconds: 200),
               curve: Curves.ease,
             ),
@@ -50,8 +48,33 @@ class HomeScreen extends StatelessWidget {
               curve: Curves.linear,
               duration: Duration(milliseconds: 200),
             ),
-            navBarStyle: NavBarStyle
-                .style12, // Choose the nav bar style with this property.
+            navBarStyle: NavBarStyle.style12,
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  child: Text('Drawer Header'),
+                ),
+                ListTile(
+                  title: const Text('Item 1'),
+                  onTap: () {
+                    // Update the state of the app
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: const Text('Item 2'),
+                  onTap: () {
+                    // Update the state of the app
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

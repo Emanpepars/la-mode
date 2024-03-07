@@ -485,14 +485,11 @@ class ProductDetailsScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   "Match with this",
-                                  style:
-                                      roboto18W500(fontWeight: FontWeight.w800),
+                                  style: roboto14(weight: FontWeight.w500),
                                 ),
                                 Text(
                                   "View all",
-                                  style: roboto16W400(
-                                    color: AppColors.gold,
-                                  ),
+                                  style: roboto12W400(color: AppColors.gold),
                                 ),
                               ],
                             ),
@@ -507,10 +504,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           index == 0
                                               ? SizedBox(
-                                                  width: 5.w,
+                                                  width: 0.w,
                                                 )
                                               : SizedBox(
-                                                  width: 10.w,
+                                                  width: 5.w,
                                                 ),
                                       separatorBuilder: (context, index) =>
                                           const ProductCard(),
@@ -532,14 +529,11 @@ class ProductDetailsScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   "Recently viewed",
-                                  style:
-                                      roboto18W500(fontWeight: FontWeight.w800),
+                                  style: roboto14(weight: FontWeight.w500),
                                 ),
                                 Text(
                                   "View all",
-                                  style: roboto16W400(
-                                    color: AppColors.gold,
-                                  ),
+                                  style: roboto12W400(color: AppColors.gold),
                                 ),
                               ],
                             ),
@@ -554,10 +548,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                       itemBuilder: (context, index) =>
                                           index == 0
                                               ? SizedBox(
-                                                  width: 5.w,
+                                                  width: 0.w,
                                                 )
                                               : SizedBox(
-                                                  width: 10.w,
+                                                  width: 5.w,
                                                 ),
                                       separatorBuilder: (context, index) =>
                                           const ProductCard(),
