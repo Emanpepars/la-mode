@@ -68,6 +68,7 @@ class AppComponents {
 class FirstPart extends StatelessWidget {
   final String appBarTitle;
   final IconData? leadingIcon;
+  final Widget? leading;
   final bool withBag;
   final int currentTabIndex;
   final List<Widget> tabBarView;
@@ -81,6 +82,7 @@ class FirstPart extends StatelessWidget {
     required this.tabBarView,
     required this.onTabChanged,
     this.withBag = false,
+    this.leading,
   });
 
   @override
