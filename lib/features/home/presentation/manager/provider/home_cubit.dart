@@ -176,21 +176,4 @@ class HomeCubit extends Cubit<HomeState> {
     );
     emit(HomeOnPageChangedState());
   }
-
-  String selectedSortOption = 'price';
-  final List<String> selectedFilterOptions = [];
-
-  onMultiSelectFilterAlert(String string) {
-    if (selectedFilterOptions.contains(string)) {
-      selectedFilterOptions.remove(string);
-    } else {
-      selectedFilterOptions.add(string);
-    }
-    emit(HomeOnPageChangedState());
-  }
-
-  void onSingleFilterAlertChanged(String? value) {
-    selectedSortOption = value.toString();
-    emit(HomeOnPageChangedState());
-  }
 }

@@ -5,7 +5,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/text_styles.dart';
-import '../../../../home/presentation/widgets/sort_alert_dialog.dart';
+import '../../widgets/sort_alert_dialog.dart';
 import '../../../../sellers/presentation/pages/sellers_screen.dart';
 
 class AllTab extends StatelessWidget {
@@ -41,7 +41,7 @@ class AllTab extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return const SortAlertDialog();
+                              return const SortCatDialog();
                             },
                           );
                         },

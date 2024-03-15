@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/config/routes.dart';
+import 'package:la_mode/features/category/presentation/manager/category_cubit.dart';
+import 'package:la_mode/features/sellers/presentation/manager/sellers_cubit.dart';
 import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:la_mode/main_cubit/main_state.dart';
 import 'package:la_mode/provider/OnBoardProider.dart';
@@ -29,6 +31,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<MainCubit>(
             create: (context) => MainCubit(),
+          ),
+          BlocProvider<CategoryCubit>(
+            create: (context) => CategoryCubit(),
+          ),
+          BlocProvider<SellersCubit>(
+            create: (context) => SellersCubit(),
           ),
         ],
         child: BlocConsumer<MainCubit, MainState>(

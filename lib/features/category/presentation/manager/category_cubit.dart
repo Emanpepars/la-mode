@@ -20,4 +20,27 @@ class CategoryCubit extends Cubit<CategoryState> {
     currentTabIndex = value;
     emit(CategoryOnTabChangedState());
   }
+
+  String selectedSortOption = 'price';
+  List<String> selectedFilterOptions = [];
+
+  onMultiSelectFilterAlert(String string) {
+    if (selectedFilterOptions.contains(string)) {
+      selectedFilterOptions.remove(string);
+    } else {
+      selectedFilterOptions.add(string);
+    }
+    emit(CatCheckBox());
+  }
+
+  void onSingleFilterAlertChanged(String? value) {
+    selectedSortOption = value.toString();
+    emit(CatCheckBox());
+  }
+
+  void resetAllCheck() {
+    selectedFilterOptions = [];
+    selectedSortOption = 'price';
+    emit(CatCheckBox());
+  }
 }

@@ -70,4 +70,28 @@ class SellersCubit extends Cubit<SellersState> {
       isOpen: true,
     ),
   ];
+
+  String selectedSortOption = 'price';
+  List<String> selectedFilterOptions = [];
+  List<String> location = ['Cairo', "Alex", "Giza", "Ismailia"];
+  List<String> brands = ['H&M', 'Forever 21', 'Uniqlo', 'Gap', 'Mango'];
+
+  onMultiSelectFilterAlert(String string) {
+    if (selectedFilterOptions.contains(string)) {
+      selectedFilterOptions.remove(string);
+    } else {
+      selectedFilterOptions.add(string);
+    }
+    emit(SellersCheckBox());
+  }
+
+  void onSingleFilterAlertChanged(String? value) {
+    selectedSortOption = value.toString();
+    emit(SellersCheckBox());
+  }
+
+  void resetAllCheck() {
+    selectedFilterOptions = [];
+    selectedSortOption = 'price';
+  }
 }
