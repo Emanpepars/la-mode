@@ -20,107 +20,53 @@ class SortAlertDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            RadioListTile(
-              contentPadding: EdgeInsets.only(left: 6.w),
-              activeColor: AppColors.gold,
-              title: Text(
-                'Price: High to Low',
-                style: roboto16W500(),
-              ),
+            SortOptionTile(
+              title: 'Price: High to Low',
               value: 'price_high_to_low',
               groupValue: HomeCubit.get(context).selectedSortOption,
-              onChanged: (value) {
-                HomeCubit.get(context).onSingleFilterAlertChanged(value);
-              },
-              controlAffinity: ListTileControlAffinity.trailing,
             ),
-            RadioListTile(
-              contentPadding: EdgeInsets.only(left: 6.w),
-              activeColor: AppColors.gold,
-              title: Text(
-                'Price: Low to High',
-                style: roboto16W500(),
-              ),
+            SortOptionTile(
+              title: 'Price: Low to High',
               value: 'price_low_to_high',
               groupValue: HomeCubit.get(context).selectedSortOption,
-              onChanged: (value) {
-                HomeCubit.get(context).onSingleFilterAlertChanged(value);
-              },
-              controlAffinity: ListTileControlAffinity.trailing,
             ),
-            CheckboxListTile(
-              activeColor: AppColors.gold,
-              contentPadding: EdgeInsets.only(
-                left: 6.w,
-              ),
-              checkboxShape: RoundedRectangleBorder(
-                side: const BorderSide(
-                  color: AppColors.gold,
-                ),
-                borderRadius: BorderRadius.circular(4.sp),
-              ),
-              title: Text(
-                'Rating',
-                style: roboto16W500(),
-              ),
-              value: HomeCubit.get(context)
+            SizedBox(
+              height: 5.h,
+            ),
+            CuCheckBox(
+              title: 'Rating',
+              selectedFilterOption: 'Rating',
+              isChecked: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('Rating'),
-              onChanged: (value) {
-                HomeCubit.get(context).onMultiSelectFilterAlert('Rating');
-              },
             ),
-            CheckboxListTile(
-              contentPadding: EdgeInsets.only(left: 6.w),
-              checkboxShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4.sp))),
-              activeColor: AppColors.gold,
-              title: Text(
-                'Newest',
-                style: roboto16W500(),
-              ),
-              value: HomeCubit.get(context)
+            CuCheckBox(
+              title: 'Newest',
+              selectedFilterOption: 'newest',
+              isChecked: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('newest'),
-              onChanged: (value) {
-                HomeCubit.get(context).onMultiSelectFilterAlert('newest');
-              },
             ),
-            CheckboxListTile(
-              contentPadding: EdgeInsets.only(left: 6.w),
-              checkboxShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4.sp))),
-              activeColor: AppColors.gold,
-              title: Text(
-                'Best Matches',
-                style: roboto16W500(),
-              ),
-              value: HomeCubit.get(context)
+            CuCheckBox(
+              title: 'Best Matches',
+              selectedFilterOption: 'best_matches',
+              isChecked: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('best_matches'),
-              onChanged: (value) {
-                HomeCubit.get(context).onMultiSelectFilterAlert('best_matches');
-              },
             ),
-            CheckboxListTile(
-              contentPadding: EdgeInsets.only(left: 6.w),
-              checkboxShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4.sp))),
-              activeColor: AppColors.gold,
-              title: Text(
-                'Best Popular',
-                style: roboto16W500(),
-              ),
-              value: HomeCubit.get(context)
+            CuCheckBox(
+              title: 'Best Popular',
+              selectedFilterOption: 'best_popular',
+              isChecked: HomeCubit.get(context)
                   .selectedFilterOptions
                   .contains('best_popular'),
-              onChanged: (value) {
-                HomeCubit.get(context).onMultiSelectFilterAlert('best_popular');
-              },
+            ),
+            SizedBox(
+              height: 10.h,
             ),
             Container(
               height: 50.h,
-              padding: EdgeInsets.only(right: 5.w, left: 2.w, top: 4.h),
+              padding: EdgeInsets.only(top: 10.h),
               child: Row(
                 children: [
                   Expanded(
@@ -149,6 +95,78 @@ class SortAlertDialog extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CuCheckBox extends StatelessWidget {
+  final String title;
+  final String selectedFilterOption;
+
+  final bool isChecked;
+
+  const CuCheckBox(
+      {required this.title,
+      required this.isChecked,
+      required this.selectedFilterOption,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 30.h,
+      child: CheckboxListTile(
+        checkColor: Colors.white,
+        contentPadding: EdgeInsets.only(left: 2.w),
+        checkboxShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(4.sp),
+          ),
+        ),
+        activeColor: AppColors.gold,
+        title: Text(
+          title,
+          style: roboto16W500(),
+        ),
+        value: isChecked,
+        onChanged: (value) {
+          HomeCubit.get(context).onMultiSelectFilterAlert(selectedFilterOption);
+        },
+      ),
+    );
+  }
+}
+
+class SortOptionTile extends StatelessWidget {
+  final String title;
+  final String value;
+  final String groupValue;
+
+  const SortOptionTile({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.groupValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 30.h,
+      child: RadioListTile(
+        contentPadding: EdgeInsets.zero,
+        activeColor: AppColors.gold,
+        title: Text(
+          title,
+          style: roboto16W500(),
+        ),
+        value: value,
+        groupValue: groupValue,
+        onChanged: (value) {
+          HomeCubit.get(context).onSingleFilterAlertChanged(value);
+        },
+        controlAffinity: ListTileControlAffinity.trailing,
       ),
     );
   }
