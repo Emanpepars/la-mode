@@ -37,11 +37,15 @@ TextStyle roboto18W500(
         FontWeight? fontWeight = FontWeight.w500}) =>
     GoogleFonts.roboto(fontSize: 18.sp, fontWeight: fontWeight, color: color);
 
-TextStyle roboto8W400({Color? color = AppColors.lightColor}) => GoogleFonts.roboto(
-    fontSize: 8.sp, fontWeight: FontWeight.w400, color: color);
+TextStyle roboto8W400({Color? color = AppColors.lightColor}) =>
+    GoogleFonts.roboto(
+        fontSize: 8.sp, fontWeight: FontWeight.w400, color: color);
 
 TextStyle robotoCustomize(
         {Color? color = AppColors.lightColor,
         double? fontSize = 16,
         FontWeight? fontWeigh = FontWeight.w500}) =>
     GoogleFonts.roboto(fontSize: fontSize, fontWeight: fontWeigh, color: color);
+
+TextStyle robotoTitleField() => GoogleFonts.roboto(
+    fontSize: 16.sp, fontWeight: FontWeight.w400, color: AppColors.lightColor);

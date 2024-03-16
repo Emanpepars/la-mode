@@ -30,6 +30,9 @@ dependencies:
   #cloud_firestore: ^4.15.7
   ###----3D----####
   model_viewer_plus: ^1.7.0
+  dio: ^5.4.1
+  equatable: ^2.0.5
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:

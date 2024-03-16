@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/register/domain/entities/user_entity.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../manager/provider/home_state.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final UserEntity userEntity;
+
+  const HomeScreen({required this.userEntity, super.key});
 
   @override
   Widget build(BuildContext context) {

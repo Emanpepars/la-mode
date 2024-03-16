@@ -1,0 +1,38 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:la_mode/core/api/api_consumer.dart';
+import 'package:la_mode/core/error/failure.dart';
+import 'package:la_mode/core/error/server_failure.dart';
+import 'package:la_mode/features/register/domain/entities/user_data.dart';
+
+import '../models/Register_Model.dart';
+
+abstract class RegisterDto {
+  Future<Either<Failures, RegisterModel>> register(UserData userData);
+}
+
+class RemoteDto extends RegisterDto {
+  Dio dio = Dio();
+  ApiConsumer apiConsumer;
+
+  RemoteDto({required this.apiConsumer});
+
+  @override
+  Future<Either<Failures, RegisterModel>> register(UserData userData) async {
+    try {
+      var response = await apiConsumer.post(
+        'https://route-ecommerce.onrender.com/api/v1/auth/signup',
+        data: {
+          "name": userData.name,
+          "email": userData.email,
+          "password": userData.password,
+          "rePassword": userData.confirmPassword,
+          "phone": "01010700700"
+        },
+      );
+      return Right(RegisterModel.fromJson(response));
+    } catch (e) {
+      return Left(ServerFailures(e.toString()));
+    }
+  }
+}

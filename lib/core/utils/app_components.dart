@@ -22,30 +22,6 @@ class AppComponents {
     );
   }
 
-  static Widget onboardImage({required String onboardImg, bool skip = true}) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(onboardImg),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.3),
-            BlendMode.darken, // You can adjust the blend mode
-          ),
-        ),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(150),
-        ),
-      ),
-      padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 25.w),
-      child: Text(
-        skip ? "Skip" : "",
-        style: roboto16W400(color: Colors.white),
-        textAlign: TextAlign.right,
-      ),
-    );
-  }
-
   static Widget myButton(Color? color, TextStyle? style, text) {
     return Container(
       height: 40.h,

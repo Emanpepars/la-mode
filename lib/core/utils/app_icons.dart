@@ -5,4 +5,7 @@ class AppIcons {
   static const String heart = "$baseUrl/heart.png";
   static const String notification = "$baseUrl/notification.svg";
   static const String bag = "$baseUrl/bag.svg";
+  static const String facebook = "$baseUrl/facebook.svg";
+  static const String google = "$baseUrl/google.svg";
+  static const String twitter = "$baseUrl/twitter_icon.svg";
 }
