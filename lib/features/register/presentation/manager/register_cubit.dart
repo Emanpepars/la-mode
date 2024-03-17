@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:la_mode/core/utils/cache_helper.dart';
 import 'package:la_mode/features/register/data/data_sources/register_data_source.dart';
 import 'package:la_mode/features/register/data/repositories/register_data_repo.dart';
 import 'package:la_mode/features/register/domain/entities/user_data.dart';
 import 'package:la_mode/features/register/domain/repositories/register_domain_repo.dart';
 import 'package:la_mode/features/register/domain/use_cases/register_use_case.dart';
 import 'package:la_mode/features/register/presentation/manager/register_state.dart';
+
+import '../../../../core/utils/app_constants.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterDto sources;
@@ -23,6 +27,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final registerFormKey = GlobalKey<FormState>();
 
   TextEditingController confirmPasswordController = TextEditingController();
+  AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
   void register() async {
     emit(RegisterLoading());
@@ -42,7 +47,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     );
     result.fold((l) {
       emit(RegisterError(failures: l));
-    }, (r) {
+    }, (r) async {
+      CacheHelper.saveData(key: 'token', value: r.token);
+      var userBox = Hive.box(AppConstants.kUSerBox);
+      await userBox.add(r.user);
       emit(RegisterSuccess(r));
     });
   }
@@ -82,6 +90,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         ),
       );
       RegisterCubit.get(context).register();
-    } else {}
+    } else {
+      autoValidateMode = AutovalidateMode.always;
+      emit(RegisterUpdateState());
+    }
   }
 }

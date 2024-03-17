@@ -29,10 +29,7 @@ class LoginScreen extends StatelessWidget {
               key: 'user',
               value: state.loginEntity.token,
             );
-            CacheHelper.saveData(
-              key: 'user_entity',
-              value: state.loginEntity,
-            );
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
@@ -77,199 +74,217 @@ class LoginScreen extends StatelessWidget {
               horizontal: 20.w,
               vertical: 5.h,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'Email',
-                      style: robotoTitleField(),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    const CuTextFormField(
-                      hintText: 'Enter your Email',
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: AppColors.silverDark,
+            child: Form(
+              key: LoginCubit.get(context).loginFormKey,
+              autovalidateMode: LoginCubit.get(context).autoValidateMode,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'Email',
+                        style: robotoTitleField(),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Text(
-                      'Password',
-                      style: robotoTitleField(),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    CuTextFormField(
-                      hintText: 'Enter your password',
-                      prefixIcon: const Icon(
-                        Icons.lock_outline,
-                        color: AppColors.silverDark,
+                      SizedBox(
+                        height: 2.h,
                       ),
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.remove_red_eye_outlined,
+                      CuTextFormField(
+                        controller: LoginCubit.get(context).emailController,
+                        validator: (value) =>
+                            LoginCubit.get(context).validateEmail(value),
+                        hintText: 'Enter your Email',
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
                           color: AppColors.silverDark,
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        textAlign: TextAlign.right,
-                        "Forget password",
-                        style: roboto14(
-                          color: AppColors.lightColor,
-                          weight: FontWeight.w300,
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Text(
+                        'Password',
+                        style: robotoTitleField(),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      CuTextFormField(
+                        controller: LoginCubit.get(context).passwordController,
+                        validator: (value) =>
+                            LoginCubit.get(context).validatePassword(value),
+                        hintText: 'Enter your password',
+                        prefixIcon: const Icon(
+                          Icons.lock_outline,
+                          color: AppColors.silverDark,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: AppColors.silverDark,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    MyButton(
-                      text: "Sign In",
-                      onPressed: () {
-                        LoginCubit.get(context).login();
-                      },
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      children: [
-                        const Expanded(
-                          child: Divider(
-                            color: AppColors.silverM,
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Text(
+                          textAlign: TextAlign.right,
+                          "Forget password",
+                          style: roboto14(
+                            color: AppColors.lightColor,
+                            weight: FontWeight.w300,
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 25.w,
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      MyButton(
+                        text: "Sign In",
+                        onPressed: () {
+                          LoginCubit.get(context).loginUpOnPressed(
+                            context,
+                            Text(
+                              'Processing Data',
+                              style: roboto16(
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Divider(
+                              color: AppColors.silverM,
+                            ),
                           ),
-                          child: Text(
-                            "Or",
-                            style: roboto16(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 25.w,
+                            ),
+                            child: Text(
+                              "Or",
+                              style: roboto16(),
+                            ),
                           ),
-                        ),
-                        const Expanded(
-                          child: Divider(
-                            color: AppColors.silverM,
+                          const Expanded(
+                            child: Divider(
+                              color: AppColors.silverM,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 50.w,
-                          height: 45.h,
-                          decoration: BoxDecoration(
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 50.w,
+                            height: 45.h,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.silverM),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    12.sp,
+                                  ),
+                                )),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 4.w,
+                              vertical: 3.h,
+                            ),
+                            child: SvgPicture.asset(
+                              AppIcons.google,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 25.w,
+                          ),
+                          Container(
+                            width: 50.w,
+                            height: 42.h,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.silverM,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    12.sp,
+                                  ),
+                                )),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 4.w,
+                              vertical: 5.h,
+                            ),
+                            child: SvgPicture.asset(
+                              AppIcons.facebook,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 25.w,
+                          ),
+                          Container(
+                            width: 50.w,
+                            height: 42.h,
+                            decoration: BoxDecoration(
                               border: Border.all(color: AppColors.silverM),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(
                                   12.sp,
                                 ),
-                              )),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 4.w,
-                            vertical: 3.h,
-                          ),
-                          child: SvgPicture.asset(
-                            AppIcons.google,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25.w,
-                        ),
-                        Container(
-                          width: 50.w,
-                          height: 42.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.silverM,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  12.sp,
-                                ),
-                              )),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 4.w,
-                            vertical: 5.h,
-                          ),
-                          child: SvgPicture.asset(
-                            AppIcons.facebook,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 25.w,
-                        ),
-                        Container(
-                          width: 50.w,
-                          height: 42.h,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.silverM),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                12.sp,
                               ),
                             ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 6.w,
+                              vertical: 3.h,
+                            ),
+                            child: SvgPicture.asset(
+                              AppIcons.twitter,
+                            ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 6.w,
-                            vertical: 3.h,
-                          ),
-                          child: SvgPicture.asset(
-                            AppIcons.twitter,
+                        ],
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 30.h,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Don\'t have an account? '),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.register,
+                            );
+                          },
+                          child: Text(
+                            'Create a new account ',
+                            style: roboto14(
+                              color: AppColors.lightColor,
+                              weight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 30.h,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('Don\'t have an account? '),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            Routes.register,
-                          );
-                        },
-                        child: Text(
-                          'Create a new account ',
-                          style: roboto14(
-                            color: AppColors.lightColor,
-                            weight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

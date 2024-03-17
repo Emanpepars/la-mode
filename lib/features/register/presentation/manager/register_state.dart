@@ -18,3 +18,5 @@ class RegisterError extends RegisterState {
 
   RegisterError({required this.failures});
 }
+
+class RegisterUpdateState extends RegisterState {}

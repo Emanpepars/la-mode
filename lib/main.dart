@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:la_mode/core/utils/app_constants.dart';
+import 'package:la_mode/features/register/domain/entities/user_entity.dart';
 import 'app.dart';
 import 'config/routes.dart';
 import 'core/utils/cache_helper.dart';
@@ -11,10 +12,14 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();
   await Hive.initFlutter();
-  await Hive.openBox(AppConstants.kUSerBox);
-  var user = CacheHelper.getData("User");
+  Hive.registerAdapter(UserEntityAdapter());
+  var userBox = await Hive.openBox(AppConstants.kUSerBox);
+  if (userBox.isNotEmpty) {
+    print(userBox.getAt(0));
+  } // var user = CacheHelper.getData("User");
+
   String route;
-  if (user == null) {
+  if (userBox.isEmpty || userBox.getAt(0) == null) {
     route = Routes.login;
   } else {
     route = Routes.home;

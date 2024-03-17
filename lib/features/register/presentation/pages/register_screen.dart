@@ -75,6 +75,7 @@ class RegisterScreen extends StatelessWidget {
               vertical: 5.h,
             ),
             child: Form(
+              autovalidateMode: RegisterCubit.get(context).autoValidateMode,
               key: RegisterCubit.get(context).registerFormKey,
               child: SingleChildScrollView(
                 child: Column(
