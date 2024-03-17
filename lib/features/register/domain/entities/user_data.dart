@@ -1,12 +1,13 @@
 class UserData {
-  final String name;
+  final String? name;
   final String email;
   final String password;
-  final String confirmPassword;
+  final String? confirmPassword;
 
-  UserData(
-      {required this.name,
-      required this.email,
-      required this.password,
-      required this.confirmPassword});
+  UserData({
+    this.name,
+    required this.email,
+    required this.password,
+    this.confirmPassword,
+  });
 }

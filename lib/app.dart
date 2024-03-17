@@ -14,9 +14,10 @@ import 'core/utils/app_themeing.dart';
 import 'features/home/presentation/manager/provider/home_cubit.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String route;
 
-  // This widget is the root of your application.
+  const MyApp({required this.route, super.key});
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
             darkTheme: MyThemeData.darkTheme,
             themeMode: MainCubit.get(context).themeMode,
             debugShowCheckedModeBanner: false,
-            initialRoute: '/',
+            initialRoute: route,
             onGenerateRoute: (settings) => AppRoutes.onGenerate(settings),
           ),
         ),

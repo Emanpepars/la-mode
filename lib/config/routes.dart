@@ -12,8 +12,8 @@ import '../features/product_details/presentation/pages/product_details_screen.da
 import '../features/sellers/presentation/pages/sellers_screen.dart';
 
 class Routes {
-  static const String onboard = 'onboard';
-  static const String register = '/';
+  static const String onboard = '/';
+  static const String register = 'register';
   static const String login = 'login';
   static const String home = 'home';
   static const String category = 'category';

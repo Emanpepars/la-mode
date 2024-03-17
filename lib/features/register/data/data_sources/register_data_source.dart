@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:la_mode/core/api/api_consumer.dart';
+import 'package:la_mode/core/api/end_points.dart';
 import 'package:la_mode/core/error/failure.dart';
 import 'package:la_mode/core/error/server_failure.dart';
+import 'package:la_mode/core/utils/app_constants.dart';
 import 'package:la_mode/features/register/domain/entities/user_data.dart';
 
 import '../models/Register_Model.dart';
@@ -21,7 +23,7 @@ class RemoteDto extends RegisterDto {
   Future<Either<Failures, RegisterModel>> register(UserData userData) async {
     try {
       var response = await apiConsumer.post(
-        'https://route-ecommerce.onrender.com/api/v1/auth/signup',
+        '${AppConstants.baseUrl}${EndPoints.register}',
         data: {
           "name": userData.name,
           "email": userData.email,

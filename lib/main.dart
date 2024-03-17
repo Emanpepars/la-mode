@@ -1,15 +1,24 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:la_mode/core/utils/app_constants.dart';
 import 'app.dart';
+import 'config/routes.dart';
 import 'core/utils/cache_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();
+  await Hive.initFlutter();
+  await Hive.openBox(AppConstants.kUSerBox);
+  var user = CacheHelper.getData("User");
+  String route;
+  if (user == null) {
+    route = Routes.login;
+  } else {
+    route = Routes.home;
+  }
 
   runApp(
     EasyLocalization(
@@ -19,7 +28,8 @@ void main() async {
       path: 'assets/translations',
       fallbackLocale:
           Locale(CacheHelper.getData("lang") == "Arabic" ? 'ar' : 'en'),
-      child: const MyApp(),
+
+      child: MyApp(route: route),
     ),
   );
 }
