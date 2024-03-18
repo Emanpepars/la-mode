@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:la_mode/config/routes.dart';
 import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/app_components.dart';
@@ -13,6 +12,7 @@ import '../../../../core/api/dio_consumer.dart';
 import '../../../../core/utils/app_icons.dart';
 import '../../../../core/utils/text_styles.dart';
 import '../widgets/cu_text_form_field.dart';
+import '../widgets/social_media.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -241,74 +241,20 @@ class RegisterScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 50.w,
-                              height: 45.h,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.silverM,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    12.sp,
-                                  ),
-                                ),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4.w,
-                                vertical: 3.h,
-                              ),
-                              child: SvgPicture.asset(
-                                AppIcons.google,
-                              ),
+                            const SocialMedia(
+                              assetsName: AppIcons.google,
                             ),
                             SizedBox(
                               width: 25.w,
                             ),
-                            Container(
-                              width: 50.w,
-                              height: 42.h,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.silverM,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    12.sp,
-                                  ),
-                                ),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4.w,
-                                vertical: 5.h,
-                              ),
-                              child: SvgPicture.asset(
-                                AppIcons.facebook,
-                              ),
+                            const SocialMedia(
+                              assetsName: AppIcons.facebook,
                             ),
                             SizedBox(
                               width: 25.w,
                             ),
-                            Container(
-                              width: 50.w,
-                              height: 42.h,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: AppColors.silverM,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    12.sp,
-                                  ),
-                                ),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 6.w,
-                                vertical: 3.h,
-                              ),
-                              child: SvgPicture.asset(
-                                AppIcons.twitter,
-                              ),
+                            const SocialMedia(
+                              assetsName: AppIcons.twitter,
                             ),
                           ],
                         ),

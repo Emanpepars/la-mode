@@ -543,7 +543,12 @@ class MyYellowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: AppColors.lightYellow),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.lightYellow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0.sp),
+        ),
+      ),
       onPressed: onPressed,
       child: Text(
         text,

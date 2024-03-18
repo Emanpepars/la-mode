@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/app_images.dart';
 
-import '../../../../config/routes.dart';
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/text_styles.dart';
-import '../../../register/presentation/widgets/cu_text_form_field.dart';
+import '../../../../../config/routes.dart';
+import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/text_styles.dart';
+import '../../../../register/presentation/widgets/cu_text_form_field.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});

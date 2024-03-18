@@ -65,11 +65,9 @@ class SellersScreen extends StatelessWidget {
                       mainAxisSpacing: 10.h,
                       crossAxisSpacing: 10.w),
                   itemBuilder: (context, index) => SellerCard(
-                    userName:
-                        SellersCubit.get(context).sellers[index].userName,
+                    userName: SellersCubit.get(context).sellers[index].userName,
                     rate: SellersCubit.get(context).sellers[index].rate,
-                    location:
-                        SellersCubit.get(context).sellers[index].location,
+                    location: SellersCubit.get(context).sellers[index].location,
                     isOpen: SellersCubit.get(context).sellers[index].isOpen,
                   ),
                   itemCount: 10,

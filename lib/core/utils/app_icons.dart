@@ -8,4 +8,7 @@ class AppIcons {
   static const String facebook = "$baseUrl/facebook.svg";
   static const String google = "$baseUrl/google.svg";
   static const String twitter = "$baseUrl/twitter_icon.svg";
+  static const String googleMap = "$baseUrl/google_map_icon.svg";
+
+  static const String instagram = "$baseUrl/instagram_icon.svg";
 }

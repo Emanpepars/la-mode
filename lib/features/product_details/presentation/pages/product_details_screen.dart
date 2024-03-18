@@ -28,7 +28,7 @@ class ProductDetailsScreen extends StatelessWidget {
             title: Text(
               "Product Details",
               style: roboto20(
-                weight: FontWeight.w700,
+                weight: FontWeight.w600,
               ),
             ),
             actions: [

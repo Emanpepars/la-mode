@@ -35,6 +35,7 @@ dependencies:
   dartz: ^0.10.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  pin_code_fields: ^8.0.1
 
 
 dev_dependencies:
