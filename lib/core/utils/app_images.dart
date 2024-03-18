@@ -23,4 +23,10 @@ class AppImages {
   static const String hoodie = "$baseImage/hoodie.png";
   static const String footwear = "$baseImage/footwear.png";
   static const String more = "$baseImage/more.png";
+
+  ///--- password ---///
+
+  static const String forgetPassword = "$baseImage/password/forget_password.png";
+  static const String otpCode = "$baseImage/password/otp_code.png";
+  static const String resetPassword = "$baseImage/password/reset_password.png";
 }

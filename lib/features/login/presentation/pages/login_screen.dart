@@ -131,7 +131,9 @@ class LoginScreen extends StatelessWidget {
                         height: 5.h,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, Routes.forgetPassword);
+                        },
                         child: Text(
                           textAlign: TextAlign.right,
                           "Forget password",
@@ -276,7 +278,7 @@ class LoginScreen extends StatelessWidget {
                             'Create a new account ',
                             style: roboto14(
                               color: AppColors.lightColor,
-                              weight: FontWeight.w600,
+                              weight: FontWeight.w700,
                             ),
                           ),
                         ),
