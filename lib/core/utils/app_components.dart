@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:la_mode/core/utils/app_images.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
-import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';
@@ -250,7 +250,7 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class AppBarWithOutBag extends StatelessWidget {
+class AppBarWithOutBag extends StatelessWidget implements PreferredSizeWidget {
   final String appBarTitle;
   final IconData? leadingIcon;
 
@@ -278,18 +278,16 @@ class AppBarWithOutBag extends StatelessWidget {
       actions: [
         Padding(
           padding: EdgeInsets.only(right: 5.w),
-          child: IconButton(
-            onPressed: () {
-              MainCubit.get(context).toggleLanguage(context, "Arabic");
-            },
-            icon: const NotificationIcon(
-              notificationCount: 5,
-            ),
+          child: const NotificationIcon(
+            notificationCount: 5,
           ),
         ),
       ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class MyButton extends StatelessWidget {
@@ -560,10 +558,8 @@ class MyYellowButton extends StatelessWidget {
 
 class NotificationIcon extends StatelessWidget {
   final int notificationCount;
-  final Function()? onPressed;
 
   const NotificationIcon({
-    this.onPressed,
     required this.notificationCount,
     super.key,
   });
@@ -575,8 +571,8 @@ class NotificationIcon extends StatelessWidget {
     return showCounter
         ? badges.Badge(
             position: badges.BadgePosition.topEnd(
-              top: 7.h,
-              end: 9.5.w,
+              top: 8.h,
+              end: 12.w,
             ),
             badgeAnimation: const badges.BadgeAnimation.slide(
               curve: Curves.decelerate,
@@ -587,7 +583,14 @@ class NotificationIcon extends StatelessWidget {
             ),
             badgeContent: const SizedBox(),
             child: IconButton(
-              onPressed: onPressed,
+              onPressed: () {
+                PersistentNavBarNavigator.pushNewScreen(
+                  context,
+                  screen: const NotificationScreen(),
+                  withNavBar: false,
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                );
+              },
               icon: SvgPicture.asset(
                 AppIcons.notification,
                 height: 25.h,
@@ -595,12 +598,78 @@ class NotificationIcon extends StatelessWidget {
             ),
           )
         : IconButton(
-            onPressed: onPressed,
+            onPressed: () {
+              PersistentNavBarNavigator.pushNewScreen(
+                context,
+                screen: const NotificationScreen(),
+                withNavBar: false,
+                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+              );
+            },
             icon: SvgPicture.asset(
               AppIcons.notification,
               height: 20.h,
             ),
           );
+  }
+}
+
+class ViewALl extends StatelessWidget {
+  final void Function()? onTap;
+
+  const ViewALl({this.onTap, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Text(
+        "View All",
+        style: roboto14(
+          weight: FontWeight.w500,
+          color: AppColors.gold,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+}
+
+class ViewButton extends StatelessWidget {
+  final void Function()? onTap;
+  final String title;
+
+  const ViewButton({this.onTap, required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Text(
+        "View $title",
+        style: roboto14(
+          weight: FontWeight.w500,
+          color: AppColors.silverDark,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+}
+
+class CategoryName extends StatelessWidget {
+  final String title;
+
+  const CategoryName({required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: roboto16W500(),
+    );
   }
 }
 
@@ -653,5 +722,83 @@ class BagIcon extends StatelessWidget {
               height: 20.h,
             ),
           );
+  }
+}
+
+///--- Alert Dialog ----///
+class DoneAlertDialog extends StatelessWidget {
+  final String content;
+  final Function()? onPressed;
+
+  const DoneAlertDialog({required this.content, this.onPressed, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      contentPadding: EdgeInsets.zero,
+      content: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(30.sp),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              AppImages.done,
+              height: 80.h,
+              width: 80.w,
+            ),
+            SizedBox(
+              height: 6.h,
+            ),
+            Text(
+              "Verified!",
+              style: roboto20(),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Text(
+              content,
+              style: roboto16W400(),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            MyButton(
+              text: 'Reset Password',
+              onPressed: onPressed,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Items extends StatelessWidget {
+  final int count;
+  final String title;
+
+  const Items({required this.count, this.title = "items", super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Text(
+        textAlign: TextAlign.start,
+        "$title ( $count )",
+        style: roboto14(color: AppColors.silverDark, weight: FontWeight.w500),
+      ),
+    );
   }
 }

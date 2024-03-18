@@ -161,7 +161,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   PersistentTabController controller = PersistentTabController(initialIndex: 0);
 
-  // Method to change to the next page
+
+  ///---Flash sale---///
   void nextPage() {
     if (currentFlashSalePageIndex < sales.length - 1) {
       currentFlashSalePageIndex++;

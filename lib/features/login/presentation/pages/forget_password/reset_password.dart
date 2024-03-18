@@ -110,7 +110,18 @@ class ResetPasswordScreen extends StatelessWidget {
             MyButton(
               text: "Confirm New Password",
               onPressed: () {
-                Navigator.pushNamed(context, Routes.login);
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) => DoneAlertDialog(
+                    content:
+                        "Great! You have successfully verified the account",
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Routes.login, (route) => false);
+                    },
+                  ),
+                );
               },
             ),
           ],

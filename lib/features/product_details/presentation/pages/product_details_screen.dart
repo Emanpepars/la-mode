@@ -24,17 +24,8 @@ class ProductDetailsScreen extends StatelessWidget {
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
-          appBar: AppBar(
-            title: Text(
-              "Product Details",
-              style: roboto20(
-                weight: FontWeight.w600,
-              ),
-            ),
-            actions: [
-              const BagIcon(bagCount: 4),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
-            ],
+          appBar: const AppBarWithBag(
+            appBarTitle: "Product Details",
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -162,9 +153,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             child: Text(
                               ProductDetailsCubit.get(context).sales[0]
                                   ["title"]!,
-                              style: roboto20(
-                                weight: FontWeight.w600,
-                              ),
+                              style: roboto18W500(),
                             ),
                           ),
                           Expanded(
@@ -181,7 +170,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       Text(
                         "Available in stock",
-                        style: roboto16W500(color: AppColors.silverDark),
+                        style: roboto16(
+                          color: AppColors.lightColor,
+                        ),
                       ),
                       SizedBox(
                         height: 10.h,
@@ -222,27 +213,20 @@ class ProductDetailsScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: 190.w,
+                                    width: 205.w,
                                     child: Text(
                                       "Gucci-Bubble Store",
-                                      style: roboto18W500(),
+                                      style: roboto16W500(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  Text(
-                                    "View seller",
-                                    style: roboto16W500(
-                                      color: AppColors.silverDark,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                  const ViewButton(title: "seller"),
                                 ],
                               ),
                               Text(
                                 "Alexandria,Egypt",
-                                style: roboto16(
+                                style: roboto14(
                                   color: AppColors.silverDark,
                                 ),
                                 maxLines: 1,
@@ -257,10 +241,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       ///---Description---///
-                      Text(
-                        "Description",
-                        style: roboto18W500(fontWeight: FontWeight.w800),
-                      ),
+                      const CategoryName(title: "Description"),
                       ReadMoreText(
                         ProductDetailsCubit.get(context).sales[0]
                             ["description"]!,
@@ -268,13 +249,13 @@ class ProductDetailsScreen extends StatelessWidget {
                         trimMode: TrimMode.Line,
                         trimCollapsedText: 'Read more',
                         trimExpandedText: 'Read less',
-                        moreStyle: roboto16(
+                        moreStyle: roboto14(
                           color: AppColors.lightColor,
                         ),
-                        lessStyle: roboto16(
+                        lessStyle: roboto14(
                           color: AppColors.lightColor,
                         ),
-                        style: roboto16(
+                        style: roboto14(
                           color: AppColors.silverDark,
                         ),
                       ),
@@ -288,14 +269,11 @@ class ProductDetailsScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "Available sizes",
-                                style:
-                                    roboto18W500(fontWeight: FontWeight.w800),
-                              ),
+                              const CategoryName(title: "Available sizes"),
                               Text(
                                 "Size guide",
-                                style: roboto16W500(
+                                style: roboto14(
+                                  weight: FontWeight.w500,
                                   color: AppColors.silverDark,
                                 ),
                                 maxLines: 1,
@@ -341,10 +319,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       ///---Colors---///
-                      Text(
-                        "Colors",
-                        style: roboto18W500(fontWeight: FontWeight.w800),
-                      ),
+                      const CategoryName(title: "Colors"),
                       SizedBox(
                         height: 50.h,
                         child: ListView.separated(
@@ -379,22 +354,12 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Rating and reviews",
-                            style: roboto18W500(fontWeight: FontWeight.w800),
-                          ),
-                          InkWell(
+                          const CategoryName(title: "Rating and reviews"),
+                          ViewButton(
+                            title: "reviews",
                             onTap: () {
                               Navigator.pushNamed(context, Routes.review);
                             },
-                            child: Text(
-                              "View reviews",
-                              style: roboto16W500(
-                                color: AppColors.silverDark,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
                           ),
                         ],
                       ),
@@ -403,12 +368,12 @@ class ProductDetailsScreen extends StatelessWidget {
                           Text(
                             "4.0",
                             style: robotoCustomize(
-                              fontSize: 45.sp,
+                              fontSize: 35.sp,
                               fontWeigh: FontWeight.w700,
                             ),
                           ),
                           SizedBox(
-                            width: 20.w,
+                            width: 15.w,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -426,7 +391,8 @@ class ProductDetailsScreen extends StatelessWidget {
                               ),
                               Text(
                                 "Based on 210 Reviews",
-                                style: roboto16(
+                                style: roboto14(
+                                  weight: FontWeight.w400,
                                   color: AppColors.silverDark,
                                 ),
                               ),
@@ -434,7 +400,9 @@ class ProductDetailsScreen extends StatelessWidget {
                           )
                         ],
                       ),
-
+                      SizedBox(
+                        height: 5.h,
+                      ),
                       Column(
                         children: [
                           const CuRatingBar(
@@ -470,7 +438,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             text: 'Poor',
                           ),
                           SizedBox(
-                            height: 10.h,
+                            height: 15.h,
                           ),
                         ],
                       ),
@@ -480,17 +448,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Match with this",
-                                  style: roboto14(weight: FontWeight.w500),
-                                ),
-                                Text(
-                                  "View all",
-                                  style: roboto12W400(color: AppColors.gold),
-                                ),
+                                CategoryName(title: "Match with this"),
+                                ViewALl(),
                               ],
                             ),
                           ),
@@ -524,17 +486,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
-                            child: Row(
+                            child: const Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Recently viewed",
-                                  style: roboto14(weight: FontWeight.w500),
-                                ),
-                                Text(
-                                  "View all",
-                                  style: roboto12W400(color: AppColors.gold),
-                                ),
+                                CategoryName(title: "Recently viewed"),
+                                ViewALl(),
                               ],
                             ),
                           ),
@@ -578,7 +534,6 @@ class ProductDetailsScreen extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(25.sp),
               ),
-              color: Colors.white,
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -595,7 +550,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 20.w,
+                    width: 15.w,
                   ),
                   Expanded(
                     child: SizedBox(

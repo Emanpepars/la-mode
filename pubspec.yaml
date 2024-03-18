@@ -36,6 +36,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   pin_code_fields: ^8.0.1
+  quickalert: ^1.1.0
 
 
 dev_dependencies:
@@ -64,7 +65,14 @@ flutter:
   assets:
     - assets/images/
     - assets/images/password/
+    - assets/images/dialog/
+    - assets/images/categories/
+    - assets/images/collections/
+    - assets/images/decoration/
+    - assets/images/on_board/
+    - assets/images/empty/
     - assets/icons/
+    - assets/icons/media/
     - assets/translations/
     - assets/3d/
 

@@ -55,17 +55,11 @@ class AllTab extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Recommended for you",
-                      style: roboto14(weight: FontWeight.w500),
-                    ),
-                    Text(
-                      "View all",
-                      style: roboto12W400(color: AppColors.gold),
-                    ),
+                    CategoryName(title: "Recommended for you"),
+                    ViewALl(),
                   ],
                 ),
               ),
@@ -111,17 +105,11 @@ class AllTab extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Recently viewed",
-                      style: roboto14(weight: FontWeight.w500),
-                    ),
-                    Text(
-                      "View all",
-                      style: roboto12W400(color: AppColors.gold),
-                    ),
+                    CategoryName(title: "Recently viewed"),
+                    ViewALl(),
                   ],
                 ),
               ),

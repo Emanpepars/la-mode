@@ -16,17 +16,8 @@ class SellerDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Seller Details",
-          style: roboto20(
-            weight: FontWeight.w600,
-          ),
-        ),
-        actions: [
-          const BagIcon(bagCount: 4),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
-        ],
+      appBar: const AppBarWithBag(
+        appBarTitle: "Seller Details",
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -134,23 +125,12 @@ class SellerDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Rating and reviews",
-                        style: roboto16W500(),
-                      ),
-                      InkWell(
+                      const CategoryName(title: "Rating and reviews"),
+                      ViewButton(
+                        title: "reviews",
                         onTap: () {
                           Navigator.pushNamed(context, Routes.review);
                         },
-                        child: Text(
-                          "View reviews",
-                          style: roboto14(
-                            weight: FontWeight.w500,
-                            color: AppColors.silverDark,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
                       ),
                     ],
                   ),
@@ -238,10 +218,9 @@ class SellerDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Working hours",
-                        style: roboto16W500(),
-                      ),
+                      const CategoryName(title: "Working hours"),
+
+                      ///--- Closed ---///
                       Text(
                         "Currently closed",
                         style: roboto14(
@@ -303,12 +282,10 @@ class SellerDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(bottom: 8.h),
-                        child: Text(
-                          "Products",
-                          style: roboto16W500(),
-                        ),
-                      ),
+                          padding: EdgeInsets.only(bottom: 8.h),
+                          child: const CategoryName(
+                            title: "Products",
+                          )),
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

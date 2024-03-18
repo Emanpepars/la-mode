@@ -9,7 +9,9 @@ import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/text_styles.dart';
 
 class OtpCodeScreen extends StatelessWidget {
-  const OtpCodeScreen({super.key});
+  final bool isPhone;
+
+  const OtpCodeScreen({required this.isPhone, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class OtpCodeScreen extends StatelessWidget {
             Column(
               children: [
                 Image.asset(
-                  AppImages.otpCode,
+                  isPhone ? AppImages.otpPhoneCode : AppImages.otpCode,
                   height: 150.h,
                   alignment: Alignment.center,
                 ),
@@ -144,13 +146,13 @@ class OtpCodeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Wrong email?'),
+                Text(isPhone ? 'Wrong phone number?' : 'Wrong email?'),
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
                   },
                   child: Text(
-                    ' Change email.',
+                    isPhone ? ' Change phone number.' : ' Change email.',
                     style: roboto14(
                       color: AppColors.lightColor,
                       weight: FontWeight.w700,
