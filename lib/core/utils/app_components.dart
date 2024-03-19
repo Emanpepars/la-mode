@@ -4,9 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:la_mode/core/utils/app_images.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import '../../config/routes.dart';
 import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';
 import 'app_icons.dart';
@@ -628,6 +630,9 @@ class ViewALl extends StatelessWidget {
         style: roboto14(
           weight: FontWeight.w500,
           color: AppColors.gold,
+        ).copyWith(
+          decoration: TextDecoration.underline,
+          decorationColor: AppColors.gold,
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -651,6 +656,8 @@ class ViewButton extends StatelessWidget {
         style: roboto14(
           weight: FontWeight.w500,
           color: AppColors.silverDark,
+        ).copyWith(
+          decoration: TextDecoration.underline,
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -801,4 +808,259 @@ class Items extends StatelessWidget {
       ),
     );
   }
+}
+
+class DrawerRow extends StatelessWidget {
+  final Widget icon;
+  final String title;
+  final void Function()? onTap;
+
+  const DrawerRow(
+      {required this.icon,
+      super.key,
+      required this.title,
+      required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          icon,
+          SizedBox(
+            width: 10.w,
+          ),
+          Text(
+            title,
+            style: roboto14(weight: FontWeight.w400),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyDrawer extends StatelessWidget {
+  final String userName;
+  final String userEmail;
+
+  const MyDrawer({super.key, required this.userName, required this.userEmail});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 35.h),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25.sp,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: const DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                              AppImages.fakeSeller,
+                            ),
+                          ),
+                          border: Border.all(
+                            color: AppColors.gold,
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              25.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          userName,
+                          style: roboto14(weight: FontWeight.w500),
+                        ),
+                        Text(
+                          userEmail,
+                          style: roboto12W400(),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 25.h,
+                ),
+                DrawerRow(
+                  onTap: () {
+                    HomeCubit.get(context).controller.index = 0;
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.home_outlined,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Home',
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  icon: const Icon(
+                    Icons.favorite_border,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Wishlist',
+                  onTap: () {
+                    HomeCubit.get(context).controller.index = 2;
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  onTap: () {
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: const NotificationScreen(),
+                      withNavBar: false,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.notifications_none_sharp,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Notifications',
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  icon: const Icon(
+                    Icons.location_on_outlined,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Delivery address',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  icon: const Icon(
+                    Icons.payment_outlined,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Payment methods',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  icon: const Icon(
+                    Icons.insert_drive_file_outlined,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'About us',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  icon: const Icon(
+                    Icons.email_outlined,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Contact us',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                DrawerRow(
+                  icon: const Icon(
+                    Icons.info_outline,
+                    color: AppColors.silverDark,
+                  ),
+                  title: 'Help & FAG',
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+              ],
+            ),
+            DrawerRow(
+              icon: const Icon(
+                Icons.logout,
+                color: AppColors.silverDark,
+              ),
+              title: 'Logout',
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Routes.login, (route) => false);
+
+                HomeCubit.get(context).userBox.deleteAt(0);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+
+  const ConstAppBar({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text(
+        title,
+        style: roboto20(
+          weight: FontWeight.w600,
+        ),
+      ),
+      centerTitle: true,
+      actions: [
+        Padding(
+          padding: EdgeInsets.only(right: 5.w),
+          child: const NotificationIcon(
+            notificationCount: 5,
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

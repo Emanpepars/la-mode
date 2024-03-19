@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../pages/bottom_tabs/cart_tab.dart';
-import '../../pages/bottom_tabs/fav_tab.dart';
+import '../../pages/bottom_tabs/wishlist_tab.dart';
 import '../../pages/bottom_tabs/home_tab_bar.dart';
 import '../../pages/bottom_tabs/profile_tab.dart';
 import '../../pages/bottom_tabs/settings_tab.dart';
@@ -40,6 +42,8 @@ class HomeCubit extends Cubit<HomeState> {
     currentFlashSalePageIndex = value;
     emit(HomeOnPageChangedState());
   }
+
+  var userBox = Hive.box(AppConstants.kUSerBox);
 
   List<Widget> tabBar = const [AllTab(), WomenTab(), MenTab(), KidTab()];
   List<Map<String, String>> collection = const [
@@ -122,13 +126,13 @@ class HomeCubit extends Cubit<HomeState> {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.shopping_bag),
         //icon: SvgPicture.asset(AppIcons.bag),
-        title: "cart",
+        title: "My Bag",
         activeColorPrimary: AppColors.gold,
         inactiveColorPrimary: AppColors.silverDark,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.favorite),
-        title: "Favorites",
+        title: "Wishlist",
         activeColorPrimary: AppColors.gold,
         inactiveColorPrimary: AppColors.silverDark,
       ),
@@ -150,17 +154,24 @@ class HomeCubit extends Cubit<HomeState> {
   List<Widget> buildScreens() {
     return [
       const HomeTab(),
-      const CartTab(),
-      const FavTab(),
-      const SettingsTab(),
-      const ProfileTab(),
+      CartTab(
+        userEntity: userBox.getAt(0),
+      ),
+      FavTab(
+        userEntity: userBox.getAt(0),
+      ),
+      SettingsTab(
+        userEntity: userBox.getAt(0),
+      ),
+      ProfileTab(
+        userEntity: userBox.getAt(0),
+      ),
     ];
   }
 
   PageController flashSalePageController = PageController(initialPage: 0);
 
   PersistentTabController controller = PersistentTabController(initialIndex: 0);
-
 
   ///---Flash sale---///
   void nextPage() {

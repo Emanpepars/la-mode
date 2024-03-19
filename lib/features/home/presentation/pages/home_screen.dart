@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/register/domain/entities/user_entity.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import '../../../../core/utils/app_components.dart';
 import '../manager/provider/home_state.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -53,31 +54,9 @@ class HomeScreen extends StatelessWidget {
             ),
             navBarStyle: NavBarStyle.style12,
           ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  child: Text('Drawer Header'),
-                ),
-                ListTile(
-                  title: const Text('Item 1'),
-                  onTap: () {
-                    // Update the state of the app
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Item 2'),
-                  onTap: () {
-                    // Update the state of the app
-                    // Then close the drawer
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
+          drawer: MyDrawer(
+            userName: userEntity.name,
+            userEmail: userEntity.email,
           ),
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:la_mode/features/login/presentation/pages/forget_password/otp_co
 import 'package:la_mode/features/login/presentation/pages/forget_password/reset_password.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/onboard/page/onboard_screen.dart';
+import 'package:la_mode/features/promo_code/presentation/pages/promo_code_screen.dart';
 import 'package:la_mode/features/register/domain/entities/user_entity.dart';
 import 'package:la_mode/features/register/presentation/pages/register_screen.dart';
 import 'package:la_mode/features/reviews/presentation/pages/reviews_screen.dart';
@@ -22,7 +23,7 @@ class Routes {
   static const String onboard = 'onboard';
   static const String register = 'register';
   static const String login = 'login';
-  static const String forgetPassword = '/';
+  static const String forgetPassword = 'forgetPassword';
   static const String otpCode = 'otpCode';
   static const String resetPassword = 'resetPassword';
   static const String home = 'home';
@@ -32,6 +33,9 @@ class Routes {
   static const String review = 'review';
   static const String sellers = 'sellers';
   static const String sellerDetails = 'sellerDetails';
+
+  ///--- drawer ---////
+  static const String promoCodes = 'promoCodes';
 }
 
 class AppRoutes {
@@ -90,6 +94,9 @@ class AppRoutes {
             categoryTitle: categoryTitle,
           ),
         );
+      case Routes.promoCodes:
+        return MaterialPageRoute(builder: (context) => const PromoCodeScreen());
+
       default:
         return MaterialPageRoute(
             builder: (context) => AppComponents.unDefineRoute());

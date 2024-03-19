@@ -3,34 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_state.dart';
+import 'package:la_mode/features/register/domain/entities/user_entity.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/text_styles.dart';
 
 class FavTab extends StatelessWidget {
-  const FavTab({super.key});
+  final UserEntity userEntity;
+
+  const FavTab({super.key, required this.userEntity});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'WishList',
-            style: roboto20(
-              weight: FontWeight.w600,
-            ),
-          ),
-          centerTitle: true,
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 5.w),
-              child: const NotificationIcon(
-                notificationCount: 5,
-              ),
-            ),
-          ],
+        appBar: const ConstAppBar(
+          title: 'Wishlist',
         ),
         body: Padding(
           padding:
@@ -74,31 +63,9 @@ class FavTab extends StatelessWidget {
             ],
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                child: Text('Drawer Header'),
-              ),
-              ListTile(
-                title: const Text('Item 1'),
-                onTap: () {
-                  // Update the state of the app
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: const Text('Item 2'),
-                onTap: () {
-                  // Update the state of the app
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
+        drawer: MyDrawer(
+          userName: userEntity.name,
+          userEmail: userEntity.email,
         ),
       ),
     );
