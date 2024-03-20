@@ -5,7 +5,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/text_styles.dart';
-import '../../../../home/presentation/widgets/sort_alert_dialog.dart';
+import '../../widgets/sort_alert_dialog.dart';
 import '../../../../sellers/presentation/pages/sellers_screen.dart';
 
 class AllTab extends StatelessWidget {
@@ -41,7 +41,7 @@ class AllTab extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return const SortAlertDialog();
+                              return const SortCatDialog();
                             },
                           );
                         },
@@ -55,17 +55,11 @@ class AllTab extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Recommended for you",
-                      style: roboto14(weight: FontWeight.w500),
-                    ),
-                    Text(
-                      "View all",
-                      style: roboto12W400(color: AppColors.gold),
-                    ),
+                    CategoryName(title: "Recommended for you"),
+                    ViewALl(),
                   ],
                 ),
               ),
@@ -111,17 +105,11 @@ class AllTab extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Recently viewed",
-                      style: roboto14(weight: FontWeight.w500),
-                    ),
-                    Text(
-                      "View all",
-                      style: roboto12W400(color: AppColors.gold),
-                    ),
+                    CategoryName(title: "Recently viewed"),
+                    ViewALl(),
                   ],
                 ),
               ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:la_mode/features/seller_details/presentation/pages/seller_details.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/utils/text_styles.dart';
-import '../../../product_details/presentation/pages/product_details_screen.dart';
 
 class SellerCard extends StatelessWidget {
   final String userName;
@@ -88,7 +88,7 @@ class SellerCard extends StatelessWidget {
                     onTap: () {
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
-                        screen: const ProductDetailsScreen(),
+                        screen: const SellerDetailsScreen(),
                         withNavBar: false, // OPTIONAL VALUE. True by default.
                         pageTransitionAnimation:
                             PageTransitionAnimation.cupertino,

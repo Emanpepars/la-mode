@@ -19,13 +19,13 @@ class CuRatingBar extends StatelessWidget {
           text,
           style: robotoCustomize(
             fontWeigh: FontWeight.w400,
-            fontSize: 18.sp,
+            fontSize: 15.sp,
             color: AppColors.silverDark,
           ),
         ),
         SizedBox(
           width: 210.w,
-          height: 10.h,
+          height: 8.h,
           child: LinearProgressIndicator(
             value: value,
             color: AppColors.lightColor,
