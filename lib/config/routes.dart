@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/features/category/presentation/pages/category_screen.dart';
+import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
 import 'package:la_mode/features/home/presentation/pages/home_screen.dart';
 import 'package:la_mode/features/login/presentation/pages/login_screen.dart';
 import 'package:la_mode/features/login/presentation/pages/forget_password/otp_code_screen.dart';
@@ -28,7 +29,10 @@ class Routes {
   static const String resetPassword = 'resetPassword';
   static const String home = 'home';
   static const String notification = 'notification';
+  static const String filter = '/';
+
   static const String category = 'category';
+
   static const String productDetails = 'productDetails';
   static const String review = 'review';
   static const String sellers = 'sellers';
@@ -75,6 +79,9 @@ class AppRoutes {
       case Routes.notification:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
+      case Routes.filter:
+        return MaterialPageRoute(
+            builder: (context) => const FilterScreen());
 
       case Routes.productDetails:
         return MaterialPageRoute(

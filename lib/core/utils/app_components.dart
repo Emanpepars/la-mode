@@ -91,7 +91,7 @@ class FirstPart extends StatelessWidget {
                 ),
               ),
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(90.h),
+                preferredSize: Size.fromHeight(80.h),
                 child: Column(
                   children: [
                     SizedBox(
@@ -297,11 +297,14 @@ class MyButton extends StatelessWidget {
   final TextStyle? style;
   final String text;
   final Color? textColor;
+  final Color borderColor;
+
   final Function()? onPressed;
 
   const MyButton(
       {required this.text,
       this.color = AppColors.lightColor,
+      this.borderColor = AppColors.lightColor,
       this.style,
       this.textColor = Colors.white,
       this.onPressed,
@@ -315,7 +318,7 @@ class MyButton extends StatelessWidget {
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
-          color: AppColors.lightColor,
+          color: borderColor,
           width: 1,
         ),
         borderRadius: BorderRadius.all(Radius.circular(12.sp)),

@@ -275,6 +275,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                 style: roboto14(
                                   weight: FontWeight.w500,
                                   color: AppColors.silverDark,
+                                ).copyWith(
+                                  decoration: TextDecoration.underline,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

@@ -166,8 +166,8 @@ class CuCheckBox extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5.sp)),
           border: Border.all(
-            color: isChecked ? AppColors.gold : AppColors.lightColor,
-            width: 2.w,
+            color: isChecked ? AppColors.gold : AppColors.silverDark,
+            width: 1.w,
           ),
         ),
         child: isChecked
