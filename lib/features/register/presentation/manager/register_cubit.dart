@@ -83,13 +83,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   void signUpOnPressed(BuildContext context, Widget content) {
-    if (RegisterCubit.get(context).registerFormKey.currentState!.validate()) {
+    if (registerFormKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: content,
         ),
       );
-      RegisterCubit.get(context).register();
+      register();
     } else {
       autoValidateMode = AutovalidateMode.always;
       emit(RegisterUpdateState());

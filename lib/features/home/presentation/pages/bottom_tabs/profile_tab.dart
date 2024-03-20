@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/edit_profile/presentation/pages/edit_profile_screen.dart';
 import 'package:la_mode/features/home/presentation/widgets/profile_row.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -65,10 +67,23 @@ class ProfileTab extends StatelessWidget {
                   SizedBox(
                     width: 10.w,
                   ),
-                  const Icon(
-                    Icons.edit_outlined,
-                    color: AppColors.lightColor,
-                  )
+                  InkWell(
+                    onTap: () {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: EditProfileScreen(
+                          userEntity: userEntity,
+                        ),
+                        withNavBar: false, // OPTIONAL VALUE. True by default.
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
+                    child: const Icon(
+                      Icons.edit_outlined,
+                      color: AppColors.lightColor,
+                    ),
+                  ),
                 ],
               ),
               Text(

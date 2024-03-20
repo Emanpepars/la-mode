@@ -190,10 +190,7 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 15.h,
-                        ),
-                        SizedBox(
-                          height: 10.h,
+                          height: 25.h,
                         ),
                         MyButton(
                           text: "Sign Up",
