@@ -23,6 +23,7 @@ class FilterAllTab extends StatelessWidget {
       child: BlocConsumer<FilterCubit, FilterState>(
         listener: (context, state) {},
         builder: (context, state) => Column(
+          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ///---Sizes---///
@@ -118,7 +119,7 @@ class FilterAllTab extends StatelessWidget {
                       FilterCubit.get(context).endValue,
                     ),
                     max: 400,
-                    min: 0.0,
+                    min: 0,
                     onChanged: (values) {
                       FilterCubit.get(context).onChangedSlider(values);
                     },
@@ -330,8 +331,8 @@ class FilterAllTab extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 8.w,
-                  mainAxisSpacing: 8.h,
+                  crossAxisSpacing: 10.w,
+                  mainAxisSpacing: 10.h,
                   childAspectRatio: 4.w / 1.w),
               itemBuilder: (context, index) {
                 return CuCheckButton(
@@ -346,6 +347,9 @@ class FilterAllTab extends StatelessWidget {
                   },
                 );
               },
+            ),
+            SizedBox(
+              height: 10.h,
             ),
           ],
         ),

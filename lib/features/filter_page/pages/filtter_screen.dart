@@ -20,58 +20,67 @@ class FilterScreen extends StatelessWidget {
         builder: (context, state) => DefaultTabController(
           length: 4,
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              title: Text(
-                'Filter',
-                style: roboto20(
-                  weight: FontWeight.w700,
-                ),
-              ),
-              centerTitle: false,
-              actions: [
-                const BagIcon(bagCount: 4),
-                IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
-              ],
-              bottom: TabBar(
-                labelColor: AppColors.lightColor,
-                labelStyle: roboto14().copyWith(
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.w600),
-                dividerColor: Colors.transparent,
-                tabAlignment: TabAlignment.start,
-                unselectedLabelColor: AppColors.lightColor,
-                unselectedLabelStyle: roboto14(),
-                indicator: const BoxDecoration(
-                  color: Colors.transparent,
-                ),
-                isScrollable: true,
-                tabs: const [
-                  Tab(
-                    child: Text('All'),
+            body: NestedScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              floatHeaderSlivers: true,
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  SliverAppBar(
+                    backgroundColor: Colors.white,
+                    title: Text(
+                      'Filter',
+                      style: roboto20(
+                        weight: FontWeight.w700,
+                      ),
+                    ),
+                    centerTitle: false,
+                    actions: [
+                      const BagIcon(bagCount: 4),
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.more_horiz))
+                    ],
+                    bottom: TabBar(
+                      labelColor: AppColors.lightColor,
+                      labelStyle: roboto14().copyWith(
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.w600),
+                      dividerColor: Colors.transparent,
+                      tabAlignment: TabAlignment.start,
+                      unselectedLabelColor: AppColors.lightColor,
+                      unselectedLabelStyle: roboto14(),
+                      indicator: const BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      isScrollable: true,
+                      tabs: const [
+                        Tab(
+                          child: Text('All'),
+                        ),
+                        Tab(
+                          child: Text('Sale'),
+                        ),
+                        Tab(
+                          child: Text('Top'),
+                        ),
+                        Tab(
+                          child: Text('New'),
+                        ),
+                      ],
+                    ),
                   ),
-                  Tab(
-                    child: Text('Sale'),
-                  ),
-                  Tab(
-                    child: Text('Top'),
-                  ),
-                  Tab(
-                    child: Text('New'),
-                  ),
+                ];
+              },
+              body: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  SingleChildScrollView(
+                      child: FilterCubit.get(context).tabBar[0]),
+                  FilterCubit.get(context).tabBar[1],
+                  FilterCubit.get(context).tabBar[2],
+                  FilterCubit.get(context).tabBar[3],
                 ],
               ),
-            ),
-            body: TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                SingleChildScrollView(
-                  child: FilterCubit.get(context).tabBar[0],
-                ),
-                FilterCubit.get(context).tabBar[1],
-                FilterCubit.get(context).tabBar[2],
-                FilterCubit.get(context).tabBar[3],
-              ],
             ),
             bottomNavigationBar: Container(
               width: double.infinity,
@@ -88,7 +97,11 @@ class FilterScreen extends StatelessWidget {
                     Expanded(
                       child: SizedBox(
                         height: 40.h,
-                        child: const MyButton(
+                        child: MyButton(
+                          onPressed: () {
+                            FilterCubit.get(context).resetAllCheck();
+                            Navigator.pop(context);
+                          },
                           text: "Reset All",
                           textColor: AppColors.lightColor,
                           color: Colors.white,
@@ -101,7 +114,10 @@ class FilterScreen extends StatelessWidget {
                     Expanded(
                       child: SizedBox(
                         height: 40.h,
-                        child: const MyButton(
+                        child: MyButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           text: "Apply",
                         ),
                       ),

@@ -29,7 +29,7 @@ class Routes {
   static const String resetPassword = 'resetPassword';
   static const String home = 'home';
   static const String notification = 'notification';
-  static const String filter = '/';
+  static const String filter = 'filter';
 
   static const String category = 'category';
 

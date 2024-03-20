@@ -8,7 +8,7 @@ import 'package:la_mode/features/sellers/presentation/manager/sellers_state.dart
 import 'package:la_mode/features/sellers/presentation/widgets/seller_card.dart';
 
 import '../../../../core/utils/app_colors.dart';
-import '../widgets/SortSellersDialog.dart';
+import '../widgets/sort_sellers_dialog.dart';
 
 class SellersScreen extends StatelessWidget {
   const SellersScreen({super.key});

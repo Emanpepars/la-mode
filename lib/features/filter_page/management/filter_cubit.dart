@@ -92,4 +92,15 @@ class FilterCubit extends Cubit<FilterState> {
     }
     emit(FilterUpdateState());
   }
+
+  void resetAllCheck() {
+    startValue = 52.0;
+    endValue = 250.0;
+    colorIndex = 0;
+    rateIndex = 0;
+    sizeSelectedIndex = 0;
+    selectedFilterOptions = [];
+    selectedCollectionOptions = [];
+    emit(FilterUpdateState());
+  }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:la_mode/core/utils/app_images.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
@@ -133,7 +134,13 @@ class FirstPart extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(right: 1.w, left: 5.w),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  screen: const FilterScreen(),
+                                  withNavBar: false,
+                                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                                );                              },
                               icon: Image(
                                 image: const AssetImage(AppIcons.filter),
                                 color: AppColors.lightColor,
