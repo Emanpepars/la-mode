@@ -115,6 +115,8 @@ class FirstPart extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 7.h),
                                     hintText: "Search",
                                     hintStyle: roboto16().copyWith(
                                       color: AppColors.silverDark,
@@ -139,8 +141,10 @@ class FirstPart extends StatelessWidget {
                                   context,
                                   screen: const FilterScreen(),
                                   withNavBar: false,
-                                  pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                                );                              },
+                                  pageTransitionAnimation:
+                                      PageTransitionAnimation.cupertino,
+                                );
+                              },
                               icon: Image(
                                 image: const AssetImage(AppIcons.filter),
                                 color: AppColors.lightColor,
