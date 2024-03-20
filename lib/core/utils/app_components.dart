@@ -847,7 +847,7 @@ class DrawerRow extends StatelessWidget {
           ),
           Text(
             title,
-            style: roboto14(weight: FontWeight.w400),
+            style: roboto16W400(),
           ),
         ],
       ),
@@ -902,11 +902,11 @@ class MyDrawer extends StatelessWidget {
                       children: [
                         Text(
                           userName,
-                          style: roboto14(weight: FontWeight.w500),
+                          style: roboto16W500(),
                         ),
                         Text(
                           userEmail,
-                          style: roboto12W400(),
+                          style: roboto14(weight: FontWeight.w400),
                         ),
                       ],
                     )

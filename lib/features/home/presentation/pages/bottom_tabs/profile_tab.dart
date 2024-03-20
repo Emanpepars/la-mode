@@ -98,7 +98,7 @@ class ProfileTab extends StatelessWidget {
                 height: 10.h,
               ),
               const ProfileRow(
-                title: 'My Orders',
+                title: 'My orders',
                 count: 10,
                 rowIcon: Icon(
                   Icons.mail_outline,
@@ -166,7 +166,7 @@ class ProfileTab extends StatelessWidget {
                   Text(
                     'Logout',
                     style: roboto16().copyWith(
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.gold,
                     ),
                   ),

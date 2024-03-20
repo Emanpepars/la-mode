@@ -36,7 +36,7 @@ class ProfileRow extends StatelessWidget {
                 Text(
                   title,
                   style: roboto16().copyWith(
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -46,7 +46,7 @@ class ProfileRow extends StatelessWidget {
                 count != 0
                     ? Text(
                         "($count)",
-                        style: roboto16().copyWith(fontWeight: FontWeight.w900),
+                        style: roboto16().copyWith(fontWeight: FontWeight.w600),
                       )
                     : const SizedBox(),
                 const Icon(
