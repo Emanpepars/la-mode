@@ -42,19 +42,25 @@ class SellersScreen extends StatelessWidget {
                           "Sort by",
                           style: roboto12W400(color: AppColors.silverDark),
                         ),
-                        IconButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const SortSellersDialog();
-                                },
-                              );
-                            },
-                            icon: const Icon(Icons.keyboard_arrow_down))
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const SortSellersDialog();
+                              },
+                            );
+                          },
+                          child: const Icon(
+                            Icons.keyboard_arrow_down,
+                          ),
+                        ),
                       ],
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10.h,
                 ),
                 GridView.builder(
                   shrinkWrap: true,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -448,8 +447,7 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Text(
                       "\$39",
-                      style:
-                          roboto18W500().copyWith(fontWeight: FontWeight.w900),
+                      style: roboto18W500(),
                     ),
                     SizedBox(width: 5.w),
                     const Text(""),
@@ -546,8 +544,7 @@ class ProductCardWithSeller extends StatelessWidget {
                           children: [
                             Text(
                               "\$39",
-                              style: roboto18W500()
-                                  .copyWith(fontWeight: FontWeight.w900),
+                              style: roboto18W500(),
                             ),
                             SizedBox(width: 5.w),
                             const Text(""),
