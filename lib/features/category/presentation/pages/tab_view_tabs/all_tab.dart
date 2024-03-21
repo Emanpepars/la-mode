@@ -51,11 +51,11 @@ class AllTab extends StatelessWidget {
               ],
             ),
           ),
-
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h,top: 10.h),
+                padding: EdgeInsets.only(
+                    left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

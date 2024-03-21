@@ -251,6 +251,7 @@ class EditProfileScreen extends StatelessWidget {
               ),
             ),
           ),
+          drawer: MyDrawer(userName: '', userEmail: '',),
         ),
       ),
     );

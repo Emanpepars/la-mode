@@ -7,6 +7,7 @@ import 'package:la_mode/features/filter_page/management/filter_state.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/text_styles.dart';
+import '../../home/presentation/manager/provider/home_cubit.dart';
 
 class FilterScreen extends StatelessWidget {
   const FilterScreen({super.key});
@@ -36,7 +37,13 @@ class FilterScreen extends StatelessWidget {
                     ),
                     centerTitle: false,
                     actions: [
-                      const BagIcon(bagCount: 4),
+                      BagIcon(
+                        bagCount: 4,
+                        onPressed: () {
+                          HomeCubit.get(context).controller.index = 1;
+                          Navigator.pop(context);
+                        },
+                      ),
                       IconButton(
                           onPressed: () {}, icon: const Icon(Icons.more_horiz))
                     ],

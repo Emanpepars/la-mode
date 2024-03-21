@@ -74,6 +74,7 @@ class FirstPart extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              leading: const SizedBox(),
               backgroundColor: Colors.white,
               floating: true,
               //snap: true,
@@ -248,6 +249,12 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back_ios),
+      ),
       title: Text(
         appBarTitle,
         style: roboto20(
@@ -256,8 +263,21 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: false,
       actions: [
-        const BagIcon(bagCount: 4),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
+        BagIcon(
+          bagCount: 4,
+          onPressed: () {
+            HomeCubit.get(context).controller.index = 1;
+            Navigator.pop(context);
+          },
+        ),
+        IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(
+            Icons.more_horiz,
+          ),
+        )
       ],
     );
   }
@@ -278,7 +298,9 @@ class AppBarWithOutBag extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
         icon: Icon(leadingIcon, color: AppColors.lightColor),
       ),
       title: Text(

@@ -197,7 +197,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                 child: CircleAvatar(
                                   backgroundColor: AppColors.gold,
                                   radius: 12.sp,
-                                  child: const Icon(Icons.add),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: AppColors.lightColor,
+                                  ),
                                 ),
                               ),
                             ),
@@ -565,6 +568,10 @@ class ProductDetailsScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          drawer: MyDrawer(
+            userName: '',
+            userEmail: '',
           ),
         ),
       ),

@@ -339,6 +339,8 @@ class SellerDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
+          drawer: MyDrawer(userName: '', userEmail: '',),
+
         ),
       ),
     );
