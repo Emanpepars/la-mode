@@ -158,7 +158,7 @@ class AllTab extends StatelessWidget {
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.w),
               itemBuilder: (BuildContext context, int index) =>
-                  const ProductCard(),
+                  const ProductCardWithSeller(),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 8,

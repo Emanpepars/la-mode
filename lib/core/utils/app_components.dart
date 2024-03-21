@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -443,9 +444,6 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
                 Row(
                   children: [
                     Text(
@@ -458,6 +456,124 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+            MyYellowButton(text: "Add To Cart", onPressed: () {}),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProductCardWithSeller extends StatelessWidget {
+  const ProductCardWithSeller({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: const ProductDetailsScreen(),
+          withNavBar: false,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.silverM,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(11),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  Image(
+                    image: const AssetImage(
+                      AppImages.onboard1,
+                    ),
+                    width: 200.w,
+                    height: 120.h,
+                    fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: AppColors.lightGray,
+                      child: Image(
+                        image: const AssetImage(
+                          AppIcons.heart,
+                        ),
+                        color: AppColors.lightColor,
+                        width: 15.w,
+                        height: 15.h,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            SizedBox(
+              height: 45.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Shirt blouse",
+                          style: roboto14(weight: FontWeight.w600),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "\$39",
+                              style: roboto18W500()
+                                  .copyWith(fontWeight: FontWeight.w900),
+                            ),
+                            SizedBox(width: 5.w),
+                            const Text(""),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: 20.sp,
+                    backgroundImage: const AssetImage(AppImages.fakeSeller),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.gold,
+                        radius: 9.sp,
+                        child: Icon(
+                          Icons.add,
+                          color: AppColors.lightColor,
+                          size: 14.5.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             MyYellowButton(text: "Add To Cart", onPressed: () {}),
           ],
