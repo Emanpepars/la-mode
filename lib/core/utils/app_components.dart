@@ -435,8 +435,9 @@ class ProductCard extends StatelessWidget {
                         Text(
                           "4.5",
                           style: roboto12W400().copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.silverDark),
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.silverDark,
+                          ),
                         ),
                       ],
                     ),
@@ -847,7 +848,7 @@ class DrawerRow extends StatelessWidget {
           ),
           Text(
             title,
-            style: roboto16W400(),
+            style: roboto16W500(),
           ),
         ],
       ),
