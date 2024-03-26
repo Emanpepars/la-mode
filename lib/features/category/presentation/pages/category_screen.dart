@@ -27,6 +27,10 @@ class CategoryScreen extends StatelessWidget {
           ],
           onTabChanged: CategoryCubit.get(context).onTabChanged,
         ),
+        drawer: MyDrawer(
+          userName: '',
+          userEmail: '',
+        ),
       ),
     );
   }

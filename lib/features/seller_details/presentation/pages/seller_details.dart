@@ -321,7 +321,7 @@ class SellerDetailsScreen extends StatelessWidget {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) =>
-                                const ProductCard(),
+                                const ProductCardWithSeller(),
                             itemCount: 4,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
@@ -339,6 +339,8 @@ class SellerDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
+          drawer: MyDrawer(userName: '', userEmail: '',),
+
         ),
       ),
     );

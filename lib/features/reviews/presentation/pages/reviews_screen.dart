@@ -126,6 +126,8 @@ class ReviewsScreen extends StatelessWidget {
               ),
             ),
           ),
+          drawer: MyDrawer(userName: '', userEmail: '',),
+
         ),
       ),
     );

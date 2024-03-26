@@ -19,8 +19,8 @@ class AllTab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: EdgeInsets.only(
-              left: 10.w,
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.w,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,8 +36,8 @@ class AllTab extends StatelessWidget {
                       "Sort by",
                       style: roboto12W400(color: AppColors.silverDark),
                     ),
-                    IconButton(
-                        onPressed: () {
+                    InkWell(
+                        onTap: () {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -45,7 +45,7 @@ class AllTab extends StatelessWidget {
                             },
                           );
                         },
-                        icon: const Icon(Icons.keyboard_arrow_down))
+                        child: const Icon(Icons.keyboard_arrow_down))
                   ],
                 ),
               ],
@@ -54,7 +54,8 @@ class AllTab extends StatelessWidget {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h),
+                padding: EdgeInsets.only(
+                    left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -158,7 +159,7 @@ class AllTab extends StatelessWidget {
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.w),
               itemBuilder: (BuildContext context, int index) =>
-                  const ProductCard(),
+                  const ProductCardWithSeller(),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 8,

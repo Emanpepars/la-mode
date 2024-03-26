@@ -56,11 +56,12 @@ class SellerCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
                   child: CircleAvatar(
-                    radius: 10.sp,
+                    radius: 12.sp,
                     backgroundColor: AppColors.gold,
                     child: Icon(
                       Icons.add,
                       size: 20.sp,
+                      color: AppColors.lightColor,
                     ),
                   ),
                 ),

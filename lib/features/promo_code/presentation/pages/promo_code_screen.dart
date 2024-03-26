@@ -57,6 +57,8 @@ class PromoCodeScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: MyDrawer(userName: '', userEmail: '',),
+
     );
   }
 }

@@ -74,6 +74,7 @@ class FirstPart extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              leading: const SizedBox(),
               backgroundColor: Colors.white,
               floating: true,
               //snap: true,
@@ -248,6 +249,12 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back_ios),
+      ),
       title: Text(
         appBarTitle,
         style: roboto20(
@@ -256,8 +263,21 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: false,
       actions: [
-        const BagIcon(bagCount: 4),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz))
+        BagIcon(
+          bagCount: 4,
+          onPressed: () {
+            HomeCubit.get(context).controller.index = 1;
+            Navigator.pop(context);
+          },
+        ),
+        IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(
+            Icons.more_horiz,
+          ),
+        )
       ],
     );
   }
@@ -278,7 +298,9 @@ class AppBarWithOutBag extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
         icon: Icon(leadingIcon, color: AppColors.lightColor),
       ),
       title: Text(
@@ -435,28 +457,142 @@ class ProductCard extends StatelessWidget {
                         Text(
                           "4.5",
                           style: roboto12W400().copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.silverDark),
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.silverDark,
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 5.h,
-                ),
                 Row(
                   children: [
                     Text(
                       "\$39",
-                      style:
-                          roboto18W500().copyWith(fontWeight: FontWeight.w900),
+                      style: roboto18W500(),
                     ),
                     SizedBox(width: 5.w),
                     const Text(""),
                   ],
                 ),
               ],
+            ),
+            MyYellowButton(text: "Add To Cart", onPressed: () {}),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProductCardWithSeller extends StatelessWidget {
+  const ProductCardWithSeller({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        PersistentNavBarNavigator.pushNewScreen(
+          context,
+          screen: const ProductDetailsScreen(),
+          withNavBar: false,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.silverM,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(11),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  Image(
+                    image: const AssetImage(
+                      AppImages.onboard1,
+                    ),
+                    width: 200.w,
+                    height: 120.h,
+                    fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: AppColors.lightGray,
+                      child: Image(
+                        image: const AssetImage(
+                          AppIcons.heart,
+                        ),
+                        color: AppColors.lightColor,
+                        width: 15.w,
+                        height: 15.h,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            SizedBox(
+              height: 45.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 100.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Shirt blouse",
+                          style: roboto14(weight: FontWeight.w600),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "\$39",
+                              style: roboto18W500(),
+                            ),
+                            SizedBox(width: 5.w),
+                            const Text(""),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  CircleAvatar(
+                    radius: 20.sp,
+                    backgroundImage: const AssetImage(AppImages.fakeSeller),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.gold,
+                        radius: 9.sp,
+                        child: Icon(
+                          Icons.add,
+                          color: AppColors.lightColor,
+                          size: 14.5.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             MyYellowButton(text: "Add To Cart", onPressed: () {}),
           ],
@@ -847,7 +983,7 @@ class DrawerRow extends StatelessWidget {
           ),
           Text(
             title,
-            style: roboto16W400(),
+            style: roboto16W500(),
           ),
         ],
       ),

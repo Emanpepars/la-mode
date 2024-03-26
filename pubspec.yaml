@@ -40,6 +40,8 @@ dependencies:
   intl_phone_field: ^3.2.0
   country_state_city_picker: ^1.2.8
   dropdown_button2: ^2.3.9
+  google_maps_flutter: ^2.6.0
+  location: ^5.0.3
 
 
 dev_dependencies:
