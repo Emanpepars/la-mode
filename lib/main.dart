@@ -20,7 +20,7 @@ void main() async {
 
   String route;
   if (userBox.isEmpty || userBox.getAt(0) == null) {
-    route = Routes.login;
+    route = Routes.onboard;
   } else {
     route = Routes.home;
   }
