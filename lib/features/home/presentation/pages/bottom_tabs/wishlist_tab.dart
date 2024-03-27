@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_state.dart';
-import 'package:la_mode/features/register/domain/entities/user_entity.dart';
+import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/text_styles.dart';

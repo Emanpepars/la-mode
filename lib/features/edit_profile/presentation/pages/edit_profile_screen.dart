@@ -6,10 +6,10 @@ import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/edit_profile/presentation/manager/edit_profile_cubit.dart';
 import 'package:la_mode/features/edit_profile/presentation/manager/edit_profile_state.dart';
-import 'package:la_mode/features/register/domain/entities/user_entity.dart';
+import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
-import '../../../register/presentation/widgets/cu_text_form_field.dart';
+import '../../../auth/register/presentation/widgets/cu_text_form_field.dart';
 import '../widgets/city_drop_down.dart';
 
 class EditProfileScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/features/home/presentation/widgets/settings_row.dart';
-import 'package:la_mode/features/register/domain/entities/user_entity.dart';
+import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import '../../../../../core/utils/app_components.dart';
 
 class SettingsTab extends StatelessWidget {

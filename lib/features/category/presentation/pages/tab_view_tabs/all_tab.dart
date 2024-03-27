@@ -6,7 +6,7 @@ import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/text_styles.dart';
 import '../../widgets/sort_alert_dialog.dart';
-import '../../../../sellers/presentation/pages/sellers_screen.dart';
+import '../../../../seller/sellers/presentation/pages/sellers_screen.dart';
 
 class AllTab extends StatelessWidget {
   const AllTab({super.key});
