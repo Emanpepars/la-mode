@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/config/routes.dart';
 import 'package:la_mode/features/category/presentation/manager/category_cubit.dart';
-import 'package:la_mode/features/sellers/presentation/manager/sellers_cubit.dart';
+import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_cubit.dart';
 import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:la_mode/main_cubit/main_state.dart';
 import 'package:la_mode/provider/OnBoardProider.dart';
@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import 'core/utils/app_themeing.dart';
 import 'features/home/presentation/manager/provider/home_cubit.dart';
+import 'features/seller/sellers/presentation/manager/sellers_cubit.dart';
 
 class MyApp extends StatelessWidget {
   final String route;
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<SellersCubit>(
             create: (context) => SellersCubit(),
+          ),
+          BlocProvider<CheckOutCubit>(
+            create: (context) => CheckOutCubit(),
           ),
         ],
         child: BlocConsumer<MainCubit, MainState>(

@@ -8,7 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/app_images.dart';
-import '../../../../register/domain/entities/user_entity.dart';
+import '../../../../auth/register/domain/entities/user_entity.dart';
 
 class ProfileTab extends StatelessWidget {
   final UserEntity userEntity;

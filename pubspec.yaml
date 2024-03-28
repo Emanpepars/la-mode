@@ -42,6 +42,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   google_maps_flutter: ^2.6.0
   location: ^5.0.3
+  webview_flutter: ^4.7.0
 
 
 dev_dependencies:

@@ -44,6 +44,7 @@ class MyThemeData {
     dialogBackgroundColor: Colors.white,
     disabledColor: AppColors.lightGray,
     iconTheme: const IconThemeData(color: AppColors.lightColor),
+
   );
 
   static ThemeData darkTheme = ThemeData(

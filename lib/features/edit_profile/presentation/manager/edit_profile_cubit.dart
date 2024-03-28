@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la_mode/features/register/domain/entities/user_entity.dart';
+import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import 'edit_profile_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {

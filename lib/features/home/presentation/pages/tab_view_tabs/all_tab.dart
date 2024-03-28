@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_images.dart';
 import 'package:la_mode/features/category/presentation/pages/category_screen.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:la_mode/features/sellers/presentation/pages/sellers_screen.dart';
+import 'package:la_mode/features/seller/sellers/presentation/pages/sellers_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
