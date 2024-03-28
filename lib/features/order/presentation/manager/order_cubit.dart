@@ -42,6 +42,10 @@ class OrderCubit extends Cubit<OrderState> {
           quantity: 1,
         ),
       ],
+      placed: true,
+      shipped: true,
+      pickedUp: false,
+      delivered: false,
     ),
     OrderItem(
       orderNumber: 4,
@@ -68,6 +72,10 @@ class OrderCubit extends Cubit<OrderState> {
           color: 'Gray',
         ),
       ],
+      placed: true,
+      shipped: true,
+      pickedUp: true,
+      delivered: true,
     ),
     OrderItem(
       orderNumber: 2,
@@ -86,6 +94,10 @@ class OrderCubit extends Cubit<OrderState> {
           color: 'Green',
         ),
       ],
+      placed: false,
+      shipped: false,
+      pickedUp: false,
+      delivered: false,
     ),
     OrderItem(
       orderNumber: 3,
@@ -104,6 +116,10 @@ class OrderCubit extends Cubit<OrderState> {
           color: 'Black',
         ),
       ],
+      placed: false,
+      shipped: false,
+      pickedUp: false,
+      delivered: false,
     ),
   ];
 }

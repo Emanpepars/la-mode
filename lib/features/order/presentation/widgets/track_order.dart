@@ -174,7 +174,7 @@ class TrackOrder extends StatelessWidget {
             ],
           ),
           Divider(
-            height: 15.h,
+            height: 20.h,
             thickness: 1,
             color: AppColors.lightGray,
           ),
@@ -202,7 +202,18 @@ class TrackOrder extends StatelessWidget {
                   ? MyButton(
                       text: 'Track Order',
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.trackOrder);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.trackOrder,
+                          arguments: {
+                            'placed': order.placed,
+                            'shipped': order.shipped,
+                            'pickedUp': order.pickedUp,
+                            'delivered': order.delivered,
+                            'price': order.price,
+                            'clock': DateFormat('h:mm a').format(order.date),
+                          },
+                        );
                       },
                     )
                   : Row(

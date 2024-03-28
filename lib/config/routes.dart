@@ -112,8 +112,27 @@ class AppRoutes {
       ///--- My Orders ---///
       case Routes.myOrders:
         return MaterialPageRoute(builder: (context) => const MyOrders());
+
       case Routes.trackOrder:
-        return MaterialPageRoute(builder: (context) => const TrackOrderScreen());
+        final Map<String, dynamic> args =
+            routeSettings.arguments as Map<String, dynamic>;
+        final bool placed = args['placed'];
+        final bool shipped = args['shipped'];
+        final bool pickedUp = args['pickedUp'];
+        final bool delivered = args['delivered'];
+        final String clock = args['clock'];
+        final int price = args['price'];
+
+        return MaterialPageRoute(
+          builder: (context) => TrackOrderScreen(
+            price: price,
+            clock: clock,
+            placed: placed,
+            shipped: shipped,
+            pickedUp: pickedUp,
+            delivered: delivered,
+          ),
+        );
       case Routes.notification:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
