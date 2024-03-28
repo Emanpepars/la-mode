@@ -5,13 +5,14 @@ import 'package:la_mode/features/category/presentation/pages/category_screen.dar
 import 'package:la_mode/features/check_out/checkout/presentation/pages/check_out_screen.dart';
 import 'package:la_mode/features/check_out/payment/presentation/pages/visa.dart';
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
-import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
 import 'package:la_mode/features/home/presentation/pages/home_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/login_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/forget_password/otp_code_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/forget_password/reset_password.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/onboard/page/onboard_screen.dart';
+import 'package:la_mode/features/order/presentation/pages/my_orders.dart';
+import 'package:la_mode/features/order/presentation/pages/track_order.dart';
 import 'package:la_mode/features/promo_code/presentation/pages/promo_code_screen.dart';
 import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import 'package:la_mode/features/auth/register/presentation/pages/register_screen.dart';
@@ -21,6 +22,7 @@ import 'package:la_mode/features/seller/seller_details/presentation/pages/seller
 import '../core/utils/app_constants.dart';
 import '../features/auth/login/presentation/pages/forget_password/forgot_passwors_screen.dart';
 import '../features/check_out/add_new_address/presentation/pages/add_new_address_screen.dart';
+import '../features/home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
 import '../features/product_details/presentation/pages/product_details_screen.dart';
 import '../features/seller/sellers/presentation/pages/sellers_screen.dart';
 
@@ -45,10 +47,14 @@ class Routes {
 
   ///--- Checkout ---///
   static const String checkout = 'checkout';
-  static const String visa = '/';
+  static const String visa = 'visa';
 
   ///--- address ---///
   static const String address = 'address';
+
+  ///--- My Orders ---///
+  static const String myOrders = '/';
+  static const String trackOrder = 'trackOrder';
 }
 
 class AppRoutes {
@@ -103,6 +109,11 @@ class AppRoutes {
       case Routes.address:
         return MaterialPageRoute(builder: (context) => const AddNewAddress());
 
+      ///--- My Orders ---///
+      case Routes.myOrders:
+        return MaterialPageRoute(builder: (context) => const MyOrders());
+      case Routes.trackOrder:
+        return MaterialPageRoute(builder: (context) => const TrackOrderScreen());
       case Routes.notification:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());

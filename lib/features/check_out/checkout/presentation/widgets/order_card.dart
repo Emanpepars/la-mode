@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/text_styles.dart';
-import '../../../../home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
+import '../../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({

@@ -4,7 +4,7 @@ import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import '../../../../../../../../core/utils/app_icons.dart';
 import '../../../../../../../../core/utils/app_images.dart';
-import '../manager/cart_cubit.dart';
+import '../../domain/repositories/product_item.dart';
 
 class BagItem extends StatelessWidget {
   final ProductItem productItem;
