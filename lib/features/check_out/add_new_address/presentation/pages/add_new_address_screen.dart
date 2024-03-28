@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:la_mode/core/utils/app_components.dart';
 import 'package:location/location.dart';
+import '../../../../../core/utils/text_styles.dart';
+import '../../../../auth/register/presentation/widgets/cu_text_form_field.dart';
 
 class MapSample extends StatefulWidget {
   const MapSample({super.key});
@@ -16,7 +20,6 @@ class _MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
     getCurrentLocation();
-    print("hi");
   }
 
   @override
@@ -32,22 +35,18 @@ class _MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: locationData == null
-          ? const Center(child: CircularProgressIndicator())
-          : GoogleMap(
-              mapType: MapType.hybrid,
-              markers: marker,
-              onTap: (argument) {
-                marker.add(Marker(
-                    markerId: const MarkerId("newMarker"), position: argument));
-                setState(() {});
-              },
-              initialCameraPosition: currentLocation,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-            ),
+    return GoogleMap(
+      mapType: MapType.hybrid,
+      markers: marker,
+      onTap: (argument) {
+        marker.add(
+            Marker(markerId: const MarkerId("newMarker"), position: argument));
+        setState(() {});
+      },
+      initialCameraPosition: currentLocation,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
     );
   }
 
@@ -96,8 +95,7 @@ class _MapSampleState extends State<MapSample> {
       setState(() {});
     });
     location.changeSettings(accuracy: LocationAccuracy.high);
-    print(locationData!.latitude);
-    print(locationData!.longitude);
+
     setState(() {});
   }
 
@@ -117,5 +115,108 @@ class _MapSampleState extends State<MapSample> {
       return permissionStatus == PermissionStatus.granted;
     }
     return permissionStatus == PermissionStatus.granted;
+  }
+}
+
+class AddNewAddress extends StatelessWidget {
+  const AddNewAddress({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: const AppBarWithBag(
+        appBarTitle: 'Add New Address',
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.w,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: double.infinity.w,
+                height: 300.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.sp),
+                  ),
+                ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.sp),
+                    ),
+                    child: const MapSample()),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                'Title',
+                style: robotoTitleField(),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              const CuTextFormField(
+                hintText: 'Your title',
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Text(
+                'Department',
+                style: robotoTitleField(),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              const CuTextFormField(
+                hintText: 'Enter your Department',
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Text(
+                'Street',
+                style: robotoTitleField(),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              const CuTextFormField(
+                hintText: 'Enter your Street',
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              Text(
+                'City',
+                style: robotoTitleField(),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              const CuTextFormField(
+                hintText: 'Enter your City',
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              MyButton(
+                text: 'Save Address',
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

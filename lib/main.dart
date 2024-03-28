@@ -1,13 +1,16 @@
+import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:la_mode/core/utils/app_constants.dart';
 import 'app.dart';
 import 'config/routes.dart';
+import 'core/utils/app_observer.dart';
 import 'core/utils/cache_helper.dart';
 import 'features/auth/register/domain/entities/user_entity.dart';
 
 void main() async {
+  Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();

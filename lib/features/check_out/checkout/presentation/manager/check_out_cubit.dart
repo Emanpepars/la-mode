@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'check_out_state.dart';
@@ -8,14 +7,21 @@ class CheckOutCubit extends Cubit<CheckOutState> {
 
   static CheckOutCubit get(context) => BlocProvider.of(context);
 
-  String selectedSortOption = 'Cash on delivery';
+  String selectedPaymentOption = 'Cash on delivery';
 
-  void paymentMethod({String? newValue}) {
-    selectedSortOption = newValue.toString();
-    emit(UpdateState());
+  void paymentMethods({String? newValue}) {
+    selectedPaymentOption = newValue.toString();
+    newValue == "Visa"
+        ? emit(VisaState())
+        : newValue == "Fawry"
+            ? emit(FawryState())
+            : emit(CashState());
   }
 
-  void paymentMethods(BuildContext context, {String? newValue}) {
-    paymentMethod(newValue: newValue);
+  String selectedAddressOption = 'Home';
+
+  void address({String? newValue}) {
+    selectedAddressOption = newValue.toString();
+    emit(AddressState());
   }
 }

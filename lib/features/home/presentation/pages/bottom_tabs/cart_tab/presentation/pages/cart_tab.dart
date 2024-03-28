@@ -1,9 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:la_mode/core/api/dio_consumer.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/pages/check_out_screen.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
-import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_state.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/payment/payment_cubit.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/widgets/bag_item.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../../../../core/utils/app_components.dart';
@@ -11,6 +13,7 @@ import '../../../../../../../../core/utils/app_images.dart';
 import '../../../../../../../../core/utils/text_styles.dart';
 import '../../../../../../../auth/register/domain/entities/user_entity.dart';
 import '../../../../../manager/provider/home_cubit.dart';
+import '../manager/payment/payment_state.dart';
 
 class CartTab extends StatelessWidget {
   final UserEntity userEntity;
@@ -22,10 +25,29 @@ class CartTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit(),
-      child: BlocConsumer<CartCubit, CartState>(
-        listener: (context, state) {},
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CartCubit(),
+        ),
+        BlocProvider(
+          create: (context) => PaymentCubit(api: DioConsumer(dio: Dio())),
+        )
+      ],
+      child: BlocConsumer<PaymentCubit, PaymentStates>(
+        listener: (context, state) {
+          if (state is SuccessReferenceCodePaymentState) {
+            PersistentNavBarNavigator.pushNewScreen(
+              context,
+              screen: CheckoutScreen(
+                userEntity: userEntity,
+                items: CartCubit.get(context).items,
+              ),
+              withNavBar: false,
+              pageTransitionAnimation: PageTransitionAnimation.cupertino,
+            );
+          }
+        },
         builder: (context, state) => Scaffold(
           appBar: const ConstAppBar(
             title: 'My Bag',
@@ -117,17 +139,12 @@ class CartTab extends StatelessWidget {
                         MyButton(
                           text: 'Checkout',
                           onPressed: () {
-                            PersistentNavBarNavigator.pushNewScreen(
-                              context,
-                              screen: CheckoutScreen(
-                                userEntity: userEntity,
-                                items: CartCubit.get(context).items,
-                              ),
-                              withNavBar: false,
-                              // OPTIONAL VALUE. True by default.
-                              pageTransitionAnimation:
-                                  PageTransitionAnimation.cupertino,
-                            );
+                            PaymentCubit.get(context).getAuthToken(
+                                "eman@gmail.com",
+                                "01120744802",
+                                "eman",
+                                "ashraf",
+                                "10000");
                           },
                         )
                       ],

@@ -4,18 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/text_styles.dart';
 
-class PaymentMethod extends StatelessWidget {
+class AddressRow extends StatelessWidget {
   final String title;
   final String value;
   final String groupValue;
-  final Function(String? newValue) paymentMethods;
+  final Function(String? newValue) address;
 
-  const PaymentMethod({
+  const AddressRow({
     super.key,
     required this.title,
     required this.value,
     required this.groupValue,
-    required this.paymentMethods,
+    required this.address,
   });
 
   @override
@@ -24,14 +24,29 @@ class PaymentMethod extends StatelessWidget {
       highlightColor: Colors.white,
       splashColor: Colors.white,
       onTap: () {
-        paymentMethods(title);
+        address(title);
+        Navigator.pop(context);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: roboto16W500(),
+          Row(
+            children: [
+              Icon(
+                title == "Home"
+                    ? Icons.home_outlined
+                    : title == "Work"
+                        ? Icons.shopping_bag_outlined
+                        : Icons.other_houses_outlined,
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              Text(
+                title,
+                style: roboto16W500(),
+              ),
+            ],
           ),
           SizedBox(
             width: 22.w,
@@ -39,7 +54,8 @@ class PaymentMethod extends StatelessWidget {
               value: value,
               groupValue: groupValue,
               onChanged: (newValue) {
-                paymentMethods(newValue);
+                address(newValue);
+                Navigator.pop(context);
               },
               activeColor: AppColors.gold,
             ),

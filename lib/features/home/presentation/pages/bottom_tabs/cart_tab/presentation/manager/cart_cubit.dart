@@ -28,7 +28,6 @@ class CartCubit extends Cubit<CartState> {
       size: 'S',
       color: 'Green',
     ),
-
   ];
 }
 

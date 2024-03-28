@@ -1,5 +1,6 @@
 class AppConstants {
   static const String baseUrl = "https://route-ecommerce.onrender.com/api/v1";
+  static const String basePaymentUrl = "https://accept.paymob.com/api";
   static const String kUSerBox = "user_box";
 }
 
@@ -8,4 +9,7 @@ String API_KEY =
 String AUTH_TOKEN = "";
 String ORDER_ID = "";
 double INTERGRATIONCARDID = 4546058;
+double INTERGRATIONKIOSKID = 4546155;
 String REQUEST_TOKEN_CARD = "";
+String REQUEST_TOKEN_KIOSK = "";
+String REF_CODE = "";

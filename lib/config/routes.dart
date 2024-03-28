@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/features/category/presentation/pages/category_screen.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/pages/check_out_screen.dart';
+import 'package:la_mode/features/check_out/payment/presentation/pages/visa.dart';
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
 import 'package:la_mode/features/home/presentation/pages/home_screen.dart';
@@ -19,6 +20,7 @@ import 'package:la_mode/features/seller/seller_details/presentation/pages/seller
 
 import '../core/utils/app_constants.dart';
 import '../features/auth/login/presentation/pages/forget_password/forgot_passwors_screen.dart';
+import '../features/check_out/add_new_address/presentation/pages/add_new_address_screen.dart';
 import '../features/product_details/presentation/pages/product_details_screen.dart';
 import '../features/seller/sellers/presentation/pages/sellers_screen.dart';
 
@@ -43,6 +45,10 @@ class Routes {
 
   ///--- Checkout ---///
   static const String checkout = 'checkout';
+  static const String visa = '/';
+
+  ///--- address ---///
+  static const String address = 'address';
 }
 
 class AppRoutes {
@@ -91,6 +97,12 @@ class AppRoutes {
             items: productItems,
           ),
         );
+
+      case Routes.visa:
+        return MaterialPageRoute(builder: (context) => const VisaScreen());
+      case Routes.address:
+        return MaterialPageRoute(builder: (context) => const AddNewAddress());
+
       case Routes.notification:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
