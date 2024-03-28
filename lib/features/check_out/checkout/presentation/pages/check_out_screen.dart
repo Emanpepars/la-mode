@@ -12,7 +12,7 @@ import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../auth/register/domain/entities/user_entity.dart';
-import '../../../../home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
+import '../../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
 import '../widgets/order_card.dart';
 import '../widgets/payment_alert_dialog.dart';
 import '../widgets/payment_methods_card.dart';

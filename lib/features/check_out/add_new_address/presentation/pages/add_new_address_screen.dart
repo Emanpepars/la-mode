@@ -160,7 +160,7 @@ class AddNewAddress extends StatelessWidget {
                 height: 2.h,
               ),
               const CuTextFormField(
-                hintText: 'Your title',
+                hintText: 'Enter your title',
               ),
               SizedBox(
                 height: 15.h,

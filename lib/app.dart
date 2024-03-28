@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             darkTheme: MyThemeData.darkTheme,
             themeMode: MainCubit.get(context).themeMode,
             debugShowCheckedModeBanner: false,
-            initialRoute: route,
+            initialRoute: '/',
             onGenerateRoute: (settings) => AppRoutes.onGenerate(settings),
           ),
         ),
