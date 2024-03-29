@@ -1173,7 +1173,10 @@ class MyDrawer extends StatelessWidget {
               title: 'Logout',
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, Routes.login, (route) => false);
+                  context,
+                  Routes.login,
+                  (route) => false,
+                );
 
                 HomeCubit.get(context).userBox.deleteAt(0);
               },

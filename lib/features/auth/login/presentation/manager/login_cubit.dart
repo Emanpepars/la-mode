@@ -44,6 +44,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   login() async {
+    emit(LoginLoading());
     LoginDomainRepo loginDomainRepo = LoginDataRepo(sources);
 
     LoginUseCase loginUseCase = LoginUseCase(loginDomainRepo);
@@ -54,7 +55,9 @@ class LoginCubit extends Cubit<LoginState> {
         password: passwordController.text,
       ),
     );
-    result.fold((l) => emit(LoginError(l)), (r) async {
+    result.fold((l) {
+      emit(LoginError(l));
+    }, (r) async {
       CacheHelper.saveData(key: 'token', value: r.token);
       var userBox = Hive.box(AppConstants.kUSerBox);
       await userBox.add(r.user);
@@ -71,7 +74,7 @@ class LoginCubit extends Cubit<LoginState> {
           content: content,
         ),
       );
-      LoginCubit.get(context).login();
+      login();
     } else {
       autoValidateMode = AutovalidateMode.always;
       emit(LoginUpdateState());

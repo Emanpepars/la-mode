@@ -25,7 +25,11 @@ class OnboardImage extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 40.h, horizontal: 25.w),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, Routes.home);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routes.login,
+            (routes) => false,
+          );
         },
         child: Text(
           skip ? "Skip" : "",

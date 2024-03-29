@@ -6,13 +6,12 @@ import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_cubit.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_state.dart';
-import 'package:la_mode/features/check_out/checkout/presentation/widgets/address_radio.dart';
-
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../auth/register/domain/entities/user_entity.dart';
 import '../../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
+import '../widgets/delivery_address.dart';
 import '../widgets/order_card.dart';
 import '../widgets/payment_alert_dialog.dart';
 import '../widgets/payment_methods_card.dart';
@@ -182,112 +181,9 @@ class CheckoutScreen extends StatelessWidget {
                               highlightColor: Colors.white,
                               onTap: () {
                                 showDialog(
-                                  context: context,
-                                  builder: (context) => BlocConsumer<
-                                      CheckOutCubit, CheckOutState>(
-                                    listener: (context, state) {},
-                                    builder: (context, state) => AlertDialog(
-                                      contentPadding: EdgeInsets.zero,
-                                      content: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              25.sp,
-                                            ),
-                                          ),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 20.h),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              "Delivery Address",
-                                              style: roboto18W500(),
-                                            ),
-                                            Column(
-                                              children: [
-                                                AddressRow(
-                                                  title: 'Home',
-                                                  value: 'Home',
-                                                  groupValue: CheckOutCubit.get(
-                                                          context)
-                                                      .selectedAddressOption,
-                                                  address: (String? newValue) =>
-                                                      CheckOutCubit.get(context)
-                                                          .address(
-                                                              newValue:
-                                                                  newValue),
-                                                ),
-                                                Text(
-                                                  "7 Israa street. Agouza, Giza, Egypt",
-                                                  style: roboto14(
-                                                      weight: FontWeight.w500,
-                                                      color:
-                                                          AppColors.silverDark),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                AddressRow(
-                                                  title: 'Work',
-                                                  value: 'Work',
-                                                  groupValue: CheckOutCubit.get(
-                                                          context)
-                                                      .selectedAddressOption,
-                                                  address: (String? newValue) =>
-                                                      CheckOutCubit.get(context)
-                                                          .address(
-                                                              newValue:
-                                                                  newValue),
-                                                ),
-                                                Text(
-                                                  "Madinet nasr. Cairo, Egypt",
-                                                  style: roboto14(
-                                                      weight: FontWeight.w500,
-                                                      color:
-                                                          AppColors.silverDark),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            SizedBox(
-                                              width: double.infinity,
-                                              child: InkWell(
-                                                splashColor: Colors.white,
-                                                highlightColor: Colors.white,
-                                                onTap: () {
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    Routes.address,
-                                                  );
-                                                },
-                                                child: Text(
-                                                  "Add new address",
-                                                  textAlign: TextAlign.end,
-                                                  style: roboto14().copyWith(
-                                                      decoration: TextDecoration
-                                                          .underline),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
+                                    context: context,
+                                    builder: (context) =>
+                                        const DeliveryAddress());
                               },
                               child: const Icon(Icons.arrow_forward))
                         ],

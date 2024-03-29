@@ -1,14 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/auth/login/presentation/pages/login_screen.dart';
 import 'package:la_mode/features/edit_profile/presentation/pages/edit_profile_screen.dart';
 import 'package:la_mode/features/home/presentation/widgets/profile_row.dart';
+import 'package:la_mode/features/order/presentation/pages/my_orders.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../auth/register/domain/entities/user_entity.dart';
+import '../../../../check_out/checkout/presentation/manager/check_out_cubit.dart';
+import '../../../../check_out/checkout/presentation/manager/check_out_state.dart';
+import '../../../../check_out/checkout/presentation/widgets/delivery_address.dart';
+import '../../../../check_out/checkout/presentation/widgets/payment_methods_card.dart';
+import '../../manager/provider/home_cubit.dart';
 
 class ProfileTab extends StatelessWidget {
   final UserEntity userEntity;
@@ -97,10 +105,18 @@ class ProfileTab extends StatelessWidget {
               SizedBox(
                 height: 10.h,
               ),
-              const ProfileRow(
+              ProfileRow(
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const MyOrders(),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                  );
+                },
                 title: 'My orders',
                 count: 10,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.mail_outline,
                   color: AppColors.lightColor,
                 ),
@@ -121,18 +137,95 @@ class ProfileTab extends StatelessWidget {
                   color: AppColors.lightColor,
                 ),
               ),
-              const ProfileRow(
+              ProfileRow(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) =>
+                        BlocConsumer<CheckOutCubit, CheckOutState>(
+                      listener: (context, state) {},
+                      builder: (context, state) => AlertDialog(
+                        contentPadding: EdgeInsets.zero,
+                        content: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.sp))),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 20.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Payment method",
+                                style: roboto16W500(),
+                              ),
+                              SizedBox(height: 2.h),
+                              PaymentMethod(
+                                title: 'Visa',
+                                value: 'Visa',
+                                groupValue: CheckOutCubit.get(context)
+                                    .selectedPaymentOption,
+                                paymentMethods: (String? newValue) =>
+                                    CheckOutCubit.get(context)
+                                        .paymentMethods(newValue: newValue),
+                              ),
+                              PaymentMethod(
+                                title: 'Cash on delivery',
+                                value: 'Cash on delivery',
+                                groupValue: CheckOutCubit.get(context)
+                                    .selectedPaymentOption,
+                                paymentMethods: (String? newValue) =>
+                                    CheckOutCubit.get(context)
+                                        .paymentMethods(newValue: newValue),
+                              ),
+                              PaymentMethod(
+                                title: 'Fawry',
+                                value: 'Fawry',
+                                groupValue: CheckOutCubit.get(context)
+                                    .selectedPaymentOption,
+                                paymentMethods: (String? newValue) =>
+                                    CheckOutCubit.get(context)
+                                        .paymentMethods(newValue: newValue),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: InkWell(
+                                  splashColor: Colors.white,
+                                  highlightColor: Colors.white,
+                                  onTap: () {},
+                                  child: Text(
+                                    "Add new card",
+                                    textAlign: TextAlign.end,
+                                    style: roboto14().copyWith(
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
                 title: 'Payment methods',
                 count: 0,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.payment,
                   color: AppColors.lightColor,
                 ),
               ),
-              const ProfileRow(
+              ProfileRow(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => const DeliveryAddress());
+                },
                 title: 'Delivery address',
                 count: 0,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.location_on_outlined,
                   color: AppColors.lightColor,
                 ),
@@ -154,23 +247,39 @@ class ProfileTab extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10.h),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.logout,
-                    color: AppColors.lightColor,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    'Logout',
-                    style: roboto16().copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.gold,
+              InkWell(
+                splashColor: Colors.white,
+                hoverColor: Colors.white,
+                highlightColor: Colors.white,
+                onTap: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    CupertinoPageRoute(
+                      builder: (BuildContext context) {
+                        return const LoginScreen();
+                      },
                     ),
-                  ),
-                ],
+                    (_) => false,
+                  );
+                  HomeCubit.get(context).userBox.deleteAt(0);
+                },
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.logout,
+                      color: AppColors.lightColor,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      'Logout',
+                      style: roboto16().copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.gold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
