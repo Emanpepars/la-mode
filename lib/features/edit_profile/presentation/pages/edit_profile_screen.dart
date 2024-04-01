@@ -10,6 +10,7 @@ import 'package:la_mode/features/edit_profile/presentation/manager/edit_profile_
 import 'package:la_mode/features/edit_profile/presentation/manager/edit_profile_state.dart';
 import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/utils/app_images.dart';
 import '../../../auth/register/presentation/widgets/cu_text_form_field.dart';
 import '../widgets/city_drop_down.dart';
 
@@ -41,7 +42,11 @@ class EditProfileScreen extends StatelessWidget {
                         EditProfileCubit.get(context).profilePic == null
                             ? CircleAvatar(
                                 radius: 35.sp,
+                                backgroundImage:
+                                    const AssetImage(AppImages.fakeSeller),
                                 child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: AppColors.gold,
@@ -52,10 +57,6 @@ class EditProfileScreen extends StatelessWidget {
                                         35.sp,
                                       ),
                                     ),
-                                  ),
-                                  child: const Icon(
-                                    Icons.person_outline,
-                                    color: AppColors.lightColor,
                                   ),
                                 ),
                               )

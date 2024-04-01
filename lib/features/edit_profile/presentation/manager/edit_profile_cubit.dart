@@ -54,7 +54,6 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     emit(UploadProfilePicState());
   }
 
-
   // ApiKey.profilePic: await uploadImageToAPI(profilePic!)
   Future uploadImageToAPI(XFile image) async {
     return MultipartFile.fromFile(image.path,
