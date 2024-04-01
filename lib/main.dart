@@ -42,6 +42,7 @@ void main() async {
       ),
 
       child: MyApp(route: route),
+     // child: MyApp(),
     ),
   );
 }

@@ -965,11 +965,12 @@ class DrawerRow extends StatelessWidget {
   final String title;
   final void Function()? onTap;
 
-  const DrawerRow(
-      {required this.icon,
-      super.key,
-      required this.title,
-      required this.onTap});
+  const DrawerRow({
+    required this.icon,
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -983,7 +984,9 @@ class DrawerRow extends StatelessWidget {
           ),
           Text(
             title,
-            style: roboto16W500(),
+            style: roboto14(
+              weight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -1007,49 +1010,52 @@ class MyDrawer extends StatelessWidget {
           children: [
             Column(
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 25.sp,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              AppImages.fakeSeller,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 25.sp,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                AppImages.fakeSeller,
+                              ),
                             ),
-                          ),
-                          border: Border.all(
-                            color: AppColors.gold,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              25.sp,
+                            border: Border.all(
+                              color: AppColors.gold,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                25.sp,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          userName,
-                          style: roboto16W500(),
-                        ),
-                        Text(
-                          userEmail,
-                          style: roboto14(weight: FontWeight.w400),
-                        ),
-                      ],
-                    )
-                  ],
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            userName,
+                            style: roboto16W500(),
+                          ),
+                          Text(
+                            userEmail,
+                            style: roboto14(weight: FontWeight.w400),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 15.h,
                 ),
                 DrawerRow(
                   onTap: () {

@@ -45,6 +45,7 @@ dependencies:
   webview_flutter: ^4.7.0
   intl: ^0.18.1
   dotted_line: ^3.2.2
+  image_picker: ^1.0.7
 
 
 dev_dependencies:

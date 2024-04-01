@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
@@ -8,7 +10,6 @@ import 'package:la_mode/features/edit_profile/presentation/manager/edit_profile_
 import 'package:la_mode/features/edit_profile/presentation/manager/edit_profile_state.dart';
 import 'package:la_mode/features/auth/register/domain/entities/user_entity.dart';
 import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_images.dart';
 import '../../../auth/register/presentation/widgets/cu_text_form_field.dart';
 import '../widgets/city_drop_down.dart';
 
@@ -37,33 +38,64 @@ class EditProfileScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 40.sp,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                  AppImages.fakeSeller,
+                        EditProfileCubit.get(context).profilePic == null
+                            ? CircleAvatar(
+                                radius: 35.sp,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.gold,
+                                      width: 2.w,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        35.sp,
+                                      ),
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.person_outline,
+                                    color: AppColors.lightColor,
+                                  ),
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundImage: FileImage(
+                                  File(
+                                    EditProfileCubit.get(context)
+                                        .profilePic!
+                                        .path,
+                                  ),
+                                ),
+                                radius: 35.sp,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.gold,
+                                      width: 2.w,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        40.sp,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              border: Border.all(
-                                color: AppColors.gold,
-                                width: 2.w,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  40.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                         SizedBox(
-                          width: 20.w,
+                          width: 10.w,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            ImagePicker()
+                                .pickImage(source: ImageSource.gallery)
+                                .then((value) {
+                              if (value != null) {
+                                EditProfileCubit.get(context)
+                                    .uploadProfilePic(value);
+                              }
+                            });
+                          },
                           child: Row(
                             children: [
                               const Icon(
@@ -75,10 +107,9 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                               Text(
                                 "Upload new photo",
-                                style: robotoCustomize(
-                                    color: AppColors.silverDark,
-                                    fontSize: 16.sp,
-                                    fontWeigh: FontWeight.w700),
+                                style: roboto16W400(
+                                  color: AppColors.silverDark,
+                                ),
                               )
                             ],
                           ),
@@ -251,7 +282,10 @@ class EditProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-          drawer: MyDrawer(userName: '', userEmail: '',),
+          drawer: MyDrawer(
+            userName: userEntity.name,
+            userEmail: userEntity.email,
+          ),
         ),
       ),
     );
