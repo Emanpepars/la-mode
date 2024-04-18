@@ -1,0 +1,201 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:la_mode/core/utils/app_colors.dart';
+import 'package:la_mode/core/utils/app_components.dart';
+import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
+
+import '../../../../../../../../core/utils/app_icons.dart';
+import '../../../../../../../../core/utils/app_images.dart';
+
+class WishlistItem extends StatelessWidget {
+  final DataEntity product;
+
+  const WishlistItem({required this.product, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.silverM,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            12.sp,
+          ),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(
+        vertical: 5.h,
+      ),
+      height: 100.h,
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 5.w),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.sp),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomStart,
+                children: [
+                  CachedNetworkImage(
+                    width: 110.w,
+                    height: 100.h,
+                    fit: BoxFit.cover,
+                    imageUrl: product.imageCover!,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: AppColors.lightGray,
+                      child: Image(
+                        image: const AssetImage(
+                          AppIcons.heart,
+                        ),
+                        color: AppColors.gold,
+                        width: 15.w,
+                        height: 15.h,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          SizedBox(
+            width: 200.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 5.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 150.w,
+                              child: Text(
+                                product.title!,
+                                style: roboto14(weight: FontWeight.w600),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            product.quantity! < 100
+                                ? Text(
+                                    'Low in Stock',
+                                    style: roboto12W400().copyWith(
+                                      color: AppColors.silverDark,
+                                    ),
+                                  )
+                                : Text(
+                                    'Available in Stock',
+                                    style: roboto12W400().copyWith(
+                                      color: AppColors.silverDark,
+                                    ),
+                                  ),
+                          ],
+                        ),
+                        CircleAvatar(
+                          radius: 20.sp,
+                          backgroundImage:
+                              const AssetImage(AppImages.fakeSeller),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: CircleAvatar(
+                              backgroundColor: AppColors.gold,
+                              radius: 9.sp,
+                              child: Icon(
+                                Icons.add,
+                                color: AppColors.lightColor,
+                                size: 14.5.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 40.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 60.w,
+                        child: product.priceAfterDiscount == null ||
+                                product.priceAfterDiscount == product.price
+                            ? Text(
+                                "\$${product.price}",
+                                style: roboto18W500()
+                                    .copyWith(fontWeight: FontWeight.w600),
+                              )
+                            : Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "\$${product.priceAfterDiscount}",
+                                    style: roboto18W500().copyWith(
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '\$${product.price}',
+                                        style: roboto12W400().copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough,
+                                          color: AppColors.silverDark,
+                                        ),
+                                      ),
+                                      Text(
+                                        '${(((product.price! - product.priceAfterDiscount!) / (product.price! + product.priceAfterDiscount!)) * 100).toInt()}%',
+                                        style: roboto12W400().copyWith(
+                                          color: AppColors.silverDark,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      SizedBox(
+                        width: 129.w,
+                        child: MyYellowButton(
+                          text: 'Add To Cart',
+                          onPressed: () {},
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

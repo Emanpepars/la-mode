@@ -115,6 +115,14 @@ class FilterAllTab extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                   child: RangeSlider(
+                    activeColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightColor
+                            : Colors.white,
+                    inactiveColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightColor
+                            : Colors.white10,
                     values: RangeValues(
                       FilterCubit.get(context).startValue,
                       FilterCubit.get(context).endValue,

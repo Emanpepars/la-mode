@@ -33,5 +33,11 @@ class CartCubit extends Cubit<CartState> {
       quantity: 1,
     ),
   ];
+
+  // for (int i = 0; i < r.data!.length; i++) {
+  // totalPrice += (r.data![i].priceAfterDiscount == null
+  // ? r.data![i].price!.toDouble()
+  //     : r.data![i].priceAfterDiscount!.toDouble());
+  // }
 }
 

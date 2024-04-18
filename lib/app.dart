@@ -1,17 +1,21 @@
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/config/routes.dart';
+import 'package:la_mode/core/api/dio_consumer.dart';
 import 'package:la_mode/features/category/presentation/manager/category_cubit.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_cubit.dart';
+import 'package:la_mode/features/home/data/data_sources/home_dto.dart';
 import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:la_mode/main_cubit/main_state.dart';
-import 'package:la_mode/provider/OnBoardProider.dart';
 import 'package:provider/provider.dart';
 
 import 'core/utils/app_themeing.dart';
 import 'features/home/presentation/manager/provider/home_cubit.dart';
+import 'features/home/presentation/pages/bottom_tabs/wishlist/data/data_sources/wishlist_dto.dart';
+import 'features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'features/seller/sellers/presentation/manager/sellers_cubit.dart';
 
 class MyApp extends StatelessWidget {
@@ -27,9 +31,23 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => OnBoardProvider()),
           BlocProvider<HomeCubit>(
-            create: (context) => HomeCubit(),
+            create: (context) => HomeCubit(
+              RemoteHomeDto(
+                DioConsumer(
+                  dio: Dio(),
+                ),
+              ),
+            )..getAllProduct(),
+          ),
+          BlocProvider<WishlistCubit>(
+            create: (context) => WishlistCubit(
+              RemoteWishlistDto(
+                DioConsumer(
+                  dio: Dio(),
+                ),
+              ),
+            )..getWishlist(),
           ),
           BlocProvider<MainCubit>(
             create: (context) => MainCubit(),

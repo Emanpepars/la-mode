@@ -5,6 +5,7 @@ import 'package:la_mode/features/category/presentation/pages/category_screen.dar
 import 'package:la_mode/features/check_out/checkout/presentation/pages/check_out_screen.dart';
 import 'package:la_mode/features/check_out/payment/presentation/pages/visa.dart';
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/pages/home_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/login_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/forget_password/otp_code_screen.dart';
@@ -140,8 +141,11 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const FilterScreen());
 
       case Routes.productDetails:
+        DataEntity dataEntity = routeSettings.arguments as DataEntity;
         return MaterialPageRoute(
-            builder: (context) => const ProductDetailsScreen());
+            builder: (context) => ProductDetailsScreen(
+                  dataEntity: dataEntity,
+                ));
       case Routes.review:
         return MaterialPageRoute(builder: (context) => const ReviewsScreen());
       case Routes.sellers:

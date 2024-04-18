@@ -165,5 +165,9 @@
   "Collections": "مجموعات",
   "Payment methods": "طرق الدفع",
   "Notifications": "الإشعارات",
-  "Working Hours": "ساعات العمل"
+  "Working Hours": "ساعات العمل",
+  "Dark": "داكن",
+  "Light": "فاتح",
+  "View": "عرض",
+  "seller": "البائع"
 }

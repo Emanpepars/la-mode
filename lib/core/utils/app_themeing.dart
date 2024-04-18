@@ -5,6 +5,7 @@ import 'package:la_mode/core/utils/app_colors.dart';
 class MyThemeData {
   static ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.white,
+    brightness: Brightness.light,
     drawerTheme: const DrawerThemeData(
       backgroundColor: Colors.white,
     ),
@@ -23,8 +24,8 @@ class MyThemeData {
       type: BottomNavigationBarType.shifting,
       selectedItemColor: AppColors.gold,
       unselectedItemColor: AppColors.silverDark,
-      selectedLabelStyle: TextStyle(color: Colors.black),
-      unselectedLabelStyle: TextStyle(color: Colors.white),
+      selectedLabelStyle: TextStyle(color: Colors.yellow),
+      unselectedLabelStyle: TextStyle(color: AppColors.silverDark),
     ),
     dialogBackgroundColor: Colors.white,
     disabledColor: AppColors.lightGray,
@@ -32,7 +33,8 @@ class MyThemeData {
   );
 
   static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.transparent,
+    scaffoldBackgroundColor: Colors.black,
+    brightness: Brightness.dark,
     textTheme: TextTheme(
       bodyLarge: GoogleFonts.elMessiri(
         fontSize: 30,
@@ -58,7 +60,7 @@ class MyThemeData {
       type: BottomNavigationBarType.shifting,
       selectedItemColor: Color(0xFFFACC1D),
       unselectedItemColor: Colors.white,
-      selectedLabelStyle: TextStyle(color: Colors.black),
+      selectedLabelStyle: TextStyle(color: Colors.yellow),
       unselectedLabelStyle: TextStyle(color: Colors.white),
     ),
   );

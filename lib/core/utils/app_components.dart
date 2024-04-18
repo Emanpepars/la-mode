@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:la_mode/core/utils/app_images.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
@@ -166,7 +168,7 @@ class FirstPart extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10.w),
-                                child:  Text("FOR YOU".tr()),
+                                child: Text("FOR YOU".tr()),
                               ),
                             ),
                             SizedBox(
@@ -260,6 +262,9 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
         appBarTitle,
         style: roboto20(
           weight: FontWeight.w700,
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightColor
+              : Colors.white,
         ),
       ),
       centerTitle: false,
@@ -308,6 +313,9 @@ class AppBarWithOutBag extends StatelessWidget implements PreferredSizeWidget {
         appBarTitle,
         style: roboto20(
           weight: FontWeight.w700,
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightColor
+              : Colors.white,
         ),
       ),
       centerTitle: true,
@@ -375,7 +383,9 @@ class MyButton extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final DataEntity dataEntity;
+
+  const ProductCard({required this.dataEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -383,7 +393,9 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: const ProductDetailsScreen(),
+          screen: ProductDetailsScreen(
+            dataEntity: dataEntity,
+          ),
           withNavBar: false, // OPTIONAL VALUE. True by default.
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -408,13 +420,15 @@ class ProductCard extends StatelessWidget {
               child: Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Image(
-                    image: const AssetImage(
-                      AppImages.onboard1,
-                    ),
+                  CachedNetworkImage(
                     width: 200.w,
                     height: 120.h,
                     fit: BoxFit.cover,
+                    imageUrl: dataEntity.imageCover ?? "",
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   Padding(
                     padding:
@@ -444,9 +458,14 @@ class ProductCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Shirt blouse",
-                      style: roboto14(weight: FontWeight.w600),
+                    SizedBox(
+                      width: 100.w,
+                      child: Text(
+                        dataEntity.title!,
+                        style: roboto14(weight: FontWeight.w600),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Row(
                       children: [
@@ -456,7 +475,7 @@ class ProductCard extends StatelessWidget {
                           color: AppColors.gold,
                         ),
                         Text(
-                          "4.5",
+                          dataEntity.ratingsAverage!.toString(),
                           style: roboto12W400().copyWith(
                             fontWeight: FontWeight.w600,
                             color: AppColors.silverDark,
@@ -469,7 +488,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "\$39",
+                      "\$${dataEntity.price!}",
                       style: roboto18W500(),
                     ),
                     SizedBox(width: 5.w),
@@ -487,7 +506,9 @@ class ProductCard extends StatelessWidget {
 }
 
 class ProductCardWithSeller extends StatelessWidget {
-  const ProductCardWithSeller({super.key});
+  final DataEntity dataEntity;
+
+  const ProductCardWithSeller({required this.dataEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -495,7 +516,9 @@ class ProductCardWithSeller extends StatelessWidget {
       onTap: () {
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: const ProductDetailsScreen(),
+          screen: ProductDetailsScreen(
+            dataEntity: dataEntity,
+          ),
           withNavBar: false,
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -519,13 +542,15 @@ class ProductCardWithSeller extends StatelessWidget {
               child: Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Image(
-                    image: const AssetImage(
-                      AppImages.onboard1,
-                    ),
+                  CachedNetworkImage(
                     width: 200.w,
                     height: 120.h,
                     fit: BoxFit.cover,
+                    imageUrl: dataEntity.imageCover ?? "",
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   Padding(
                     padding:
@@ -559,14 +584,21 @@ class ProductCardWithSeller extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          "Shirt blouse",
-                          style: roboto14(weight: FontWeight.w600),
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            dataEntity.title!,
+                            style: roboto14(
+                              weight: FontWeight.w600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         Row(
                           children: [
                             Text(
-                              "\$39",
+                              "\$${dataEntity.price}",
                               style: roboto18W500(),
                             ),
                             SizedBox(width: 5.w),
@@ -747,6 +779,9 @@ class NotificationIcon extends StatelessWidget {
               icon: SvgPicture.asset(
                 AppIcons.notification,
                 height: 25.h,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? AppColors.lightColor
+                    : Colors.white,
               ),
             ),
           )
@@ -762,6 +797,9 @@ class NotificationIcon extends StatelessWidget {
             icon: SvgPicture.asset(
               AppIcons.notification,
               height: 20.h,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? AppColors.lightColor
+                  : Colors.white,
             ),
           );
   }
@@ -805,7 +843,7 @@ class ViewButton extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            "View $title",
+            "View".tr(),
             style: roboto14(
               weight: FontWeight.w500,
               color: AppColors.silverDark,
@@ -816,7 +854,7 @@ class ViewButton extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            "View $title",
+            " $title",
             style: roboto14(
               weight: FontWeight.w500,
               color: AppColors.silverDark,
@@ -912,7 +950,9 @@ class DoneAlertDialog extends StatelessWidget {
       content: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.black,
           borderRadius: BorderRadius.all(
             Radius.circular(30.sp),
           ),
@@ -1222,6 +1262,9 @@ class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: roboto20(
           weight: FontWeight.w600,
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightColor
+              : Colors.white,
         ),
       ),
       centerTitle: true,

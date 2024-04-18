@@ -165,5 +165,9 @@
   "Collections": "Collections",
   "Payment methods": "Payment methods",
   "Notifications": "Notifications",
-  "Working Hours": "Working Hours"
+  "Working Hours": "Working Hours",
+  "Dark": "Dark",
+  "Light": "Light",
+  "View": "View",
+  "seller": "seller"
 }

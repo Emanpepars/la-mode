@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_images.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/seller/seller_details/presentation/manager/seller_details_cubit.dart';
 import 'package:la_mode/features/seller/seller_details/presentation/manager/seller_details_states.dart';
 import '../../../../../config/routes.dart';
@@ -322,8 +323,11 @@ class SellerDetailsScreen extends StatelessWidget {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) =>
-                                const ProductCardWithSeller(),
-                            itemCount: 4,
+                                ProductCardWithSeller(
+                              dataEntity:
+                                  HomeCubit.get(context).products[index],
+                            ),
+                            itemCount: HomeCubit.get(context).products.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,

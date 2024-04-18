@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_images.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -84,8 +85,10 @@ class AllTab extends StatelessWidget {
                   itemBuilder: (context, index) => SizedBox(
                     width: 10.w,
                   ),
-                  separatorBuilder: (context, index) => const ProductCard(),
-                  itemCount: 6,
+                  separatorBuilder: (context, index) => ProductCard(
+                    dataEntity: HomeCubit.get(context).products[index],
+                  ),
+                  itemCount: HomeCubit.get(context).products.length,
                 ),
               ),
             ],
@@ -137,9 +140,10 @@ class AllTab extends StatelessWidget {
                         itemBuilder: (context, index) => SizedBox(
                           width: 10.w,
                         ),
-                        separatorBuilder: (context, index) =>
-                            const ProductCard(),
-                        itemCount: 6,
+                        separatorBuilder: (context, index) => ProductCard(
+                          dataEntity: HomeCubit.get(context).products[index],
+                        ),
+                        itemCount: HomeCubit.get(context).products.length,
                       ),
                     )
                   ],
@@ -171,11 +175,12 @@ class AllTab extends StatelessWidget {
                   childAspectRatio: 6.6.h / 10.h,
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.w),
-              itemBuilder: (BuildContext context, int index) =>
-                  const ProductCardWithSeller(),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 8,
+              itemBuilder: (context, index) => ProductCard(
+                dataEntity: HomeCubit.get(context).products[index],
+              ),
+              itemCount: HomeCubit.get(context).products.length,
             ),
           ),
           SizedBox(

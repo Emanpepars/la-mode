@@ -20,7 +20,9 @@ class PaymentAlertDialog extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       content: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.black,
           borderRadius: BorderRadius.all(
             Radius.circular(
               25.sp,

@@ -28,6 +28,18 @@ class SettingsTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
+                highlightColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                splashColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                focusColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                hoverColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
                 onTap: () {
                   showDialog(
                     context: context,
@@ -35,7 +47,10 @@ class SettingsTab extends StatelessWidget {
                       contentPadding: EdgeInsets.zero,
                       content: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.white
+                                  : Colors.black,
                           borderRadius: BorderRadius.all(
                             Radius.circular(
                               25.sp,
@@ -53,17 +68,18 @@ class SettingsTab extends StatelessWidget {
                               value: 'English',
                               groupValue:
                                   HomeCubit.get(context).selectedLanguageOption,
-                              address: (String? newValue) =>
-                                  HomeCubit.get(context)
-                                      .language(newValue: newValue),
+                              function: (String? newValue) =>
+                                  HomeCubit.get(context).language(
+                                      context: context, newValue: newValue),
                             ),
                             SettingsAlertRow(
                               title: 'Arabic',
                               value: 'Arabic',
                               groupValue:
                                   HomeCubit.get(context).selectedLanguageOption,
-                              address: (String? newValue) =>
+                              function: (String? newValue) =>
                                   HomeCubit.get(context).language(
+                                context: context,
                                 newValue: newValue,
                               ),
                             ),
@@ -84,11 +100,74 @@ class SettingsTab extends StatelessWidget {
                 isDes: true,
                 des: 'Personal information'.tr(),
               ),
-              SettingsRow(
-                title: 'Appearance'.tr(),
-                isDes: true,
-                des:
-                    'Dark and light mode, font size, eye comfort settings'.tr(),
+              InkWell(
+                highlightColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                splashColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                focusColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                hoverColor: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white
+                    : Colors.black,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      contentPadding: EdgeInsets.zero,
+                      content: Container(
+                        decoration: BoxDecoration(
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.white
+                                  : Colors.black,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              25.sp,
+                            ),
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SettingsAlertRow(
+                              title: 'Light'.tr(),
+                              value: 'Light',
+                              groupValue:
+                                  HomeCubit.get(context).selectedThemeOption,
+                              function: (String? newValue) =>
+                                  HomeCubit.get(context).theme(
+                                      context: context, newValue: newValue),
+                            ),
+                            SettingsAlertRow(
+                              title: 'Dark'.tr(),
+                              value: 'Dark',
+                              groupValue:
+                                  HomeCubit.get(context).selectedThemeOption,
+                              function: (String? newValue) =>
+                                  HomeCubit.get(context).theme(
+                                context: context,
+                                newValue: newValue,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: SettingsRow(
+                  title: 'Appearance'.tr(),
+                  isDes: true,
+                  des: 'Dark and light mode, font size, eye comfort settings'
+                      .tr(),
+                ),
               ),
               SettingsRow(
                 title: 'Security'.tr(),
