@@ -29,7 +29,7 @@ class CartTab extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => PaymentCubit(),
-        )
+        ),
       ],
       child:
           BlocConsumer<PaymentCubit, PaymentStates>(listener: (context, state) {
@@ -44,131 +44,146 @@ class CartTab extends StatelessWidget {
           );
         }
       }, builder: (context, state) {
-        return BlocConsumer<CartCubit, CartState>(listener: (context, state) {
-          if (state is SuccessReferenceCodePaymentState) {
-            PersistentNavBarNavigator.pushNewScreen(
-              context,
-              screen: CheckoutScreen(
-                cartProducts: CartCubit.get(context).products,
-              ),
-              withNavBar: false,
-              pageTransitionAnimation: PageTransitionAnimation.cupertino,
-            );
-          }
-        }, builder: (context, state) {
-          return Scaffold(
-            appBar: ConstAppBar(
-              title: 'My Bag'.tr(),
-            ),
-            body: CartCubit.get(context).products.isEmpty
-                ? Padding(
-                    padding: EdgeInsets.only(
-                        left: 15.w, right: 15.w, top: 5.h, bottom: 40.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Items(
-                          count: CartCubit.get(context).products.length,
-                        ),
-                        Column(
+        return BlocConsumer<CartCubit, CartState>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              return Scaffold(
+                appBar: ConstAppBar(
+                  title: 'My Bag'.tr(),
+                ),
+                body: CartCubit.get(context).products.isEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(
+                            left: 15.w, right: 15.w, top: 5.h, bottom: 40.h),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              AppImages.order,
-                              width: 200.w,
+                            Items(
+                              count: CartCubit.get(context).products.length,
                             ),
-                            SizedBox(
-                              height: 20.h,
+                            Column(
+                              children: [
+                                Image.asset(
+                                  AppImages.order,
+                                  width: 200.w,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  'No Orders Yet'.tr(),
+                                  style: roboto20(),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                SizedBox(
+                                  width: 300.w,
+                                  child: Text(
+                                    'Looks like you haven\'t any placed any order yet. Go and enjoy shopping.',
+                                    style: roboto16(),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'No Orders Yet'.tr(),
-                              style: roboto20(),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                              width: 300.w,
-                              child: Text(
-                                'Looks like you haven\'t any placed any order yet. Go and enjoy shopping.',
-                                style: roboto16(),
-                                textAlign: TextAlign.center,
-                              ),
+                            MyButton(
+                              text: 'Start Shopping'.tr(),
+                              onPressed: () {
+                                HomeCubit.get(context).controller.index = 0;
+                              },
                             ),
                           ],
                         ),
-                        MyButton(
-                          text: 'Start Shopping'.tr(),
-                          onPressed: () {
-                            HomeCubit.get(context).controller.index = 0;
-                          },
-                        ),
-                      ],
-                    ),
-                  )
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: 15.w, right: 15.w, top: 5.h, bottom: 40.h),
-                      child: Column(
-                        children: [
-                          Items(count: CartCubit.get(context).products.length),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => BagItem(
-                              productItem:
-                                  CartCubit.get(context).products[index],
-                            ),
-                            itemCount: CartCubit.get(context).products.length,
-                            separatorBuilder:
-                                (BuildContext context, int index) => SizedBox(
-                              height: 10.h,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Subtotal: ".tr(),
-                                style: roboto14(weight: FontWeight.w500),
+                      )
+                    : BlocConsumer<CartCubit, CartState>(
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          if (state is GetCartItemLoadingState) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (state is GetCartItemSuccessState) {
+                            return SingleChildScrollView(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 15.w,
+                                    right: 15.w,
+                                    top: 5.h,
+                                    bottom: 40.h),
+                                child: Column(
+                                  children: [
+                                    Items(
+                                        count: CartCubit.get(context)
+                                            .products
+                                            .length),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) => BagItem(
+                                        productItem: CartCubit.get(context)
+                                            .products[index],
+                                      ),
+                                      itemCount: CartCubit.get(context)
+                                          .products
+                                          .length,
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              SizedBox(
+                                        height: 10.h,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Subtotal: ".tr(),
+                                          style:
+                                              roboto14(weight: FontWeight.w500),
+                                        ),
+                                        Text(
+                                          "\$${CartCubit.get(context).totalCartPrice}",
+                                          style: roboto18W500(),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    MyButton(
+                                      text: 'Checkout'.tr(),
+                                      onPressed: () {
+                                        PaymentCubit.get(context).getAuthToken(
+                                          "eman@gmail.com",
+                                          "01120744802",
+                                          "eman",
+                                          "ashraf",
+                                          "${CartCubit.get(context).totalCartPrice}",
+                                        );
+                                      },
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text(
-                                "\$${CartCubit.get(context).totalCartPrice}",
-                                style: roboto18W500(),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          MyButton(
-                            text: 'Checkout'.tr(),
-                            onPressed: () {
-                              PaymentCubit.get(context).getAuthToken(
-                                "eman@gmail.com",
-                                "01120744802",
-                                "eman",
-                                "ashraf",
-                                "${CartCubit.get(context).totalCartPrice}",
-                              );
-                            },
-                          )
-                        ],
+                            );
+                          } else {
+                            return const SizedBox();
+                          }
+                        },
                       ),
-                    ),
-                  ),
-            drawer: MyDrawer(
-              userName: userEntity.name,
-              userEmail: userEntity.email,
-            ),
-          );
-        });
+                drawer: MyDrawer(
+                  userName: userEntity.name,
+                  userEmail: userEntity.email,
+                ),
+              );
+            });
       }),
     );
   }

@@ -25,3 +25,23 @@ class GetCartItemErrorState extends CartState {
 
   GetCartItemErrorState(this.failures);
 }
+
+class AddCartItemLoadingState extends CartState {}
+
+class AddCartItemSuccessState extends CartState {}
+
+class AddCartItemErrorState extends CartState {
+  Failures failures;
+
+  AddCartItemErrorState(this.failures);
+}
+
+class RemoveCartItemLoadingState extends CartState {}
+
+class RemoveCartItemSuccessState extends CartState {}
+
+class RemoveCartItemErrorState extends CartState {
+  Failures failures;
+
+  RemoveCartItemErrorState(this.failures);
+}

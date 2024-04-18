@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
 import '../../../../../../../../core/utils/app_icons.dart';
 import '../../domain/entities/cart_entity.dart';
 
@@ -122,6 +123,10 @@ class BagItem extends StatelessWidget {
                           ],
                         ),
                         GestureDetector(
+                          onTap: () {
+                            CartCubit.get(context)
+                                .removeItemFromCart(productItem.id!);
+                          },
                           child: const Icon(
                             Icons.close,
                           ),
