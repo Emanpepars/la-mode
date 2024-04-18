@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_components.dart';
@@ -27,8 +28,8 @@ class TrackOrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWithBag(
-        appBarTitle: "Track Order",
+      appBar: AppBarWithBag(
+        appBarTitle: "Track Order".tr(),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -101,7 +102,7 @@ class TrackOrderScreen extends StatelessWidget {
                       width: 10.w,
                     ),
                     Text(
-                      'Order is placed',
+                      'Order is placed'.tr(),
                       style: roboto16W500(),
                     )
                   ],
@@ -155,7 +156,7 @@ class TrackOrderScreen extends StatelessWidget {
                       width: 10.w,
                     ),
                     Text(
-                      'Order is Shipped',
+                      'Order is Shipped'.tr(),
                       style: roboto16W500(),
                     )
                   ],
@@ -179,7 +180,7 @@ class TrackOrderScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.h),
                       child: Text(
-                        'Captain is picking your order',
+                        'Captain is picking your order'.tr(),
                         style: roboto14(
                           color: AppColors.silverDark,
                           weight: FontWeight.w400,
@@ -204,7 +205,7 @@ class TrackOrderScreen extends StatelessWidget {
                       width: 10.w,
                     ),
                     Text(
-                      'Order is picked up',
+                      'Order is picked up'.tr(),
                       style: roboto16W500(),
                     )
                   ],
@@ -224,7 +225,7 @@ class TrackOrderScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.h),
                       child: Text(
-                        "Captain is on his way",
+                        "Captain is on his way".tr(),
                         style: roboto14(
                           color: AppColors.silverDark,
                           weight: FontWeight.w400,

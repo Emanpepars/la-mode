@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,7 @@ class SortSellersDialog extends StatelessWidget {
                 isChecked: SellersCubit.get(context)
                     .selectedFilterOptions
                     .contains('best_match'),
-                title: 'Best Match',
+                title: 'Best Match'.tr(),
                 onTap: () {
                   SellersCubit.get(context)
                       .onMultiSelectFilterAlert('best_match');
@@ -44,7 +45,7 @@ class SortSellersDialog extends StatelessWidget {
                 isChecked: SellersCubit.get(context)
                     .selectedFilterOptions
                     .contains('rating'),
-                title: "Rating",
+                title: "Rating".tr(),
               ),
               SizedBox(
                 height: 10.h,
@@ -57,21 +58,21 @@ class SortSellersDialog extends StatelessWidget {
                 isChecked: SellersCubit.get(context)
                     .selectedFilterOptions
                     .contains('most_popular'),
-                title: 'Most Popular',
+                title: 'Most Popular'.tr(),
               ),
               SizedBox(
                 height: 10.h,
               ),
               SortOptionTile(
-                title: 'Seller Location',
+                title: 'Seller Location'.tr(),
                 list: SellersCubit.get(context).location,
               ),
               SortOptionTile(
-                title: 'Working Hours',
+                title: 'Working Hours'.tr(),
                 list: SellersCubit.get(context).location,
               ),
               SortOptionTile(
-                title: 'Brand',
+                title: 'Brand'.tr(),
                 list: SellersCubit.get(context).brands,
               ),
               Container(
@@ -84,7 +85,7 @@ class SortSellersDialog extends StatelessWidget {
                       child: MyButton(
                           textColor: AppColors.lightColor,
                           color: Colors.white,
-                          text: 'Reset All',
+                          text: 'Reset All'.tr(),
                           onPressed: () {
                             SellersCubit.get(context).resetAllCheck();
                             Navigator.pop(context);
@@ -96,7 +97,7 @@ class SortSellersDialog extends StatelessWidget {
                     Expanded(
                       flex: 7,
                       child: MyButton(
-                          text: 'Apply',
+                          text: 'Apply'.tr(),
                           onPressed: () {
                             Navigator.pop(context);
                           }),

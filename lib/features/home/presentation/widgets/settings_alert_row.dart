@@ -1,17 +1,17 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:la_mode/main_cubit/main_cubit.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/text_styles.dart';
 
-class AddressRow extends StatelessWidget {
+class SettingsAlertRow extends StatelessWidget {
   final String title;
   final String value;
   final String groupValue;
   final Function(String? newValue) address;
 
-  const AddressRow({
+  const SettingsAlertRow({
     super.key,
     required this.title,
     required this.value,
@@ -25,29 +25,16 @@ class AddressRow extends StatelessWidget {
       highlightColor: Colors.white,
       splashColor: Colors.white,
       onTap: () {
+        MainCubit.get(context).toggleLanguage(context, value);
         address(title);
         Navigator.pop(context);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Icon(
-                title == "HomeOrder".tr()
-                    ? Icons.home_outlined
-                    : title == "Work".tr()
-                        ? Icons.shopping_bag_outlined
-                        : Icons.other_houses_outlined,
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Text(
-                title,
-                style: roboto16W500(),
-              ),
-            ],
+          Text(
+            title,
+            style: roboto16W500(),
           ),
           SizedBox(
             width: 22.w,

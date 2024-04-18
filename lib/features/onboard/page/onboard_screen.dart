@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/config/routes.dart';
@@ -90,7 +91,7 @@ class OnBoardScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 25.w),
             child: onboardProvider.currentPageIndex == 0
                 ? MyButton(
-                    text: "Next",
+                    text: "Next".tr(),
                     onPressed: () {
                       onboardProvider.onNextButton();
                       pageController.animateToPage(
@@ -105,7 +106,7 @@ class OnBoardScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyButton(
-                              text: "back",
+                              text: "back".tr(),
                               color: Colors.white,
                               textColor: AppColors.lightColor,
                               onPressed: () {
@@ -122,7 +123,7 @@ class OnBoardScreen extends StatelessWidget {
                           ),
                           Expanded(
                             child: MyButton(
-                              text: "Start",
+                              text: "Start".tr(),
                               onPressed: () {
                                 Navigator.pushNamed(context, Routes.register);
                               },
@@ -134,7 +135,7 @@ class OnBoardScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: MyButton(
-                              text: "back",
+                              text: "back".tr(),
                               color: Colors.white,
                               textColor: AppColors.lightColor,
                               onPressed: () {
@@ -151,7 +152,7 @@ class OnBoardScreen extends StatelessWidget {
                           ),
                           Expanded(
                             child: MyButton(
-                              text: "Next",
+                              text: "Next".tr(),
                               onPressed: () {
                                 onboardProvider.onNextButton();
                                 pageController.animateToPage(

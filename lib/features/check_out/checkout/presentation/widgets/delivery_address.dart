@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +34,7 @@ class DeliveryAddress extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Delivery Address",
+                "Delivery Address".tr(),
                 style: roboto18W500(),
               ),
               Column(
@@ -89,7 +90,7 @@ class DeliveryAddress extends StatelessWidget {
                     );
                   },
                   child: Text(
-                    "Add new address",
+                    "Add new address".tr(),
                     textAlign: TextAlign.end,
                     style: roboto14()
                         .copyWith(decoration: TextDecoration.underline),

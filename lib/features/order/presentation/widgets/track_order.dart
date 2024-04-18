@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -136,7 +137,7 @@ class TrackOrder extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Discount",
+                              "Discount".tr(),
                               style: roboto16W500(
                                 color: AppColors.silverDark,
                               ),
@@ -158,7 +159,7 @@ class TrackOrder extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Delivery",
+                    "Delivery".tr(),
                     style: roboto16W500(
                       color: AppColors.silverDark,
                     ),
@@ -184,7 +185,7 @@ class TrackOrder extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total",
+                    "Total".tr(),
                     style: roboto16W500(
                       color: AppColors.lightColor,
                     ),
@@ -200,7 +201,7 @@ class TrackOrder extends StatelessWidget {
               ),
               order.state == "Shipping" || order.state == "Pending"
                   ? MyButton(
-                      text: 'Track Order',
+                      text: 'Track Order'.tr(),
                       onPressed: () {
                         Navigator.pushNamed(
                           context,
@@ -226,7 +227,7 @@ class TrackOrder extends StatelessWidget {
                               width: 10,
                             ),
                             Text(
-                              "Repeat order",
+                              "Repeat order".tr(),
                               style: roboto14(color: AppColors.silverDark)
                                   .copyWith(
                                       decoration: TextDecoration.underline),

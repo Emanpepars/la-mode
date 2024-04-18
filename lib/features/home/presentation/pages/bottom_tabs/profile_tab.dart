@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +27,8 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ConstAppBar(
-        title: 'Profile',
+      appBar: ConstAppBar(
+        title: 'Profile'.tr(),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -114,25 +115,25 @@ class ProfileTab extends StatelessWidget {
                     pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );
                 },
-                title: 'My orders',
+                title: 'My orders'.tr(),
                 count: 10,
                 rowIcon: const Icon(
                   Icons.mail_outline,
                   color: AppColors.lightColor,
                 ),
               ),
-              const ProfileRow(
-                title: 'Inbox',
+              ProfileRow(
+                title: 'Inbox'.tr(),
                 count: 0,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.mail_outline,
                   color: AppColors.lightColor,
                 ),
               ),
-              const ProfileRow(
-                title: 'Promocode / Vouchers',
+              ProfileRow(
+                title: 'Promocode / Vouchers'.tr(),
                 count: 0,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.mail_outline,
                   color: AppColors.lightColor,
                 ),
@@ -158,7 +159,7 @@ class ProfileTab extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "Payment method",
+                                "Payment method".tr(),
                                 style: roboto16W500(),
                               ),
                               SizedBox(height: 2.h),
@@ -196,7 +197,7 @@ class ProfileTab extends StatelessWidget {
                                   highlightColor: Colors.white,
                                   onTap: () {},
                                   child: Text(
-                                    "Add new card",
+                                    "Add new card".tr(),
                                     textAlign: TextAlign.end,
                                     style: roboto14().copyWith(
                                         decoration: TextDecoration.underline),
@@ -210,7 +211,7 @@ class ProfileTab extends StatelessWidget {
                     ),
                   );
                 },
-                title: 'Payment methods',
+                title: 'Payment methods'.tr(),
                 count: 0,
                 rowIcon: const Icon(
                   Icons.payment,
@@ -223,25 +224,25 @@ class ProfileTab extends StatelessWidget {
                       context: context,
                       builder: (context) => const DeliveryAddress());
                 },
-                title: 'Delivery address',
+                title: 'Delivery address'.tr(),
                 count: 0,
                 rowIcon: const Icon(
                   Icons.location_on_outlined,
                   color: AppColors.lightColor,
                 ),
               ),
-              const ProfileRow(
-                title: 'Following sellers',
+              ProfileRow(
+                title: 'Following sellers'.tr(),
                 count: 0,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.people_alt_outlined,
                   color: AppColors.lightColor,
                 ),
               ),
-              const ProfileRow(
-                title: 'Recently viewed',
+              ProfileRow(
+                title: 'Recently viewed'.tr(),
                 count: 0,
-                rowIcon: Icon(
+                rowIcon: const Icon(
                   Icons.access_time_rounded,
                   color: AppColors.lightColor,
                 ),
@@ -272,7 +273,7 @@ class ProfileTab extends StatelessWidget {
                       width: 10.w,
                     ),
                     Text(
-                      'Logout',
+                      'Logout'.tr(),
                       style: roboto16().copyWith(
                         fontWeight: FontWeight.w600,
                         color: AppColors.gold,

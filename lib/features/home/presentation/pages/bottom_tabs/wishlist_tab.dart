@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,8 +19,8 @@ class FavTab extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
-        appBar: const ConstAppBar(
-          title: 'Wishlist',
+        appBar: ConstAppBar(
+          title: 'Wishlist'.tr(),
         ),
         body: Padding(
           padding:
@@ -38,7 +39,7 @@ class FavTab extends StatelessWidget {
                     height: 20.h,
                   ),
                   Text(
-                    'Your Wishlist Is Empty',
+                    'Your Wishlist Is Empty'.tr(),
                     style: roboto20(),
                   ),
                   SizedBox(
@@ -47,7 +48,8 @@ class FavTab extends StatelessWidget {
                   SizedBox(
                     width: 300.w,
                     child: Text(
-                      'Looks like you don\'t have any favourite items yet.',
+                      "Looks like you do not have any favourite items yet."
+                          .tr(),
                       style: roboto16(),
                       textAlign: TextAlign.center,
                     ),
@@ -55,7 +57,7 @@ class FavTab extends StatelessWidget {
                 ],
               ),
               MyButton(
-                text: 'Start Shopping',
+                text: 'Start Shopping'.tr(),
                 onPressed: () {
                   HomeCubit.get(context).controller.index = 0;
                 },

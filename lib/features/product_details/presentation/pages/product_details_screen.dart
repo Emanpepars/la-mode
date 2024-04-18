@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -24,8 +25,8 @@ class ProductDetailsScreen extends StatelessWidget {
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
-          appBar: const AppBarWithBag(
-            appBarTitle: "Product Details",
+          appBar: AppBarWithBag(
+            appBarTitle: "Product Details".tr(),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -169,7 +170,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         height: 10.h,
                       ),
                       Text(
-                        "Available in stock",
+                        "Available in stock".tr(),
                         style: roboto16(
                           color: AppColors.lightColor,
                         ),
@@ -244,14 +245,14 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       ///---Description---///
-                      const CategoryName(title: "Description"),
+                      CategoryName(title: "Description".tr()),
                       ReadMoreText(
                         ProductDetailsCubit.get(context).sales[0]
                             ["description"]!,
                         trimLines: 3,
                         trimMode: TrimMode.Line,
-                        trimCollapsedText: 'Read more',
-                        trimExpandedText: 'Read less',
+                        trimCollapsedText: 'Read more'.tr(),
+                        trimExpandedText: 'Read less'.tr(),
                         moreStyle: roboto14(
                           color: AppColors.lightColor,
                         ),
@@ -272,9 +273,9 @@ class ProductDetailsScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const CategoryName(title: "Available sizes"),
+                              CategoryName(title: "Available sizes".tr()),
                               Text(
-                                "Size guide",
+                                "Size guide".tr(),
                                 style: roboto14(
                                   weight: FontWeight.w500,
                                   color: AppColors.silverDark,
@@ -324,7 +325,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       ///---Colors---///
-                      const CategoryName(title: "Colors"),
+                      CategoryName(title: "Colors".tr()),
                       SizedBox(
                         height: 50.h,
                         child: ListView.separated(
@@ -359,9 +360,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CategoryName(title: "Rating and reviews"),
+                          CategoryName(title: "Rating and reviews".tr()),
                           ViewButton(
-                            title: "reviews",
+                            title: "reviews".tr(),
                             onTap: () {
                               Navigator.pushNamed(context, Routes.review);
                             },
@@ -410,37 +411,37 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 4 / 5,
-                            text: 'Excellent',
+                            text: 'Excellent'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 3 / 5,
-                            text: 'Good',
+                            text: 'Good'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 2 / 5,
-                            text: 'Average',
+                            text: 'Average'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 1 / 5,
-                            text: 'Below Average',
+                            text: 'Below Average'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 0 / 5,
-                            text: 'Poor',
+                            text: 'Poor'.tr(),
                           ),
                           SizedBox(
                             height: 15.h,
@@ -453,11 +454,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CategoryName(title: "Match with this"),
-                                ViewALl(),
+                                CategoryName(title: "Match with this".tr()),
+                                const ViewALl(),
                               ],
                             ),
                           ),
@@ -491,11 +492,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CategoryName(title: "Recently viewed"),
-                                ViewALl(),
+                                CategoryName(title: "Recently viewed".tr()),
+                                const ViewALl(),
                               ],
                             ),
                           ),
@@ -547,8 +548,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: SizedBox(
                       height: 50.h,
-                      child: const MyButton(
-                        text: "Add To Bag",
+                      child: MyButton(
+                        text: "Add To Bag".tr(),
                         textColor: AppColors.lightColor,
                         color: Colors.white,
                       ),
@@ -560,8 +561,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: SizedBox(
                       height: 50.h,
-                      child: const MyButton(
-                        text: "Buy Now",
+                      child: MyButton(
+                        text: "Buy Now".tr(),
                       ),
                     ),
                   ),
@@ -569,7 +570,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          drawer: MyDrawer(
+          drawer: const MyDrawer(
             userName: '',
             userEmail: '',
           ),

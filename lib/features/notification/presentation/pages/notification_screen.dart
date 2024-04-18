@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,7 +17,7 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Notification',
+          'Notification'.tr(),
           style: roboto20(
             weight: FontWeight.w600,
           ),
@@ -57,7 +58,7 @@ class NotificationScreen extends StatelessWidget {
                     height: 20.h,
                   ),
                   Text(
-                    'Your Notification Is Empty',
+                    'Your Notification Is Empty'.tr(),
                     style: roboto20(),
                   ),
                   SizedBox(

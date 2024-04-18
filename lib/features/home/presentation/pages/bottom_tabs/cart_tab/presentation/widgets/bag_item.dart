@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_colors.dart';
@@ -99,7 +100,7 @@ class BagItem extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        'Size: ',
+                                        'Size: '.tr(),
                                         style: roboto12W400().copyWith(
                                           color: AppColors.silverDark,
                                         ),
@@ -114,7 +115,7 @@ class BagItem extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        'Color: ',
+                                        'Color: '.tr(),
                                         style: roboto12W400().copyWith(
                                           color: AppColors.silverDark,
                                         ),

@@ -17,10 +17,6 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(UserEntityAdapter());
   var userBox = await Hive.openBox(AppConstants.kUSerBox);
-  if (userBox.isNotEmpty) {
-    print(userBox.getAt(0));
-  } // var user = CacheHelper.getData("User");
-
   String route;
   if (userBox.isEmpty || userBox.getAt(0) == null) {
     route = Routes.onboard;
@@ -42,7 +38,7 @@ void main() async {
       ),
 
       child: MyApp(route: route),
-     // child: MyApp(),
+      // child: MyApp(),
     ),
   );
 }

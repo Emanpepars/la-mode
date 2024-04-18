@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'Success',
+                  'Success'.tr(),
                   style: roboto16(
                     color: Colors.white,
                   ),
@@ -63,7 +64,7 @@ class RegisterScreen extends StatelessWidget {
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
             title: Text(
-              'Sign Up',
+              'Sign Up'.tr(),
               style: roboto20(
                 weight: FontWeight.w700,
               ),
@@ -86,7 +87,7 @@ class RegisterScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          'Username',
+                          'Username'.tr(),
                           style: robotoTitleField(),
                         ),
                         SizedBox(
@@ -97,7 +98,7 @@ class RegisterScreen extends StatelessWidget {
                               RegisterCubit.get(context).validateName(value),
                           controller:
                               RegisterCubit.get(context).usernameController,
-                          hintText: 'Enter your username',
+                          hintText: 'Enter your username'.tr(),
                           prefixIcon: const Icon(
                             Icons.person_outline,
                             color: AppColors.silverDark,
@@ -107,7 +108,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 15.h,
                         ),
                         Text(
-                          'Email',
+                          'Email'.tr(),
                           style: robotoTitleField(),
                         ),
                         SizedBox(
@@ -118,7 +119,7 @@ class RegisterScreen extends StatelessWidget {
                               RegisterCubit.get(context).validateEmail(value),
                           controller:
                               RegisterCubit.get(context).emailController,
-                          hintText: 'Enter your email',
+                          hintText: 'Enter your Email'.tr(),
                           prefixIcon: const Icon(
                             Icons.email_outlined,
                             color: AppColors.silverDark,
@@ -128,7 +129,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 15.h,
                         ),
                         Text(
-                          'Password',
+                          'Password'.tr(),
                           style: robotoTitleField(),
                         ),
                         SizedBox(
@@ -139,7 +140,7 @@ class RegisterScreen extends StatelessWidget {
                               .validatePassword(value),
                           controller:
                               RegisterCubit.get(context).passwordController,
-                          hintText: 'Enter your password',
+                          hintText: 'Enter your password'.tr(),
                           prefixIcon: const Icon(
                             Icons.lock_outline,
                             color: AppColors.silverDark,
@@ -166,7 +167,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 15.h,
                         ),
                         Text(
-                          'Confirm password',
+                          'Confirm password'.tr(),
                           style: robotoTitleField(),
                         ),
                         SizedBox(
@@ -177,7 +178,7 @@ class RegisterScreen extends StatelessWidget {
                               .validatePassword(value),
                           controller: RegisterCubit.get(context)
                               .confirmPasswordController,
-                          hintText: 'Enter your password',
+                          hintText: 'Enter your password'.tr(),
                           prefixIcon: const Icon(
                             Icons.lock_outline,
                             color: AppColors.silverDark,
@@ -194,12 +195,12 @@ class RegisterScreen extends StatelessWidget {
                           height: 25.h,
                         ),
                         MyButton(
-                          text: "Sign Up",
+                          text: "Sign Up".tr(),
                           onPressed: () {
                             RegisterCubit.get(context).signUpOnPressed(
                               context,
                               Text(
-                                'Processing Data',
+                                'Processing Data'.tr(),
                                 style: roboto16(
                                   color: Colors.white,
                                 ),
@@ -222,7 +223,7 @@ class RegisterScreen extends StatelessWidget {
                                 horizontal: 25.w,
                               ),
                               child: Text(
-                                "Or",
+                                "Or".tr(),
                                 style: roboto16(),
                               ),
                             ),
@@ -265,7 +266,7 @@ class RegisterScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Already have account? '),
+                          Text('Already have account? '.tr()),
                           InkWell(
                             onTap: () {
                               Navigator.pushNamed(
@@ -274,7 +275,7 @@ class RegisterScreen extends StatelessWidget {
                               );
                             },
                             child: Text(
-                              'Sign in',
+                              'Sign in'.tr(),
                               style: roboto14(
                                 color: AppColors.lightColor,
                                 weight: FontWeight.w600,

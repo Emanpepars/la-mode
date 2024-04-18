@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,7 +34,7 @@ class OrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "My Order",
+                "My Order".tr(),
                 style: roboto16W500(),
               ),
               Text(
@@ -86,7 +87,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Discount",
+                    "Discount".tr(),
                     style: roboto16W500(
                       color: AppColors.silverDark,
                     ),
@@ -106,7 +107,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Delivery",
+                    "Delivery".tr(),
                     style: roboto16W500(
                       color: AppColors.silverDark,
                     ),
@@ -130,7 +131,7 @@ class OrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Total",
+                "Total".tr(),
                 style: roboto16W500(
                   color: AppColors.lightColor,
                 ),

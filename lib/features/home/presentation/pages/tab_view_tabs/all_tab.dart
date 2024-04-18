@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_images.dart';
@@ -92,11 +93,11 @@ class AllTab extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryName(title: "Most popular"),
-                    ViewALl(),
+                    CategoryName(title: "Most popular".tr()),
+                    const ViewALl(),
                   ],
                 ),
               ),
@@ -116,9 +117,9 @@ class AllTab extends StatelessWidget {
           SizedBox(
             height: 10.h,
           ),
-          const ShopBy(shopBy: "Shop by Brand"),
+          ShopBy(shopBy: "Shop by Brand".tr()),
           ShopBy(
-            shopBy: "Shop by Seller",
+            shopBy: "Shop by Seller".tr(),
             onPressed: () {
               PersistentNavBarNavigator.pushNewScreen(
                 context,
@@ -128,7 +129,7 @@ class AllTab extends StatelessWidget {
               );
             },
           ),
-          const ShopBy(shopBy: "New Collection"),
+          ShopBy(shopBy: "New Collection".tr()),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             child: Container(
@@ -145,7 +146,7 @@ class AllTab extends StatelessWidget {
               ),
               child: Center(
                   child: Text(
-                "Find Matching Dresses",
+                "Find Matching Dresses".tr(),
                 style: roboto20(color: Colors.white),
               )),
             ),
@@ -157,11 +158,11 @@ class AllTab extends StatelessWidget {
                   horizontal: 10.w,
                   vertical: 10.h,
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryName(title: 'Recommended for you'),
-                    ViewALl(),
+                    CategoryName(title: 'Recommended for you'.tr()),
+                    const ViewALl(),
                   ],
                 ),
               ),
@@ -189,11 +190,11 @@ class AllTab extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryName(title: "Recently viewed"),
-                    ViewALl(),
+                    CategoryName(title: "Recently viewed".tr()),
+                    const ViewALl(),
                   ],
                 ),
               ),
@@ -222,7 +223,7 @@ class AllTab extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CategoryName(title: 'Collections'),
+                CategoryName(title: 'Collections'.tr()),
                 SizedBox(
                   height: 10.h,
                 ),

@@ -188,4 +188,13 @@ class HomeCubit extends Cubit<HomeState> {
     );
     emit(HomeOnPageChangedState());
   }
+
+  ///--- settings ---///
+
+  String selectedLanguageOption = 'English';
+
+  void language({String? newValue}) {
+    selectedLanguageOption = newValue.toString();
+    emit(HomeSelectLanguageState());
+  }
 }

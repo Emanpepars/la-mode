@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,8 +50,8 @@ class CartTab extends StatelessWidget {
           }
         },
         builder: (context, state) => Scaffold(
-          appBar: const ConstAppBar(
-            title: 'My Bag',
+          appBar: ConstAppBar(
+            title: 'My Bag'.tr(),
           ),
           body: CartCubit.get(context).items.isEmpty
               ? Padding(
@@ -70,7 +71,7 @@ class CartTab extends StatelessWidget {
                             height: 20.h,
                           ),
                           Text(
-                            'No Orders Yet',
+                            'No Orders Yet'.tr(),
                             style: roboto20(),
                           ),
                           SizedBox(
@@ -87,7 +88,7 @@ class CartTab extends StatelessWidget {
                         ],
                       ),
                       MyButton(
-                        text: 'Start Shopping',
+                        text: 'Start Shopping'.tr(),
                         onPressed: () {
                           HomeCubit.get(context).controller.index = 0;
                         },
@@ -124,7 +125,7 @@ class CartTab extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "Subtotal: ",
+                              "Subtotal: ".tr(),
                               style: roboto14(weight: FontWeight.w500),
                             ),
                             Text(
@@ -137,7 +138,7 @@ class CartTab extends StatelessWidget {
                           height: 15.h,
                         ),
                         MyButton(
-                          text: 'Checkout',
+                          text: 'Checkout'.tr(),
                           onPressed: () {
                             PaymentCubit.get(context).getAuthToken(
                                 "eman@gmail.com",

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,7 +37,7 @@ class PaymentAlertDialog extends StatelessWidget {
               width: 80.w,
             ),
             Text(
-              "Order Placed!",
+              "Order Placed!".tr(),
               style: roboto16W500(),
               textAlign: TextAlign.center,
             ),
@@ -52,7 +53,7 @@ class PaymentAlertDialog extends StatelessWidget {
               height: 20.h,
             ),
             MyButton(
-              text: 'Track Your Order',
+              text: 'Track Your Order'.tr(),
               onPressed: () {},
             ),
             SizedBox(
@@ -61,7 +62,7 @@ class PaymentAlertDialog extends StatelessWidget {
             MyButton(
               color: Colors.white,
               textColor: AppColors.lightColor,
-              text: 'Back To Home',
+              text: 'Back To Home'.tr(),
               onPressed: () {
                 Navigator.pushReplacementNamed(
                   context,

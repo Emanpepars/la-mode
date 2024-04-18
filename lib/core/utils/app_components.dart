@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -118,7 +119,7 @@ class FirstPart extends StatelessWidget {
                                   decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.symmetric(vertical: 7.h),
-                                    hintText: "Search",
+                                    hintText: "Search".tr(),
                                     hintStyle: roboto16().copyWith(
                                       color: AppColors.silverDark,
                                     ),
@@ -165,7 +166,7 @@ class FirstPart extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10.w),
-                                child: const Text("FOR YOU"),
+                                child:  Text("FOR YOU".tr()),
                               ),
                             ),
                             SizedBox(
@@ -196,19 +197,19 @@ class FirstPart extends StatelessWidget {
                                   isScrollable: true,
                                   tabs: [
                                     TabLabel(
-                                      text: 'All',
+                                      text: 'All'.tr(),
                                       isSelected: currentTabIndex == 0,
                                     ),
                                     TabLabel(
-                                      text: 'Women',
+                                      text: 'Women'.tr(),
                                       isSelected: currentTabIndex == 1,
                                     ),
                                     TabLabel(
-                                      text: 'Men',
+                                      text: 'Men'.tr(),
                                       isSelected: currentTabIndex == 2,
                                     ),
                                     TabLabel(
-                                      text: 'Kids',
+                                      text: 'Kids'.tr(),
                                       isSelected: currentTabIndex == 3,
                                     ),
                                   ],
@@ -477,7 +478,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            MyYellowButton(text: "Add To Cart", onPressed: () {}),
+            MyYellowButton(text: "Add To Cart".tr(), onPressed: () {}),
           ],
         ),
       ),
@@ -594,7 +595,7 @@ class ProductCardWithSeller extends StatelessWidget {
                 ],
               ),
             ),
-            MyYellowButton(text: "Add To Cart", onPressed: () {}),
+            MyYellowButton(text: "Add To Cart".tr(), onPressed: () {}),
           ],
         ),
       ),
@@ -776,7 +777,7 @@ class ViewALl extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Text(
-        "View All",
+        "View All".tr(),
         style: roboto14(
           weight: FontWeight.w500,
           color: AppColors.gold,
@@ -801,16 +802,31 @@ class ViewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Text(
-        "View $title",
-        style: roboto14(
-          weight: FontWeight.w500,
-          color: AppColors.silverDark,
-        ).copyWith(
-          decoration: TextDecoration.underline,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+      child: Row(
+        children: [
+          Text(
+            "View $title",
+            style: roboto14(
+              weight: FontWeight.w500,
+              color: AppColors.silverDark,
+            ).copyWith(
+              decoration: TextDecoration.underline,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            "View $title",
+            style: roboto14(
+              weight: FontWeight.w500,
+              color: AppColors.silverDark,
+            ).copyWith(
+              decoration: TextDecoration.underline,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
@@ -915,7 +931,7 @@ class DoneAlertDialog extends StatelessWidget {
               height: 6.h,
             ),
             Text(
-              "Verified!",
+              "Verified!".tr(),
               style: roboto20(),
               textAlign: TextAlign.center,
             ),
@@ -931,7 +947,7 @@ class DoneAlertDialog extends StatelessWidget {
               height: 15.h,
             ),
             MyButton(
-              text: 'Reset Password',
+              text: 'Reset Password'.tr(),
               onPressed: onPressed,
             ),
           ],
@@ -1066,7 +1082,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.home_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Home',
+                  title: 'Home'.tr(),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -1076,7 +1092,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.favorite_border,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Wishlist',
+                  title: 'Wishlist'.tr(),
                   onTap: () {
                     HomeCubit.get(context).controller.index = 2;
                     Navigator.pop(context);
@@ -1099,7 +1115,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.notifications_none_sharp,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Notifications',
+                  title: 'Notifications'.tr(),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -1109,7 +1125,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.location_on_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Delivery address',
+                  title: 'Delivery address'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1122,7 +1138,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.payment_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Payment methods',
+                  title: 'Payment methods'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1135,7 +1151,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.insert_drive_file_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'About us',
+                  title: 'About us'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1148,7 +1164,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.email_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Contact us',
+                  title: 'Contact us'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1161,7 +1177,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.info_outline,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Help & FAG',
+                  title: 'Help & FAG'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1176,7 +1192,7 @@ class MyDrawer extends StatelessWidget {
                 Icons.logout,
                 color: AppColors.silverDark,
               ),
-              title: 'Logout',
+              title: 'Logout'.tr(),
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                   context,

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +31,7 @@ class FilterScreen extends StatelessWidget {
                   SliverAppBar(
                     backgroundColor: Colors.white,
                     title: Text(
-                      'Filter',
+                      'Filter'.tr(),
                       style: roboto20(
                         weight: FontWeight.w700,
                       ),
@@ -60,18 +61,18 @@ class FilterScreen extends StatelessWidget {
                         color: Colors.transparent,
                       ),
                       isScrollable: true,
-                      tabs: const [
+                      tabs: [
                         Tab(
-                          child: Text('All'),
+                          child: Text('All'.tr()),
                         ),
                         Tab(
-                          child: Text('Sale'),
+                          child: Text('Sale'.tr()),
                         ),
                         Tab(
-                          child: Text('Top'),
+                          child: Text('Top'.tr()),
                         ),
                         Tab(
-                          child: Text('New'),
+                          child: Text('New'.tr()),
                         ),
                       ],
                     ),
@@ -109,7 +110,7 @@ class FilterScreen extends StatelessWidget {
                             FilterCubit.get(context).resetAllCheck();
                             Navigator.pop(context);
                           },
-                          text: "Reset All",
+                          text: "Reset All".tr(),
                           textColor: AppColors.lightColor,
                           color: Colors.white,
                         ),
@@ -125,7 +126,7 @@ class FilterScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          text: "Apply",
+                          text: "Apply".tr(),
                         ),
                       ),
                     ),

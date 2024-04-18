@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -23,8 +24,8 @@ class SellerDetailsScreen extends StatelessWidget {
       child: BlocConsumer<SellerDetailsCubit, SellerDetailsStates>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
-          appBar: const AppBarWithBag(
-            appBarTitle: "Seller Details",
+          appBar: AppBarWithBag(
+            appBarTitle: "Seller Details".tr(),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -133,9 +134,9 @@ class SellerDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CategoryName(title: "Rating and reviews"),
+                          CategoryName(title: "Rating and reviews".tr()),
                           ViewButton(
-                            title: "reviews",
+                            title: "reviews".tr(),
                             onTap: () {
                               Navigator.pushNamed(context, Routes.review);
                             },
@@ -184,37 +185,37 @@ class SellerDetailsScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 4 / 5,
-                            text: 'Excellent',
+                            text: 'Excellent'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 3 / 5,
-                            text: 'Good',
+                            text: 'Good'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 2 / 5,
-                            text: 'Average',
+                            text: 'Average'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 1 / 5,
-                            text: 'Below Average',
+                            text: 'Below Average'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 0 / 5,
-                            text: 'Poor',
+                            text: 'Poor'.tr(),
                           ),
                           SizedBox(
                             height: 15.h,
@@ -226,11 +227,11 @@ class SellerDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CategoryName(title: "Working hours"),
+                          CategoryName(title: "Working hours".tr()),
 
                           ///--- Closed ---///
                           Text(
-                            "Currently closed",
+                            "Currently closed".tr(),
                             style: roboto14(
                               weight: FontWeight.w600,
                               color: AppColors.red,
@@ -271,7 +272,7 @@ class SellerDetailsScreen extends StatelessWidget {
                             style: roboto14(),
                           ),
                           Text(
-                            "Closed",
+                            "Closed".tr(),
                             style: roboto14(
                               color: AppColors.silverDark,
                             ),
@@ -284,7 +285,7 @@ class SellerDetailsScreen extends StatelessWidget {
                       SizedBox(
                         height: 15.h,
                       ),
-                      const CategoryName(title: 'Brands'),
+                      CategoryName(title: 'Brands'.tr()),
                       SizedBox(
                         height: 5.h,
                       ),
@@ -314,8 +315,8 @@ class SellerDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                               padding: EdgeInsets.only(bottom: 8.h),
-                              child: const CategoryName(
-                                title: "Products",
+                              child: CategoryName(
+                                title: "Products".tr(),
                               )),
                           GridView.builder(
                             shrinkWrap: true,
@@ -339,8 +340,10 @@ class SellerDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          drawer: MyDrawer(userName: '', userEmail: '',),
-
+          drawer: const MyDrawer(
+            userName: '',
+            userEmail: '',
+          ),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,7 +45,7 @@ class CheckoutScreen extends StatelessWidget {
                     height: 25.h,
                   ),
                   MyButton(
-                    text: 'Done',
+                    text: 'Done'.tr(),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -55,7 +56,7 @@ class CheckoutScreen extends StatelessWidget {
                   MyButton(
                     color: Colors.white,
                     textColor: AppColors.lightColor,
-                    text: 'Change Method',
+                    text: 'Change Method'.tr(),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -89,7 +90,7 @@ class CheckoutScreen extends StatelessWidget {
                       width: 80.w,
                     ),
                     Text(
-                      "Order Placed!",
+                      "Order Placed!".tr(),
                       style: roboto16W500(),
                       textAlign: TextAlign.center,
                     ),
@@ -105,7 +106,7 @@ class CheckoutScreen extends StatelessWidget {
                       height: 20.h,
                     ),
                     MyButton(
-                      text: 'Track Your Order',
+                      text: 'Track Your Order'.tr(),
                       onPressed: () {},
                     ),
                     SizedBox(
@@ -114,7 +115,7 @@ class CheckoutScreen extends StatelessWidget {
                     MyButton(
                       color: Colors.white,
                       textColor: AppColors.lightColor,
-                      text: 'Back To Home',
+                      text: 'Back To Home'.tr(),
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                           context,
@@ -130,8 +131,8 @@ class CheckoutScreen extends StatelessWidget {
         }
       },
       builder: (context, state) => Scaffold(
-        appBar: const AppBarWithBag(
-          appBarTitle: 'Checkout',
+        appBar: AppBarWithBag(
+          appBarTitle: 'Checkout'.tr(),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -171,7 +172,7 @@ class CheckoutScreen extends StatelessWidget {
                                 width: 10.w,
                               ),
                               Text(
-                                "Delivery address",
+                                "Delivery address".tr(),
                                 style: roboto16W500(),
                               ),
                             ],
@@ -229,7 +230,7 @@ class CheckoutScreen extends StatelessWidget {
                             width: 10.w,
                           ),
                           Text(
-                            "Payment method",
+                            "Payment method".tr(),
                             style: roboto16W500(),
                           ),
                         ],
@@ -253,7 +254,7 @@ class CheckoutScreen extends StatelessWidget {
                           highlightColor: Colors.white,
                           onTap: () {},
                           child: Text(
-                            "Add new card",
+                            "Add new card".tr(),
                             textAlign: TextAlign.end,
                             style: roboto14()
                                 .copyWith(decoration: TextDecoration.underline),
@@ -285,7 +286,7 @@ class CheckoutScreen extends StatelessWidget {
                   height: 15.h,
                 ),
                 MyButton(
-                  text: 'Confirm Order',
+                  text: 'Confirm Order'.tr(),
                   onPressed: () {
                     if (CheckOutCubit.get(context).selectedPaymentOption ==
                         "Cash on delivery") {
