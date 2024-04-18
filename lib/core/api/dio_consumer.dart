@@ -54,10 +54,10 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future patch(path,
+  Future put(path,
       {Object? data, Map<String, dynamic>? queryParameters}) async {
     try {
-      final response = await dio.patch(
+      final response = await dio.put(
         path,
         data: data,
         queryParameters: queryParameters,

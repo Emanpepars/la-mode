@@ -57,4 +57,17 @@ class CartCubit extends Cubit<CartState> {
       emit(RemoveCartItemSuccessState());
     });
   }
+
+  updateItemCountCart(String productId, int count) async {
+    emit(UpdateItemCountLoadingState());
+    CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
+    var response = await cartUseCase.updateItemCountCart(productId, count);
+    response.fold((l) {
+      print(l.message.toString());
+      emit(UpdateItemCountErrorState(l));
+    }, (r) {
+      getCartItems();
+      emit(UpdateItemCountSuccessState());
+    });
+  }
 }

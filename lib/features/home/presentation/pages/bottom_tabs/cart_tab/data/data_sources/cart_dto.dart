@@ -13,6 +13,9 @@ abstract class CartDto {
 
   Future<Either<Failures, AddToCartModel>> addItemToCart(String productId);
 
+  Future<Either<Failures, CartModel>> updateItemCountCart(
+      String productId, int count);
+
   Future<Either<Failures, CartModel>> removeItemFromCart(String productId);
 }
 
@@ -57,6 +60,23 @@ class RemoteCartDto extends CartDto {
     try {
       var response = await apiConsumer.delete(
         "${AppConstants.baseUrl}${EndPoints.cart}/$productId",
+      );
+      CartModel cartModel = CartModel.fromJson(response);
+      return Right(cartModel);
+    } catch (e) {
+      return Left(ServerFailures(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, CartModel>> updateItemCountCart(
+      String productId, int count) async {
+    try {
+      var response = await apiConsumer.delete(
+        "${AppConstants.baseUrl}${EndPoints.cart}/$productId",
+        data: {
+          "count": count,
+        },
       );
       CartModel cartModel = CartModel.fromJson(response);
       return Right(cartModel);

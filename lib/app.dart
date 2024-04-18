@@ -8,6 +8,7 @@ import 'package:la_mode/core/api/dio_consumer.dart';
 import 'package:la_mode/features/category/presentation/manager/category_cubit.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_cubit.dart';
 import 'package:la_mode/features/home/data/data_sources/home_dto.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/payment/payment_cubit.dart';
 import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:la_mode/main_cubit/main_state.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) =>
-            CartCubit(RemoteCartDto(DioConsumer(dio: Dio())))..getCartItems(),
+                CartCubit(RemoteCartDto(DioConsumer(dio: Dio())))
+                  ..getCartItems(),
           ),
           BlocProvider<WishlistCubit>(
             create: (context) => WishlistCubit(
@@ -66,6 +68,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<CheckOutCubit>(
             create: (context) => CheckOutCubit(),
+          ),
+          BlocProvider<PaymentCubit>(
+            create: (context) => PaymentCubit(),
           ),
         ],
         child: BlocConsumer<MainCubit, MainState>(

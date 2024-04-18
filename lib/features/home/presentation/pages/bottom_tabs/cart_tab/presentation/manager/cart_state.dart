@@ -45,3 +45,13 @@ class RemoveCartItemErrorState extends CartState {
 
   RemoveCartItemErrorState(this.failures);
 }
+
+class UpdateItemCountLoadingState extends CartState {}
+
+class UpdateItemCountSuccessState extends CartState {}
+
+class UpdateItemCountErrorState extends CartState {
+  Failures failures;
+
+  UpdateItemCountErrorState(this.failures);
+}

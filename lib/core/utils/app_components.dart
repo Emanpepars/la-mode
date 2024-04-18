@@ -11,6 +11,7 @@ import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
 import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_state.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_state.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
@@ -508,9 +509,73 @@ class ProductCard extends StatelessWidget {
                   ),
                 ],
               ),
-              MyYellowButton(
-                text: "Add To Cart".tr(),
-                productId: dataEntity.id!,
+              BlocBuilder<CartCubit, CartState>(
+                builder: (context, state) => CartCubit.get(context)
+                        .products
+                        .any((product) => product.product!.id == dataEntity.id)
+                    ? SizedBox(
+                        height: 32.h,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                CartCubit.get(context).updateItemCountCart(
+                                    dataEntity.id!,
+                                    (CartCubit.get(context)
+                                            .products
+                                            .where((product) =>
+                                                product.product!.id ==
+                                                dataEntity.id)
+                                            .first
+                                            .count!) +
+                                        1);
+                              },
+                              icon: const Icon(Icons.remove),
+                              style: IconButton.styleFrom(
+                                backgroundColor: AppColors.lightYellow,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0.sp),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 13.w),
+                              child: Text(
+                                CartCubit.get(context)
+                                    .products
+                                    .where((product) =>
+                                        product.product!.id == dataEntity.id)
+                                    .first
+                                    .count
+                                    .toString(),
+                                style: roboto18W500(),
+                              ),
+                            ),
+                            IconButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                CartCubit.get(context).updateItemCountCart(
+                                  dataEntity.id!,
+                                  20,
+                                );
+                              },
+                              icon: const Icon(Icons.add),
+                              style: IconButton.styleFrom(
+                                backgroundColor: AppColors.lightYellow,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0.sp),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : MyYellowButton(
+                        text: "Add To Cart".tr(),
+                        productId: dataEntity.id!,
+                      ),
               ),
             ],
           ),
@@ -642,9 +707,57 @@ class ProductCardWithSeller extends StatelessWidget {
                 ],
               ),
             ),
-            MyYellowButton(
-              text: "Add To Cart".tr(),
-              productId: dataEntity.id!,
+            BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) => CartCubit.get(context)
+                      .products
+                      .any((product) => product.product!.id == dataEntity.id)
+                  ? SizedBox(
+                      height: 32.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {},
+                            icon: const Icon(Icons.remove),
+                            style: IconButton.styleFrom(
+                              backgroundColor: AppColors.lightYellow,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0.sp),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 13.w),
+                            child: Text(
+                              CartCubit.get(context)
+                                  .products
+                                  .where((product) =>
+                                      product.product!.id == dataEntity.id)
+                                  .first
+                                  .count
+                                  .toString(),
+                              style: roboto18W500(),
+                            ),
+                          ),
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {},
+                            icon: const Icon(Icons.add),
+                            style: IconButton.styleFrom(
+                              backgroundColor: AppColors.lightYellow,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0.sp),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : MyYellowButton(
+                      text: "Add To Cart".tr(),
+                      productId: dataEntity.id!,
+                    ),
             ),
           ],
         ),

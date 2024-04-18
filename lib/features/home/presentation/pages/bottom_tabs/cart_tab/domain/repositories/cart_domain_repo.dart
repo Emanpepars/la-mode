@@ -9,4 +9,7 @@ abstract class CartDomainRepo {
   Future<Either<Failures, AddToCartEntity>> addItemToCart(String productId);
 
   Future<Either<Failures, CartEntity>> removeItemFromCart(String productId);
+
+  Future<Either<Failures, CartEntity>> updateItemCountCart(
+      String productId, int count);
 }

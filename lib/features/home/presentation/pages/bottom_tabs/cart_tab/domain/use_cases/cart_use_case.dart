@@ -17,4 +17,8 @@ class CartUseCase {
 
   Future<Either<Failures, CartEntity>> removeItemFromCart(String productId) =>
       cartDomainRepo.removeItemFromCart(productId);
+
+  Future<Either<Failures, CartEntity>> updateItemCountCart(
+          String productId, int count) =>
+      cartDomainRepo.updateItemCountCart(productId, count);
 }
