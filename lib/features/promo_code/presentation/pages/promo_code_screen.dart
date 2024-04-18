@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +13,7 @@ class PromoCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWithBag(
+      appBar: AppBarWithBag(
         appBarTitle: "My Promocodes",
       ),
       body: Padding(
@@ -49,7 +50,7 @@ class PromoCodeScreen extends StatelessWidget {
               ],
             ),
             MyButton(
-              text: 'Start Shopping',
+              text: 'Start Shopping'.tr(),
               onPressed: () {
                 HomeCubit.get(context).controller.index = 0;
               },
@@ -57,8 +58,10 @@ class PromoCodeScreen extends StatelessWidget {
           ],
         ),
       ),
-      drawer: MyDrawer(userName: '', userEmail: '',),
-
+      drawer: const MyDrawer(
+        userName: '',
+        userEmail: '',
+      ),
     );
   }
 }

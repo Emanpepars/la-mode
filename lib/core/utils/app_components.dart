@@ -1,11 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:la_mode/core/utils/app_images.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_state.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -118,7 +124,7 @@ class FirstPart extends StatelessWidget {
                                   decoration: InputDecoration(
                                     contentPadding:
                                         EdgeInsets.symmetric(vertical: 7.h),
-                                    hintText: "Search",
+                                    hintText: "Search".tr(),
                                     hintStyle: roboto16().copyWith(
                                       color: AppColors.silverDark,
                                     ),
@@ -165,7 +171,7 @@ class FirstPart extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: EdgeInsets.only(left: 10.w),
-                                child: const Text("FOR YOU"),
+                                child: Text("FOR YOU".tr()),
                               ),
                             ),
                             SizedBox(
@@ -196,19 +202,19 @@ class FirstPart extends StatelessWidget {
                                   isScrollable: true,
                                   tabs: [
                                     TabLabel(
-                                      text: 'All',
+                                      text: 'All'.tr(),
                                       isSelected: currentTabIndex == 0,
                                     ),
                                     TabLabel(
-                                      text: 'Women',
+                                      text: 'Women'.tr(),
                                       isSelected: currentTabIndex == 1,
                                     ),
                                     TabLabel(
-                                      text: 'Men',
+                                      text: 'Men'.tr(),
                                       isSelected: currentTabIndex == 2,
                                     ),
                                     TabLabel(
-                                      text: 'Kids',
+                                      text: 'Kids'.tr(),
                                       isSelected: currentTabIndex == 3,
                                     ),
                                   ],
@@ -259,6 +265,9 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
         appBarTitle,
         style: roboto20(
           weight: FontWeight.w700,
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightColor
+              : Colors.white,
         ),
       ),
       centerTitle: false,
@@ -307,6 +316,9 @@ class AppBarWithOutBag extends StatelessWidget implements PreferredSizeWidget {
         appBarTitle,
         style: roboto20(
           weight: FontWeight.w700,
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightColor
+              : Colors.white,
         ),
       ),
       centerTitle: true,
@@ -374,111 +386,130 @@ class MyButton extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final ProductDataEntity dataEntity;
+
+  const ProductCard({required this.dataEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: const ProductDetailsScreen(),
-          withNavBar: false, // OPTIONAL VALUE. True by default.
-          pageTransitionAnimation: PageTransitionAnimation.cupertino,
-        );
-      },
-      child: Container(
-        width: 160.w,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.silverM,
+    return BlocConsumer<WishlistCubit, WishlistState>(
+      listener: (context, state) {},
+      builder: (context, state) => InkWell(
+        onTap: () {
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: ProductDetailsScreen(
+              dataEntity: dataEntity,
+            ),
+            withNavBar: false, // OPTIONAL VALUE. True by default.
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          );
+        },
+        child: Container(
+          width: 160.w,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: AppColors.silverM,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(11),
+            ),
           ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(11),
-          ),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6.0),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  Image(
-                    image: const AssetImage(
-                      AppImages.onboard1,
+          padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6.0),
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    CachedNetworkImage(
+                      width: 200.w,
+                      height: 120.h,
+                      fit: BoxFit.cover,
+                      imageUrl: dataEntity.imageCover ?? "",
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    width: 200.w,
-                    height: 120.h,
-                    fit: BoxFit.cover,
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    child: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: AppColors.lightGray,
-                      child: Image(
-                        image: const AssetImage(
-                          AppIcons.heart,
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                      child: CustomInkWell(
+                        onTap: () {
+                          WishlistCubit.get(context).addWish(dataEntity.id!);
+                        },
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: AppColors.lightGray,
+                          child: Image(
+                            image: const AssetImage(
+                              AppIcons.heart,
+                            ),
+                            color: AppColors.lightColor,
+                            width: 15.w,
+                            height: 15.h,
+                          ),
                         ),
-                        color: AppColors.lightColor,
-                        width: 15.w,
-                        height: 15.h,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 100.w,
+                        child: Text(
+                          dataEntity.title!,
+                          style: roboto14(weight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            size: 15,
+                            color: AppColors.gold,
+                          ),
+                          Text(
+                            dataEntity.ratingsAverage!.toString(),
+                            style: roboto12W400().copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.silverDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "\$${dataEntity.price!}",
+                        style: roboto18W500(),
+                      ),
+                      SizedBox(width: 5.w),
+                      const Text(""),
+                    ],
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Shirt blouse",
-                      style: roboto14(weight: FontWeight.w600),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          size: 15,
-                          color: AppColors.gold,
-                        ),
-                        Text(
-                          "4.5",
-                          style: roboto12W400().copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.silverDark,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "\$39",
-                      style: roboto18W500(),
-                    ),
-                    SizedBox(width: 5.w),
-                    const Text(""),
-                  ],
-                ),
-              ],
-            ),
-            MyYellowButton(text: "Add To Cart", onPressed: () {}),
-          ],
+              MyYellowButton(text: "Add To Cart".tr(), onPressed: () {}),
+            ],
+          ),
         ),
       ),
     );
@@ -486,7 +517,9 @@ class ProductCard extends StatelessWidget {
 }
 
 class ProductCardWithSeller extends StatelessWidget {
-  const ProductCardWithSeller({super.key});
+  final ProductDataEntity dataEntity;
+
+  const ProductCardWithSeller({required this.dataEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -494,7 +527,9 @@ class ProductCardWithSeller extends StatelessWidget {
       onTap: () {
         PersistentNavBarNavigator.pushNewScreen(
           context,
-          screen: const ProductDetailsScreen(),
+          screen: ProductDetailsScreen(
+            dataEntity: dataEntity,
+          ),
           withNavBar: false,
           pageTransitionAnimation: PageTransitionAnimation.cupertino,
         );
@@ -518,13 +553,15 @@ class ProductCardWithSeller extends StatelessWidget {
               child: Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Image(
-                    image: const AssetImage(
-                      AppImages.onboard1,
-                    ),
+                  CachedNetworkImage(
                     width: 200.w,
                     height: 120.h,
                     fit: BoxFit.cover,
+                    imageUrl: dataEntity.imageCover ?? "",
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   Padding(
                     padding:
@@ -558,14 +595,21 @@ class ProductCardWithSeller extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          "Shirt blouse",
-                          style: roboto14(weight: FontWeight.w600),
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            dataEntity.title!,
+                            style: roboto14(
+                              weight: FontWeight.w600,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         Row(
                           children: [
                             Text(
-                              "\$39",
+                              "\$${dataEntity.price}",
                               style: roboto18W500(),
                             ),
                             SizedBox(width: 5.w),
@@ -594,7 +638,7 @@ class ProductCardWithSeller extends StatelessWidget {
                 ],
               ),
             ),
-            MyYellowButton(text: "Add To Cart", onPressed: () {}),
+            MyYellowButton(text: "Add To Cart".tr(), onPressed: () {}),
           ],
         ),
       ),
@@ -746,6 +790,9 @@ class NotificationIcon extends StatelessWidget {
               icon: SvgPicture.asset(
                 AppIcons.notification,
                 height: 25.h,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? AppColors.lightColor
+                    : Colors.white,
               ),
             ),
           )
@@ -761,6 +808,9 @@ class NotificationIcon extends StatelessWidget {
             icon: SvgPicture.asset(
               AppIcons.notification,
               height: 20.h,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? AppColors.lightColor
+                  : Colors.white,
             ),
           );
   }
@@ -776,7 +826,7 @@ class ViewALl extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Text(
-        "View All",
+        "View All".tr(),
         style: roboto14(
           weight: FontWeight.w500,
           color: AppColors.gold,
@@ -801,16 +851,31 @@ class ViewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Text(
-        "View $title",
-        style: roboto14(
-          weight: FontWeight.w500,
-          color: AppColors.silverDark,
-        ).copyWith(
-          decoration: TextDecoration.underline,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+      child: Row(
+        children: [
+          Text(
+            "View".tr(),
+            style: roboto14(
+              weight: FontWeight.w500,
+              color: AppColors.silverDark,
+            ).copyWith(
+              decoration: TextDecoration.underline,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            " $title",
+            style: roboto14(
+              weight: FontWeight.w500,
+              color: AppColors.silverDark,
+            ).copyWith(
+              decoration: TextDecoration.underline,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
@@ -896,7 +961,9 @@ class DoneAlertDialog extends StatelessWidget {
       content: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.black,
           borderRadius: BorderRadius.all(
             Radius.circular(30.sp),
           ),
@@ -915,7 +982,7 @@ class DoneAlertDialog extends StatelessWidget {
               height: 6.h,
             ),
             Text(
-              "Verified!",
+              "Verified!".tr(),
               style: roboto20(),
               textAlign: TextAlign.center,
             ),
@@ -931,7 +998,7 @@ class DoneAlertDialog extends StatelessWidget {
               height: 15.h,
             ),
             MyButton(
-              text: 'Reset Password',
+              text: 'Reset Password'.tr(),
               onPressed: onPressed,
             ),
           ],
@@ -965,11 +1032,12 @@ class DrawerRow extends StatelessWidget {
   final String title;
   final void Function()? onTap;
 
-  const DrawerRow(
-      {required this.icon,
-      super.key,
-      required this.title,
-      required this.onTap});
+  const DrawerRow({
+    required this.icon,
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -983,7 +1051,9 @@ class DrawerRow extends StatelessWidget {
           ),
           Text(
             title,
-            style: roboto16W500(),
+            style: roboto14(
+              weight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -1007,49 +1077,52 @@ class MyDrawer extends StatelessWidget {
           children: [
             Column(
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 25.sp,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              AppImages.fakeSeller,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 25.sp,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(
+                                AppImages.fakeSeller,
+                              ),
                             ),
-                          ),
-                          border: Border.all(
-                            color: AppColors.gold,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              25.sp,
+                            border: Border.all(
+                              color: AppColors.gold,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                25.sp,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          userName,
-                          style: roboto16W500(),
-                        ),
-                        Text(
-                          userEmail,
-                          style: roboto14(weight: FontWeight.w400),
-                        ),
-                      ],
-                    )
-                  ],
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            userName,
+                            style: roboto16W500(),
+                          ),
+                          Text(
+                            userEmail,
+                            style: roboto14(weight: FontWeight.w400),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 15.h,
                 ),
                 DrawerRow(
                   onTap: () {
@@ -1060,7 +1133,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.home_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Home',
+                  title: 'Home'.tr(),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -1070,7 +1143,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.favorite_border,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Wishlist',
+                  title: 'Wishlist'.tr(),
                   onTap: () {
                     HomeCubit.get(context).controller.index = 2;
                     Navigator.pop(context);
@@ -1093,7 +1166,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.notifications_none_sharp,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Notifications',
+                  title: 'Notifications'.tr(),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -1103,7 +1176,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.location_on_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Delivery address',
+                  title: 'Delivery address'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1116,7 +1189,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.payment_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Payment methods',
+                  title: 'Payment methods'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1129,7 +1202,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.insert_drive_file_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'About us',
+                  title: 'About us'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1142,7 +1215,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.email_outlined,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Contact us',
+                  title: 'Contact us'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1155,7 +1228,7 @@ class MyDrawer extends StatelessWidget {
                     Icons.info_outline,
                     color: AppColors.silverDark,
                   ),
-                  title: 'Help & FAG',
+                  title: 'Help & FAG'.tr(),
                   onTap: () {
                     Navigator.pop(context);
                   },
@@ -1170,10 +1243,13 @@ class MyDrawer extends StatelessWidget {
                 Icons.logout,
                 color: AppColors.silverDark,
               ),
-              title: 'Logout',
+              title: 'Logout'.tr(),
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, Routes.login, (route) => false);
+                  context,
+                  Routes.login,
+                  (route) => false,
+                );
 
                 HomeCubit.get(context).userBox.deleteAt(0);
               },
@@ -1197,6 +1273,9 @@ class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: roboto20(
           weight: FontWeight.w600,
+          color: Theme.of(context).brightness == Brightness.light
+              ? AppColors.lightColor
+              : Colors.white,
         ),
       ),
       centerTitle: true,
@@ -1213,4 +1292,23 @@ class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class CustomInkWell extends StatelessWidget {
+  final Function()? onTap;
+  final Widget child;
+
+  const CustomInkWell({this.onTap, required this.child, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onTap: onTap,
+      child: child,
+    );
+  }
 }

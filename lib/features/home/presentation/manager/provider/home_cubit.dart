@@ -3,13 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:la_mode/features/home/data/repositories/home_data_repo.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
+import 'package:la_mode/features/home/domain/use_cases/home_use_case.dart';
+import 'package:la_mode/main_cubit/main_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_images.dart';
+import '../../../data/data_sources/home_dto.dart';
+import '../../../domain/repositories/home_domain_repo.dart';
 import '../../pages/bottom_tabs/cart_tab/presentation/pages/cart_tab.dart';
-import '../../pages/bottom_tabs/wishlist_tab.dart';
+import '../../pages/bottom_tabs/wishlist/presentation/pages/wishlist_tab.dart';
 import '../../pages/bottom_tabs/home_tab/presentation/pages/home_tab_bar.dart';
 import '../../pages/bottom_tabs/profile_tab.dart';
 import '../../pages/bottom_tabs/settings_tab.dart';
@@ -21,8 +27,11 @@ import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   late Timer timer;
+  late HomeDomainRepo homeDomainRepo;
+  HomeDto homeDto;
 
-  HomeCubit() : super(HomeInitial()) {
+  HomeCubit(this.homeDto) : super(HomeInitial()) {
+    homeDomainRepo = HomeDataRepo(homeDto);
     timer = Timer.periodic(const Duration(milliseconds: 50000000), (timer) {
       nextPage();
     });
@@ -121,32 +130,42 @@ class HomeCubit extends Cubit<HomeState> {
         icon: const Icon(Icons.home),
         title: "Home",
         activeColorPrimary: AppColors.gold,
-        inactiveColorPrimary: AppColors.silverDark,
+        inactiveColorPrimary: Theme.of(context).brightness == Brightness.light
+            ? AppColors.silverDark
+            : Colors.white70,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.shopping_bag),
         //icon: SvgPicture.asset(AppIcons.bag),
         title: "My Bag",
         activeColorPrimary: AppColors.gold,
-        inactiveColorPrimary: AppColors.silverDark,
+        inactiveColorPrimary: Theme.of(context).brightness == Brightness.light
+            ? AppColors.silverDark
+            : Colors.white70,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.favorite),
         title: "Wishlist",
         activeColorPrimary: AppColors.gold,
-        inactiveColorPrimary: AppColors.silverDark,
+        inactiveColorPrimary: Theme.of(context).brightness == Brightness.light
+            ? AppColors.silverDark
+            : Colors.white70,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.settings),
         title: "Settings",
         activeColorPrimary: AppColors.gold,
-        inactiveColorPrimary: AppColors.silverDark,
+        inactiveColorPrimary: Theme.of(context).brightness == Brightness.light
+            ? AppColors.silverDark
+            : Colors.white70,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.person),
         title: "Profile",
         activeColorPrimary: AppColors.gold,
-        inactiveColorPrimary: AppColors.silverDark,
+        inactiveColorPrimary: Theme.of(context).brightness == Brightness.light
+            ? AppColors.silverDark
+            : Colors.white70,
       ),
     ];
   }
@@ -187,5 +206,43 @@ class HomeCubit extends Cubit<HomeState> {
       curve: Curves.fastLinearToSlowEaseIn,
     );
     emit(HomeOnPageChangedState());
+  }
+
+  ///--- settings Lang ---///
+
+  String selectedLanguageOption = 'English';
+
+  void language({context, String? newValue}) {
+    selectedLanguageOption = newValue.toString();
+    MainCubit.get(context).toggleLanguage(context, newValue.toString());
+
+    emit(HomeSelectLanguageState());
+  }
+
+  ///--- settings Theme ---///
+
+  String selectedThemeOption = 'Light';
+
+  void theme({context, String? newValue}) {
+    selectedThemeOption = newValue.toString();
+    MainCubit.get(context).changeTheme(
+        selectedThemeOption == 'Dark' ? ThemeMode.dark : ThemeMode.light);
+    emit(HomeSelectThemeState());
+  }
+
+  ///--- get all product---///
+  List<ProductDataEntity> products = [];
+
+  getAllProduct() async {
+    emit(GetAllProductLoading());
+    HomeUseCase homeUseCase = HomeUseCase(homeDomainRepo);
+
+    var response = await homeUseCase.getAllProduct();
+
+    response.fold((l) => emit(GetAllProductError(l)), (r) {
+      products = r.data!;
+      print(products.length);
+      emit(GetAllProductSuccess());
+    });
   }
 }

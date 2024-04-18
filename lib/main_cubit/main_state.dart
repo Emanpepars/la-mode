@@ -11,3 +11,5 @@ class MainToggleLang extends MainState {
 
   MainToggleLang({required this.locale});
 }
+
+class OnBoardChange extends MainState {}

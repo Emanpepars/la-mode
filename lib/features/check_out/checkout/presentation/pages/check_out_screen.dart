@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,23 +7,19 @@ import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_cubit.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_state.dart';
-import 'package:la_mode/features/check_out/checkout/presentation/widgets/address_radio.dart';
-
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/domain/entities/cart_entity.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_images.dart';
-import '../../../../auth/register/domain/entities/user_entity.dart';
-import '../../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
+import '../widgets/delivery_address.dart';
 import '../widgets/order_card.dart';
 import '../widgets/payment_alert_dialog.dart';
 import '../widgets/payment_methods_card.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  final UserEntity userEntity;
-  final List<ProductItem> items;
+  final List<CartProducts> cartProducts;
 
-  const CheckoutScreen(
-      {super.key, required this.userEntity, required this.items});
+  const CheckoutScreen({required this.cartProducts, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class CheckoutScreen extends StatelessWidget {
                     height: 25.h,
                   ),
                   MyButton(
-                    text: 'Done',
+                    text: 'Done'.tr(),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -56,7 +53,7 @@ class CheckoutScreen extends StatelessWidget {
                   MyButton(
                     color: Colors.white,
                     textColor: AppColors.lightColor,
-                    text: 'Change Method',
+                    text: 'Change Method'.tr(),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -90,7 +87,7 @@ class CheckoutScreen extends StatelessWidget {
                       width: 80.w,
                     ),
                     Text(
-                      "Order Placed!",
+                      "Order Placed!".tr(),
                       style: roboto16W500(),
                       textAlign: TextAlign.center,
                     ),
@@ -106,8 +103,13 @@ class CheckoutScreen extends StatelessWidget {
                       height: 20.h,
                     ),
                     MyButton(
-                      text: 'Track Your Order',
-                      onPressed: () {},
+                      text: 'Track Your Order'.tr(),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.myOrders,
+                        );
+                      },
                     ),
                     SizedBox(
                       height: 10.h,
@@ -115,7 +117,7 @@ class CheckoutScreen extends StatelessWidget {
                     MyButton(
                       color: Colors.white,
                       textColor: AppColors.lightColor,
-                      text: 'Back To Home',
+                      text: 'Back To Home'.tr(),
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                           context,
@@ -131,8 +133,8 @@ class CheckoutScreen extends StatelessWidget {
         }
       },
       builder: (context, state) => Scaffold(
-        appBar: const AppBarWithBag(
-          appBarTitle: 'Checkout',
+        appBar: AppBarWithBag(
+          appBarTitle: 'Checkout'.tr(),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -142,7 +144,9 @@ class CheckoutScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                OrderCard(items: items),
+                OrderCard(
+                  items: cartProducts,
+                ),
                 SizedBox(
                   height: 15.h,
                 ),
@@ -172,7 +176,7 @@ class CheckoutScreen extends StatelessWidget {
                                 width: 10.w,
                               ),
                               Text(
-                                "Delivery address",
+                                "Delivery address".tr(),
                                 style: roboto16W500(),
                               ),
                             ],
@@ -182,112 +186,9 @@ class CheckoutScreen extends StatelessWidget {
                               highlightColor: Colors.white,
                               onTap: () {
                                 showDialog(
-                                  context: context,
-                                  builder: (context) => BlocConsumer<
-                                      CheckOutCubit, CheckOutState>(
-                                    listener: (context, state) {},
-                                    builder: (context, state) => AlertDialog(
-                                      contentPadding: EdgeInsets.zero,
-                                      content: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              25.sp,
-                                            ),
-                                          ),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20.w, vertical: 20.h),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              "Delivery Address",
-                                              style: roboto18W500(),
-                                            ),
-                                            Column(
-                                              children: [
-                                                AddressRow(
-                                                  title: 'Home',
-                                                  value: 'Home',
-                                                  groupValue: CheckOutCubit.get(
-                                                          context)
-                                                      .selectedAddressOption,
-                                                  address: (String? newValue) =>
-                                                      CheckOutCubit.get(context)
-                                                          .address(
-                                                              newValue:
-                                                                  newValue),
-                                                ),
-                                                Text(
-                                                  "7 Israa street. Agouza, Giza, Egypt",
-                                                  style: roboto14(
-                                                      weight: FontWeight.w500,
-                                                      color:
-                                                          AppColors.silverDark),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                AddressRow(
-                                                  title: 'Work',
-                                                  value: 'Work',
-                                                  groupValue: CheckOutCubit.get(
-                                                          context)
-                                                      .selectedAddressOption,
-                                                  address: (String? newValue) =>
-                                                      CheckOutCubit.get(context)
-                                                          .address(
-                                                              newValue:
-                                                                  newValue),
-                                                ),
-                                                Text(
-                                                  "Madinet nasr. Cairo, Egypt",
-                                                  style: roboto14(
-                                                      weight: FontWeight.w500,
-                                                      color:
-                                                          AppColors.silverDark),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            SizedBox(
-                                              width: double.infinity,
-                                              child: InkWell(
-                                                splashColor: Colors.white,
-                                                highlightColor: Colors.white,
-                                                onTap: () {
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    Routes.address,
-                                                  );
-                                                },
-                                                child: Text(
-                                                  "Add new address",
-                                                  textAlign: TextAlign.end,
-                                                  style: roboto14().copyWith(
-                                                      decoration: TextDecoration
-                                                          .underline),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
+                                    context: context,
+                                    builder: (context) =>
+                                        const DeliveryAddress());
                               },
                               child: const Icon(Icons.arrow_forward))
                         ],
@@ -333,7 +234,7 @@ class CheckoutScreen extends StatelessWidget {
                             width: 10.w,
                           ),
                           Text(
-                            "Payment method",
+                            "Payment method".tr(),
                             style: roboto16W500(),
                           ),
                         ],
@@ -357,7 +258,7 @@ class CheckoutScreen extends StatelessWidget {
                           highlightColor: Colors.white,
                           onTap: () {},
                           child: Text(
-                            "Add new card",
+                            "Add new card".tr(),
                             textAlign: TextAlign.end,
                             style: roboto14()
                                 .copyWith(decoration: TextDecoration.underline),
@@ -389,7 +290,7 @@ class CheckoutScreen extends StatelessWidget {
                   height: 15.h,
                 ),
                 MyButton(
-                  text: 'Confirm Order',
+                  text: 'Confirm Order'.tr(),
                   onPressed: () {
                     if (CheckOutCubit.get(context).selectedPaymentOption ==
                         "Cash on delivery") {
@@ -400,6 +301,9 @@ class CheckoutScreen extends StatelessWidget {
                       );
                     }
                   },
+                ),
+                SizedBox(
+                  height: 15.h,
                 ),
               ],
             ),

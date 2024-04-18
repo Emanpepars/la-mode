@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,8 +20,8 @@ class SellersScreen extends StatelessWidget {
       listener: (context, index) {},
       builder: (context, index) => Scaffold(
         backgroundColor: Colors.white,
-        appBar: const AppBarWithBag(
-          appBarTitle: "Sellers",
+        appBar: AppBarWithBag(
+          appBarTitle: "Sellers".tr(),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -39,7 +40,7 @@ class SellersScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Sort by",
+                          "Sort by".tr(),
                           style: roboto12W400(color: AppColors.silverDark),
                         ),
                         InkWell(
@@ -82,7 +83,7 @@ class SellersScreen extends StatelessWidget {
             ),
           ),
         ),
-        drawer: MyDrawer(userName: '', userEmail: '',),
+        drawer: const MyDrawer(userName: '', userEmail: '',),
 
       ),
     );

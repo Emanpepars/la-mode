@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -124,8 +125,8 @@ class AddNewAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWithBag(
-        appBarTitle: 'Add New Address',
+      appBar: AppBarWithBag(
+        appBarTitle: 'Add New Address'.tr(),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -153,52 +154,52 @@ class AddNewAddress extends StatelessWidget {
                 height: 10.h,
               ),
               Text(
-                'Title',
+                'Title'.tr(),
                 style: robotoTitleField(),
               ),
               SizedBox(
                 height: 2.h,
               ),
-              const CuTextFormField(
-                hintText: 'Enter your title',
+              CuTextFormField(
+                hintText: 'Enter your title'.tr(),
               ),
               SizedBox(
                 height: 15.h,
               ),
               Text(
-                'Department',
+                'Department'.tr(),
                 style: robotoTitleField(),
               ),
               SizedBox(
                 height: 2.h,
               ),
-              const CuTextFormField(
-                hintText: 'Enter your Department',
+              CuTextFormField(
+                hintText: 'Enter your Department'.tr(),
               ),
               SizedBox(
                 height: 15.h,
               ),
               Text(
-                'Street',
+                'Street'.tr(),
                 style: robotoTitleField(),
               ),
               SizedBox(
                 height: 2.h,
               ),
-              const CuTextFormField(
-                hintText: 'Enter your Street',
+              CuTextFormField(
+                hintText: 'Enter your Street'.tr(),
               ),
               SizedBox(
                 height: 15.h,
               ),
               Text(
-                'City',
+                'City'.tr(),
                 style: robotoTitleField(),
               ),
               SizedBox(
                 height: 2.h,
               ),
-              const CuTextFormField(
+              CuTextFormField(
                 hintText: 'Enter your City',
               ),
               SizedBox(

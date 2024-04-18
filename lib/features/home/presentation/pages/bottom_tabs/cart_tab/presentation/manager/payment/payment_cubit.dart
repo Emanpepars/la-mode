@@ -1,22 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:la_mode/core/api/end_points.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/payment/payment_state.dart';
-
-import '../../../../../../../../../core/api/api_consumer.dart';
 import '../../../../../../../../../core/utils/app_constants.dart';
 
 class PaymentCubit extends Cubit<PaymentStates> {
-  final ApiConsumer api;
+  final Dio dio = Dio(); // Create an instance of Dio
 
-  PaymentCubit({required this.api}) : super(InitPaymentState());
+  PaymentCubit() : super(InitPaymentState());
 
   static PaymentCubit get(context) => BlocProvider.of(context);
 
   void getAuthToken(
       String email, String phone, String fName, String lName, String amount) {
     emit(LoadingAuthTokenPaymentState());
-    api.post("${AppConstants.basePaymentUrl}${EndPoints.authToken}",
-        data: {"api_key": API_KEY}).then((value) {
+    dio.post("${AppConstants.basePaymentUrl}${EndPoints.authToken}",
+        data: {"api_key": API_KEY}).then((response) {
+      var value = response.data;
       AUTH_TOKEN = value["token"];
       print("Route token > $AUTH_TOKEN");
       getOrderID(email, phone, fName, lName, amount);
@@ -30,13 +30,14 @@ class PaymentCubit extends Cubit<PaymentStates> {
   void getOrderID(
       String email, String phone, String fName, String lName, String amount) {
     emit(LoadingOrderIdPaymentState());
-    api.post("${AppConstants.basePaymentUrl}${EndPoints.orderId}", data: {
+    dio.post("${AppConstants.basePaymentUrl}${EndPoints.orderId}", data: {
       "auth_token": AUTH_TOKEN,
       "delivery_needed": "false",
       "amount_cents": amount,
       "currency": "EGP",
       "items": []
-    }).then((value) {
+    }).then((response) {
+      var value = response.data;
       ORDER_ID = value["id"].toString();
       getRequestTokenCard(email, phone, fName, lName, amount);
       getRequestTokenKiosk(email, phone, fName, lName, amount);
@@ -51,7 +52,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
   void getRequestTokenCard(
       String email, String phone, String fName, String lName, String amount) {
     emit(LoadingRequestTokenCardPaymentState());
-    api.post("${AppConstants.basePaymentUrl}${EndPoints.requestToken}", data: {
+    dio.post("${AppConstants.basePaymentUrl}${EndPoints.requestToken}", data: {
       "auth_token": AUTH_TOKEN,
       "amount_cents": amount,
       "expiration": 3600,
@@ -73,7 +74,8 @@ class PaymentCubit extends Cubit<PaymentStates> {
       },
       "currency": "EGP",
       "integration_id": INTERGRATIONCARDID
-    }).then((value) {
+    }).then((response) {
+      var value = response.data;
       REQUEST_TOKEN_CARD = value["token"];
       emit(SuccessRequestTokenCardPaymentState());
     }).catchError((error) {
@@ -84,7 +86,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
   void getRequestTokenKiosk(
       String email, String phone, String fName, String lName, String amount) {
     emit(LoadingRequestTokenKioskPaymentState());
-    api.post("${AppConstants.basePaymentUrl}${EndPoints.requestToken}", data: {
+    dio.post("${AppConstants.basePaymentUrl}${EndPoints.requestToken}", data: {
       "auth_token": AUTH_TOKEN,
       "amount_cents": amount,
       "expiration": 3600,
@@ -106,7 +108,8 @@ class PaymentCubit extends Cubit<PaymentStates> {
       },
       "currency": "EGP",
       "integration_id": INTERGRATIONKIOSKID
-    }).then((value) {
+    }).then((response) {
+      var value = response.data;
       REQUEST_TOKEN_KIOSK = value["token"];
       getRefCode();
       emit(SuccessRequestTokenKioskPaymentState());
@@ -117,10 +120,11 @@ class PaymentCubit extends Cubit<PaymentStates> {
 
   void getRefCode() {
     emit(LoadingReferenceCodePaymentState());
-    api.post("${AppConstants.basePaymentUrl}${EndPoints.getRefCode}", data: {
+    dio.post("${AppConstants.basePaymentUrl}${EndPoints.getRefCode}", data: {
       "source": {"identifier": "AGGREGATOR", "subtype": "AGGREGATOR"},
       "payment_token": REQUEST_TOKEN_KIOSK
-    }).then((value) {
+    }).then((response) {
+      var value = response.data;
       REF_CODE = value["id"].toString();
       print(AUTH_TOKEN);
       print(ORDER_ID);

@@ -5,6 +5,7 @@ import 'package:la_mode/features/category/presentation/pages/category_screen.dar
 import 'package:la_mode/features/check_out/checkout/presentation/pages/check_out_screen.dart';
 import 'package:la_mode/features/check_out/payment/presentation/pages/visa.dart';
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/pages/home_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/login_screen.dart';
 import 'package:la_mode/features/auth/login/presentation/pages/forget_password/otp_code_screen.dart';
@@ -22,7 +23,7 @@ import 'package:la_mode/features/seller/seller_details/presentation/pages/seller
 import '../core/utils/app_constants.dart';
 import '../features/auth/login/presentation/pages/forget_password/forgot_passwors_screen.dart';
 import '../features/check_out/add_new_address/presentation/pages/add_new_address_screen.dart';
-import '../features/home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
+import '../features/home/presentation/pages/bottom_tabs/cart_tab/domain/entities/cart_entity.dart';
 import '../features/product_details/presentation/pages/product_details_screen.dart';
 import '../features/seller/sellers/presentation/pages/sellers_screen.dart';
 
@@ -92,15 +93,14 @@ class AppRoutes {
           ),
         );
       case Routes.checkout:
-        var userBox = Hive.box(AppConstants.kUSerBox);
-        UserEntity userEntity;
-        userEntity = userBox.getAt(0);
-        List<ProductItem> productItems =
-            routeSettings.arguments as List<ProductItem>;
+        // var userBox = Hive.box(AppConstants.kUSerBox);
+        // UserEntity userEntity;
+        // userEntity = userBox.getAt(0);
+        List<CartProducts> productItems =
+            routeSettings.arguments as List<CartProducts>;
         return MaterialPageRoute(
           builder: (context) => CheckoutScreen(
-            userEntity: userEntity,
-            items: productItems,
+            cartProducts: productItems,
           ),
         );
 
@@ -112,8 +112,27 @@ class AppRoutes {
       ///--- My Orders ---///
       case Routes.myOrders:
         return MaterialPageRoute(builder: (context) => const MyOrders());
+
       case Routes.trackOrder:
-        return MaterialPageRoute(builder: (context) => const TrackOrderScreen());
+        final Map<String, dynamic> args =
+            routeSettings.arguments as Map<String, dynamic>;
+        final bool placed = args['placed'];
+        final bool shipped = args['shipped'];
+        final bool pickedUp = args['pickedUp'];
+        final bool delivered = args['delivered'];
+        final String clock = args['clock'];
+        final int price = args['price'];
+
+        return MaterialPageRoute(
+          builder: (context) => TrackOrderScreen(
+            price: price,
+            clock: clock,
+            placed: placed,
+            shipped: shipped,
+            pickedUp: pickedUp,
+            delivered: delivered,
+          ),
+        );
       case Routes.notification:
         return MaterialPageRoute(
             builder: (context) => const NotificationScreen());
@@ -121,8 +140,12 @@ class AppRoutes {
         return MaterialPageRoute(builder: (context) => const FilterScreen());
 
       case Routes.productDetails:
+        ProductDataEntity dataEntity =
+            routeSettings.arguments as ProductDataEntity;
         return MaterialPageRoute(
-            builder: (context) => const ProductDetailsScreen());
+            builder: (context) => ProductDetailsScreen(
+                  dataEntity: dataEntity,
+                ));
       case Routes.review:
         return MaterialPageRoute(builder: (context) => const ReviewsScreen());
       case Routes.sellers:

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -21,8 +22,8 @@ class ReviewsScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
           backgroundColor: Colors.white,
-          appBar: const AppBarWithBag(
-            appBarTitle: 'Reviews',
+          appBar: AppBarWithBag(
+            appBarTitle: 'Reviews'.tr(),
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(
@@ -78,7 +79,7 @@ class ReviewsScreen extends StatelessWidget {
                                     SizedBox(
                                       width: 60.w,
                                       child: Text(
-                                        "days ago",
+                                        "days ago".tr(),
                                         style: roboto14(
                                             weight: FontWeight.w600,
                                             color: AppColors.silverDark),
@@ -126,8 +127,10 @@ class ReviewsScreen extends StatelessWidget {
               ),
             ),
           ),
-          drawer: MyDrawer(userName: '', userEmail: '',),
-
+          drawer: const MyDrawer(
+            userName: '',
+            userEmail: '',
+          ),
         ),
       ),
     );

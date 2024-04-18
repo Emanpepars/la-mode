@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,12 +35,12 @@ class FilterAllTab extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const CategoryName(title: "Size"),
+                      CategoryName(title: "Size".tr()),
                       SizedBox(
                         height: 5.h,
                       ),
                       Text(
-                        "Size guide",
+                        "Size guide".tr(),
                         style: roboto14(
                           weight: FontWeight.w500,
                           color: AppColors.silverDark,
@@ -88,7 +89,7 @@ class FilterAllTab extends StatelessWidget {
             ///--- Price Range ---///
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: const CategoryName(title: "Price"),
+              child: CategoryName(title: "Price".tr()),
             ),
             SizedBox(
               height: 5.h,
@@ -114,6 +115,14 @@ class FilterAllTab extends StatelessWidget {
                 SizedBox(
                   height: 20.h,
                   child: RangeSlider(
+                    activeColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightColor
+                            : Colors.white,
+                    inactiveColor:
+                        Theme.of(context).brightness == Brightness.light
+                            ? AppColors.lightColor
+                            : Colors.white10,
                     values: RangeValues(
                       FilterCubit.get(context).startValue,
                       FilterCubit.get(context).endValue,
@@ -134,7 +143,7 @@ class FilterAllTab extends StatelessWidget {
             ///--- Rating ---///
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: const CategoryName(title: "Rating"),
+              child: CategoryName(title: "Rating".tr()),
             ),
             SizedBox(
               height: 5.h,
@@ -190,7 +199,7 @@ class FilterAllTab extends StatelessWidget {
             ///---Colors---///
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: const CategoryName(title: "Colors"),
+              child: CategoryName(title: "Colors".tr()),
             ),
             SizedBox(
               height: 50.h,
@@ -204,7 +213,7 @@ class FilterAllTab extends StatelessWidget {
                         radius: 18.sp,
                         backgroundColor: AppColors.silverDark,
                         child: Text(
-                          'All',
+                          'All'.tr(),
                           style: roboto16W500(color: Colors.white),
                         ),
                       )
@@ -228,7 +237,7 @@ class FilterAllTab extends StatelessWidget {
             ///--- Brand ---///
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: const CategoryName(title: "Brand"),
+              child: CategoryName(title: "Brand".tr()),
             ),
             SizedBox(
               height: 5.h,
@@ -272,7 +281,7 @@ class FilterAllTab extends StatelessWidget {
             ///--Seller --///
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: const CategoryName(title: "Seller"),
+              child: CategoryName(title: "Seller".tr()),
             ),
             SizedBox(
               height: 5.h,
@@ -287,7 +296,7 @@ class FilterAllTab extends StatelessWidget {
                         radius: 32.sp,
                         backgroundColor: AppColors.lightGray,
                         child: Text(
-                          'All',
+                          'All'.tr(),
                           style: roboto16W500(),
                         ),
                       )
@@ -318,7 +327,7 @@ class FilterAllTab extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-              child: const CategoryName(title: "Collection"),
+              child: CategoryName(title: "Collection".tr()),
             ),
             SizedBox(
               height: 5.h,

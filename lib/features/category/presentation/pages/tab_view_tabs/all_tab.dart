@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_images.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -25,15 +27,27 @@ class AllTab extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "1250 items found",
-                  style: roboto14(
-                      weight: FontWeight.w400, color: AppColors.silverDark),
+                Row(
+                  children: [
+                    Text(
+                      "1250",
+                      style: roboto14(
+                          weight: FontWeight.w400, color: AppColors.silverDark),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Text(
+                      "items found".tr(),
+                      style: roboto14(
+                          weight: FontWeight.w400, color: AppColors.silverDark),
+                    ),
+                  ],
                 ),
                 Row(
                   children: [
                     Text(
-                      "Sort by",
+                      "Sort by".tr(),
                       style: roboto12W400(color: AppColors.silverDark),
                     ),
                     InkWell(
@@ -56,11 +70,11 @@ class AllTab extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryName(title: "Recommended for you"),
-                    ViewALl(),
+                    CategoryName(title: "Recommended for you".tr()),
+                    const ViewALl(),
                   ],
                 ),
               ),
@@ -71,8 +85,10 @@ class AllTab extends StatelessWidget {
                   itemBuilder: (context, index) => SizedBox(
                     width: 10.w,
                   ),
-                  separatorBuilder: (context, index) => const ProductCard(),
-                  itemCount: 6,
+                  separatorBuilder: (context, index) => ProductCard(
+                    dataEntity: HomeCubit.get(context).products[index],
+                  ),
+                  itemCount: HomeCubit.get(context).products.length,
                 ),
               ),
             ],
@@ -96,7 +112,7 @@ class AllTab extends StatelessWidget {
               ),
               child: Center(
                   child: Text(
-                "Find Your Own Jeans",
+                "Find Your Own Jeans".tr(),
                 style: roboto20(color: Colors.white),
               )),
             ),
@@ -106,11 +122,11 @@ class AllTab extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: 10.w, right: 10.w, top: 20.h, bottom: 10.h),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryName(title: "Recently viewed"),
-                    ViewALl(),
+                    CategoryName(title: "Recently viewed".tr()),
+                    const ViewALl(),
                   ],
                 ),
               ),
@@ -124,9 +140,10 @@ class AllTab extends StatelessWidget {
                         itemBuilder: (context, index) => SizedBox(
                           width: 10.w,
                         ),
-                        separatorBuilder: (context, index) =>
-                            const ProductCard(),
-                        itemCount: 6,
+                        separatorBuilder: (context, index) => ProductCard(
+                          dataEntity: HomeCubit.get(context).products[index],
+                        ),
+                        itemCount: HomeCubit.get(context).products.length,
                       ),
                     )
                   ],
@@ -137,9 +154,9 @@ class AllTab extends StatelessWidget {
               ),
             ],
           ),
-          const ShopBy(shopBy: "Shop by Brand"),
+          ShopBy(shopBy: "Shop by Brand".tr()),
           ShopBy(
-            shopBy: "Shop by Seller",
+            shopBy: "Shop by Seller".tr(),
             onPressed: () {
               PersistentNavBarNavigator.pushNewScreen(
                 context,
@@ -149,7 +166,7 @@ class AllTab extends StatelessWidget {
               );
             },
           ),
-          const ShopBy(shopBy: "New Collection"),
+          ShopBy(shopBy: "New Collection".tr()),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: GridView.builder(
@@ -158,11 +175,12 @@ class AllTab extends StatelessWidget {
                   childAspectRatio: 6.6.h / 10.h,
                   mainAxisSpacing: 10.h,
                   crossAxisSpacing: 10.w),
-              itemBuilder: (BuildContext context, int index) =>
-                  const ProductCardWithSeller(),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 8,
+              itemBuilder: (context, index) => ProductCard(
+                dataEntity: HomeCubit.get(context).products[index],
+              ),
+              itemCount: HomeCubit.get(context).products.length,
             ),
           ),
           SizedBox(

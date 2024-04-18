@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,9 +34,9 @@ class AddressRow extends StatelessWidget {
           Row(
             children: [
               Icon(
-                title == "Home"
+                title == "HomeOrder".tr()
                     ? Icons.home_outlined
-                    : title == "Work"
+                    : title == "Work".tr()
                         ? Icons.shopping_bag_outlined
                         : Icons.other_houses_outlined,
               ),

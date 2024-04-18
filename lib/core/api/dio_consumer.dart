@@ -1,11 +1,27 @@
 import 'package:dio/dio.dart';
 import 'package:la_mode/core/api/api_consumer.dart';
 import 'package:la_mode/core/error/server_failure.dart';
+import 'package:la_mode/core/utils/cache_helper.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
-  DioConsumer({required this.dio});
+  DioConsumer({required this.dio}) {
+    dio.options.headers['token'] = CacheHelper.getData('token');
+    dio.options.headers['Authorization'] =
+        "Bearer ${CacheHelper.getData('token')}";
+
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestHeader: true,
+        requestBody: false,
+        responseHeader: true,
+        responseBody: false,
+        error: true,
+      ),
+    );
+  }
 
   @override
   Future delete(path,

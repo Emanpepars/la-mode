@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/domain/entities/cart_entity.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/text_styles.dart';
-import '../../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({
@@ -11,7 +13,7 @@ class OrderCard extends StatelessWidget {
     required this.items,
   });
 
-  final List<ProductItem> items;
+  final List<CartProducts> items;
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +35,11 @@ class OrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "My Order",
+                "My Order".tr(),
                 style: roboto16W500(),
               ),
               Text(
-                '\$355',
+                "\$${CartCubit.get(context).totalCartPrice}",
                 style: roboto16W500(),
               ),
             ],
@@ -62,10 +64,15 @@ class OrderCard extends StatelessWidget {
                 itemBuilder: (context, index) => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      items[index].name,
-                      style: roboto16W500(
-                        color: AppColors.lightColor,
+                    SizedBox(
+                      width: 260.w,
+                      child: Text(
+                        items[index].product!.title!,
+                        style: roboto16W500(
+                          color: AppColors.lightColor,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
@@ -86,7 +93,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Discount",
+                    "Discount".tr(),
                     style: roboto16W500(
                       color: AppColors.silverDark,
                     ),
@@ -106,7 +113,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Delivery",
+                    "Delivery".tr(),
                     style: roboto16W500(
                       color: AppColors.silverDark,
                     ),
@@ -130,13 +137,13 @@ class OrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Total",
+                "Total".tr(),
                 style: roboto16W500(
                   color: AppColors.lightColor,
                 ),
               ),
               Text(
-                "\$355",
+                "\$${CartCubit.get(context).totalCartPrice}",
                 style: roboto16W500(),
               ),
             ],

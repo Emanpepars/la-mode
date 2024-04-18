@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +35,7 @@ class LoginScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'Success',
+                  'Success'.tr(),
                   style: roboto16(
                     color: Colors.white,
                   ),
@@ -63,7 +64,7 @@ class LoginScreen extends StatelessWidget {
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
             title: Text(
-              'Sign In',
+              'Sign In'.tr(),
               style: roboto20(
                 weight: FontWeight.w700,
               ),
@@ -85,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Email',
+                        'Email'.tr(),
                         style: robotoTitleField(),
                       ),
                       SizedBox(
@@ -95,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                         controller: LoginCubit.get(context).emailController,
                         validator: (value) =>
                             LoginCubit.get(context).validateEmail(value),
-                        hintText: 'Enter your Email',
+                        hintText: 'Enter your Email'.tr(),
                         prefixIcon: const Icon(
                           Icons.email_outlined,
                           color: AppColors.silverDark,
@@ -105,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                         height: 20.h,
                       ),
                       Text(
-                        'Password',
+                        'Password'.tr(),
                         style: robotoTitleField(),
                       ),
                       SizedBox(
@@ -115,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                         controller: LoginCubit.get(context).passwordController,
                         validator: (value) =>
                             LoginCubit.get(context).validatePassword(value),
-                        hintText: 'Enter your password',
+                        hintText: 'Enter your password'.tr(),
                         prefixIcon: const Icon(
                           Icons.lock_outline,
                           color: AppColors.silverDark,
@@ -137,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                         },
                         child: Text(
                           textAlign: TextAlign.right,
-                          "Forget password",
+                          "Forget password".tr(),
                           style: roboto14(
                             color: AppColors.lightColor,
                             weight: FontWeight.w300,
@@ -148,12 +149,12 @@ class LoginScreen extends StatelessWidget {
                         height: 20.h,
                       ),
                       MyButton(
-                        text: "Sign In",
+                        text: "Sign In".tr(),
                         onPressed: () {
                           LoginCubit.get(context).loginUpOnPressed(
                             context,
                             Text(
-                              'Processing Data',
+                              'Processing Data'.tr(),
                               style: roboto16(
                                 color: Colors.white,
                               ),
@@ -176,7 +177,7 @@ class LoginScreen extends StatelessWidget {
                               horizontal: 25.w,
                             ),
                             child: Text(
-                              "Or",
+                              "Or".tr(),
                               style: roboto16(),
                             ),
                           ),
@@ -219,7 +220,7 @@ class LoginScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Don\'t have an account? '),
+                        Text('Do not have an account?'.tr()),
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
@@ -228,7 +229,7 @@ class LoginScreen extends StatelessWidget {
                             );
                           },
                           child: Text(
-                            'Create a new account ',
+                            'Create a new account'.tr(),
                             style: roboto14(
                               color: AppColors.lightColor,
                               weight: FontWeight.w700,

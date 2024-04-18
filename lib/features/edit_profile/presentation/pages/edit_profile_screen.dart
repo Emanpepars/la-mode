@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
@@ -24,8 +27,8 @@ class EditProfileScreen extends StatelessWidget {
       child: BlocConsumer<EditProfileCubit, EditProfileState>(
         listener: (context, state) {},
         builder: (BuildContext context, EditProfileState state) => Scaffold(
-          appBar: const AppBarWithBag(
-            appBarTitle: 'Edit Profile',
+          appBar: AppBarWithBag(
+            appBarTitle: 'Edit Profile'.tr(),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -37,33 +40,64 @@ class EditProfileScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        CircleAvatar(
-                          radius: 40.sp,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: const DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                  AppImages.fakeSeller,
+                        EditProfileCubit.get(context).profilePic == null
+                            ? CircleAvatar(
+                                radius: 35.sp,
+                                backgroundImage:
+                                    const AssetImage(AppImages.fakeSeller),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.gold,
+                                      width: 2.w,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        35.sp,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundImage: FileImage(
+                                  File(
+                                    EditProfileCubit.get(context)
+                                        .profilePic!
+                                        .path,
+                                  ),
+                                ),
+                                radius: 35.sp,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: AppColors.gold,
+                                      width: 2.w,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                        40.sp,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              border: Border.all(
-                                color: AppColors.gold,
-                                width: 2.w,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(
-                                  40.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                         SizedBox(
-                          width: 20.w,
+                          width: 10.w,
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            ImagePicker()
+                                .pickImage(source: ImageSource.gallery)
+                                .then((value) {
+                              if (value != null) {
+                                EditProfileCubit.get(context)
+                                    .uploadProfilePic(value);
+                              }
+                            });
+                          },
                           child: Row(
                             children: [
                               const Icon(
@@ -74,11 +108,10 @@ class EditProfileScreen extends StatelessWidget {
                                 width: 10.w,
                               ),
                               Text(
-                                "Upload new photo",
-                                style: robotoCustomize(
-                                    color: AppColors.silverDark,
-                                    fontSize: 16.sp,
-                                    fontWeigh: FontWeight.w700),
+                                "Upload new photo".tr(),
+                                style: roboto16W400(
+                                  color: AppColors.silverDark,
+                                ),
                               )
                             ],
                           ),
@@ -91,7 +124,7 @@ class EditProfileScreen extends StatelessWidget {
 
                     ///--- name ---///
 
-                    const CategoryName(title: 'Name'),
+                    CategoryName(title: 'Name'.tr()),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -100,7 +133,7 @@ class EditProfileScreen extends StatelessWidget {
                           EditProfileCubit.get(context).validateName(value),
                       controller:
                           EditProfileCubit.get(context).usernameController,
-                      hintText: 'Enter your username',
+                      hintText: 'Enter your username'.tr(),
                       prefixIcon: const Icon(
                         Icons.person_outline,
                         color: AppColors.silverDark,
@@ -111,7 +144,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
 
                     ///--- email ---///
-                    const CategoryName(title: 'Email'),
+                    CategoryName(title: 'Email'.tr()),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -119,7 +152,7 @@ class EditProfileScreen extends StatelessWidget {
                       validator: (value) =>
                           EditProfileCubit.get(context).validateEmail(value),
                       controller: EditProfileCubit.get(context).emailController,
-                      hintText: 'Enter your username',
+                      hintText: 'Enter your username'.tr(),
                       prefixIcon: const Icon(
                         Icons.email_outlined,
                         color: AppColors.silverDark,
@@ -130,7 +163,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
 
                     ///--- Phone Number ---///
-                    const CategoryName(title: 'Phone Number'),
+                    CategoryName(title: 'Phone Number'.tr()),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -140,7 +173,7 @@ class EditProfileScreen extends StatelessWidget {
                         iconColor: AppColors.silverDark,
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: 10.w, vertical: 12.h),
-                        hintText: 'Enter your phone number',
+                        hintText: 'Enter your phone number'.tr(),
                         hintStyle: robotoTitleField()
                             .copyWith(color: AppColors.silverDark),
                         border: OutlineInputBorder(
@@ -170,7 +203,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
 
                     ///--- Location ---///
-                    const CategoryName(title: 'Location'),
+                    CategoryName(title: 'Location'.tr()),
                     SizedBox(
                       height: 2.h,
                     ),
@@ -227,13 +260,13 @@ class EditProfileScreen extends StatelessWidget {
                             child: SizedBox(
                               height: double.infinity,
                               child: MyButton(
-                                text: 'Save Changes',
+                                text: 'Save Changes'.tr(),
                                 onPressed: () {
                                   EditProfileCubit.get(context)
                                       .saveChangeOnPressed(
                                     context,
                                     Text(
-                                      'Processing Data',
+                                      'Processing Data'.tr(),
                                       style: roboto16(
                                         color: Colors.white,
                                       ),
@@ -251,7 +284,10 @@ class EditProfileScreen extends StatelessWidget {
               ),
             ),
           ),
-          drawer: MyDrawer(userName: '', userEmail: '',),
+          drawer: MyDrawer(
+            userName: userEntity.name,
+            userEmail: userEntity.email,
+          ),
         ),
       ),
     );

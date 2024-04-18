@@ -1,21 +1,26 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/config/routes.dart';
+import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
+import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_cubit.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_components.dart';
-import '../../../../core/utils/app_images.dart';
 import '../../../../core/utils/text_styles.dart';
 import '../widgets/color_container.dart';
 import '../widgets/property_button.dart';
 import '../widgets/rating.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  final ProductDataEntity dataEntity;
+
+  const ProductDetailsScreen({required this.dataEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,8 @@ class ProductDetailsScreen extends StatelessWidget {
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
-          appBar: const AppBarWithBag(
-            appBarTitle: "Product Details",
+          appBar: AppBarWithBag(
+            appBarTitle: "Product Details".tr(),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -50,31 +55,28 @@ class ProductDetailsScreen extends StatelessWidget {
                             Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(ProductDetailsCubit.get(context)
-                                  .sales[index]["image"]!),
+                              image: CachedNetworkImageProvider(
+                                dataEntity.images![index],
+                              ),
                               fit: BoxFit.cover,
                             ),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10.h, horizontal: 10.w),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(12.sp),
-                                    ),
+                                    borderRadius: BorderRadius.circular(12),
                                     color: Colors.white,
                                   ),
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 6.h,
-                                    horizontal: 6.w,
-                                  ),
-                                  child: Icon(
+                                  padding: const EdgeInsets.all(6),
+                                  child: const Icon(
                                     Icons.favorite_border,
-                                    size: 24.sp,
+                                    size: 24,
                                     color: AppColors.lightColor,
                                   ),
                                 ),
@@ -82,8 +84,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        itemCount:
-                            ProductDetailsCubit.get(context).sales.length,
+                        itemCount: dataEntity.images!.length,
                       ),
                     ),
                   ),
@@ -123,15 +124,16 @@ class ProductDetailsScreen extends StatelessWidget {
                               Radius.circular(10.sp),
                             ),
                             image: DecorationImage(
-                              image: AssetImage(ProductDetailsCubit.get(context)
-                                  .sales[index]["image"]!),
+                              image: CachedNetworkImageProvider(
+                                dataEntity.images![index],
+                              ),
                               fit: BoxFit.cover,
                               opacity: 0.9,
                             ),
                           ),
                         ),
                       ),
-                      itemCount: ProductDetailsCubit.get(context).sales.length,
+                      itemCount: dataEntity.images!.length,
                       separatorBuilder: (BuildContext context, int index) =>
                           SizedBox(
                         width: 5.w,
@@ -151,15 +153,14 @@ class ProductDetailsScreen extends StatelessWidget {
                           Expanded(
                             flex: 5,
                             child: Text(
-                              ProductDetailsCubit.get(context).sales[0]
-                                  ["title"]!,
+                              dataEntity.title!,
                               style: roboto18W500(),
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Text(
-                              "\$${ProductDetailsCubit.get(context).sales[0]["price"]!}",
+                              "\$${dataEntity.price!}",
                               style: roboto18W500(),
                             ),
                           ),
@@ -169,7 +170,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         height: 10.h,
                       ),
                       Text(
-                        "Available in stock",
+                        "Available in stock".tr(),
                         style: roboto16(
                           color: AppColors.lightColor,
                         ),
@@ -182,25 +183,27 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         children: [
                           Container(
+                            width: 52.sp,
+                            height: 52.sp,
                             decoration: BoxDecoration(
                               border: Border.all(color: AppColors.gold),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(26.sp),
                               ),
+                              image: DecorationImage(
+                                image: CachedNetworkImageProvider(
+                                    "${dataEntity.brand!.image}"),
+                                fit: BoxFit.fill,
+                              ),
                             ),
-                            child: CircleAvatar(
-                              radius: 26.sp,
-                              backgroundImage:
-                                  const AssetImage(AppImages.fakeSeller),
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: CircleAvatar(
-                                  backgroundColor: AppColors.gold,
-                                  radius: 12.sp,
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: AppColors.lightColor,
-                                  ),
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: CircleAvatar(
+                                backgroundColor: AppColors.gold,
+                                radius: 12.sp,
+                                child: const Icon(
+                                  Icons.add,
+                                  color: AppColors.lightColor,
                                 ),
                               ),
                             ),
@@ -216,19 +219,19 @@ class ProductDetailsScreen extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   SizedBox(
-                                    width: 205.w,
+                                    width: 203.w,
                                     child: Text(
-                                      "Gucci-Bubble Store",
+                                      "${dataEntity.brand!.name}",
                                       style: roboto16W500(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  const ViewButton(title: "seller"),
+                                  ViewButton(title: "seller".tr()),
                                 ],
                               ),
                               Text(
-                                "Alexandria,Egypt",
+                                "${dataEntity.brand!.slug}",
                                 style: roboto14(
                                   color: AppColors.silverDark,
                                 ),
@@ -244,14 +247,13 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       ///---Description---///
-                      const CategoryName(title: "Description"),
+                      CategoryName(title: "Description".tr()),
                       ReadMoreText(
-                        ProductDetailsCubit.get(context).sales[0]
-                            ["description"]!,
+                        dataEntity.description!,
                         trimLines: 3,
                         trimMode: TrimMode.Line,
-                        trimCollapsedText: 'Read more',
-                        trimExpandedText: 'Read less',
+                        trimCollapsedText: 'Read more'.tr(),
+                        trimExpandedText: 'Read less'.tr(),
                         moreStyle: roboto14(
                           color: AppColors.lightColor,
                         ),
@@ -272,9 +274,9 @@ class ProductDetailsScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const CategoryName(title: "Available sizes"),
+                              CategoryName(title: "Available sizes".tr()),
                               Text(
-                                "Size guide",
+                                "Size guide".tr(),
                                 style: roboto14(
                                   weight: FontWeight.w500,
                                   color: AppColors.silverDark,
@@ -324,7 +326,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       ///---Colors---///
-                      const CategoryName(title: "Colors"),
+                      CategoryName(title: "Colors".tr()),
                       SizedBox(
                         height: 50.h,
                         child: ListView.separated(
@@ -359,9 +361,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CategoryName(title: "Rating and reviews"),
+                          CategoryName(title: "Rating and reviews".tr()),
                           ViewButton(
-                            title: "reviews",
+                            title: "reviews".tr(),
                             onTap: () {
                               Navigator.pushNamed(context, Routes.review);
                             },
@@ -410,37 +412,37 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 4 / 5,
-                            text: 'Excellent',
+                            text: 'Excellent'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 3 / 5,
-                            text: 'Good',
+                            text: 'Good'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 2 / 5,
-                            text: 'Average',
+                            text: 'Average'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 1 / 5,
-                            text: 'Below Average',
+                            text: 'Below Average'.tr(),
                           ),
                           SizedBox(
                             height: 2.h,
                           ),
-                          const CuRatingBar(
+                          CuRatingBar(
                             value: 0 / 5,
-                            text: 'Poor',
+                            text: 'Poor'.tr(),
                           ),
                           SizedBox(
                             height: 15.h,
@@ -453,11 +455,11 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CategoryName(title: "Match with this"),
-                                ViewALl(),
+                                CategoryName(title: "Match with this".tr()),
+                                const ViewALl(),
                               ],
                             ),
                           ),
@@ -477,8 +479,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   width: 5.w,
                                                 ),
                                       separatorBuilder: (context, index) =>
-                                          const ProductCard(),
-                                      itemCount: 6),
+                                          ProductCard(
+                                            dataEntity: HomeCubit.get(context)
+                                                .products[index],
+                                          ),
+                                      itemCount: HomeCubit.get(context)
+                                          .products
+                                          .length),
                                 )
                               ],
                             ),
@@ -491,35 +498,32 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 20.h, bottom: 10.h),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                CategoryName(title: "Recently viewed"),
-                                ViewALl(),
+                                CategoryName(title: "Recently viewed".tr()),
+                                const ViewALl(),
                               ],
                             ),
                           ),
                           SizedBox(
                             height: 220.h,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: ListView.separated(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          index == 0
-                                              ? SizedBox(
-                                                  width: 0.w,
-                                                )
-                                              : SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                      separatorBuilder: (context, index) =>
-                                          const ProductCard(),
-                                      itemCount: 6),
-                                )
-                              ],
-                            ),
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => index == 0
+                                    ? SizedBox(
+                                        width: 0.w,
+                                      )
+                                    : SizedBox(
+                                        width: 5.w,
+                                      ),
+                                separatorBuilder: (context, index) =>
+                                    ProductCard(
+                                      dataEntity: HomeCubit.get(context)
+                                          .products[index],
+                                    ),
+                                itemCount:
+                                    HomeCubit.get(context).products.length),
                           ),
                         ],
                       ),
@@ -547,8 +551,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: SizedBox(
                       height: 50.h,
-                      child: const MyButton(
-                        text: "Add To Bag",
+                      child: MyButton(
+                        text: "Add To Bag".tr(),
                         textColor: AppColors.lightColor,
                         color: Colors.white,
                       ),
@@ -560,8 +564,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: SizedBox(
                       height: 50.h,
-                      child: const MyButton(
-                        text: "Buy Now",
+                      child: MyButton(
+                        text: "Buy Now".tr(),
                       ),
                     ),
                   ),
@@ -569,7 +573,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
             ),
           ),
-          drawer: MyDrawer(
+          drawer: const MyDrawer(
             userName: '',
             userEmail: '',
           ),
