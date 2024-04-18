@@ -61,7 +61,6 @@ class RemoteCartDto extends CartDto {
       CartModel cartModel = CartModel.fromJson(response);
       return Right(cartModel);
     } catch (e) {
-      print(e);
       return Left(ServerFailures(e.toString()));
     }
   }

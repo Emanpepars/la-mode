@@ -125,7 +125,7 @@ class BagItem extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             CartCubit.get(context)
-                                .removeItemFromCart(productItem.id!);
+                                .removeItemFromCart(productItem.product!.id!);
                           },
                           child: const Icon(
                             Icons.close,
