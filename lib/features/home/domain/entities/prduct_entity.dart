@@ -3,11 +3,11 @@ class ProductEntity {
     this.data,
   });
 
-  List<DataEntity>? data;
+  List<ProductDataEntity>? data;
 }
 
-class DataEntity {
-  DataEntity({
+class ProductDataEntity {
+  ProductDataEntity({
     this.sold,
     this.images,
     this.subcategory,

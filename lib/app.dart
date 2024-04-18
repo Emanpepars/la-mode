@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 
 import 'core/utils/app_themeing.dart';
 import 'features/home/presentation/manager/provider/home_cubit.dart';
+import 'features/home/presentation/pages/bottom_tabs/cart_tab/data/data_sources/cart_dto.dart';
+import 'features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
 import 'features/home/presentation/pages/bottom_tabs/wishlist/data/data_sources/wishlist_dto.dart';
 import 'features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_cubit.dart';
 import 'features/seller/sellers/presentation/manager/sellers_cubit.dart';
@@ -39,6 +41,10 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             )..getAllProduct(),
+          ),
+          BlocProvider(
+            create: (context) =>
+            CartCubit(RemoteCartDto(DioConsumer(dio: Dio())))..getCartItems(),
           ),
           BlocProvider<WishlistCubit>(
             create: (context) => WishlistCubit(

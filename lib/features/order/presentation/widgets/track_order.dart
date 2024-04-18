@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:la_mode/config/routes.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/features/order/domain/entities/order_item.dart';
@@ -31,6 +30,7 @@ class TrackOrder extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Column(
             children: [
@@ -107,14 +107,19 @@ class TrackOrder extends StatelessWidget {
                 itemBuilder: (context, index) => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      order.items[index].name,
-                      style: roboto16W500(
-                        color: AppColors.lightColor,
+                    SizedBox(
+                      width: 250.w,
+                      child: Text(
+                        order.items[index].product!.title!,
+                        style: roboto16W500(
+                          color: AppColors.lightColor,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
-                      "${order.items[index].quantity} x \$${order.items[index].price}",
+                      "\$${order.items[index].price!}",
                       style: roboto16W500(),
                     ),
                   ],

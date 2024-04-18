@@ -13,3 +13,13 @@ class GetWishlistFailure extends WishlistState {
 
   GetWishlistFailure(this.failures);
 }
+
+class AddWishLoading extends WishlistState {}
+
+class AddWishSuccess extends WishlistState {}
+
+class AddWishFailure extends WishlistState {
+  Failures failures;
+
+  AddWishFailure(this.failures);
+}

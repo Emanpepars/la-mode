@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -19,7 +18,7 @@ import '../widgets/property_button.dart';
 import '../widgets/rating.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  final DataEntity dataEntity;
+  final ProductDataEntity dataEntity;
 
   const ProductDetailsScreen({required this.dataEntity, super.key});
 
@@ -185,7 +184,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           Container(
                             width: 52.sp,
-                            height: 55.sp,
+                            height: 52.sp,
                             decoration: BoxDecoration(
                               border: Border.all(color: AppColors.gold),
                               borderRadius: BorderRadius.all(

@@ -14,7 +14,7 @@ class ProductModel extends ProductEntity {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(ProductData.fromJson(v));
       });
     }
   }
@@ -23,8 +23,8 @@ class ProductModel extends ProductEntity {
   Metadata? metadata;
 }
 
-class Data extends DataEntity {
-  Data({
+class ProductData extends ProductDataEntity {
+  ProductData({
     super.sold,
     super.images,
     super.subcategory,
@@ -44,7 +44,7 @@ class Data extends DataEntity {
     this.updatedAt,
   });
 
-  Data.fromJson(dynamic json) {
+  ProductData.fromJson(dynamic json) {
     sold = json['sold'];
     images = json['images'] != null ? json['images'].cast<String>() : [];
     if (json['subcategory'] != null) {

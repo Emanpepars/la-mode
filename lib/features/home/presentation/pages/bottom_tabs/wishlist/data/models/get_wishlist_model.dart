@@ -15,7 +15,7 @@ class GetWishlistModel extends GetWishlistEntity {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(ProductData.fromJson(v));
       });
     }
   }

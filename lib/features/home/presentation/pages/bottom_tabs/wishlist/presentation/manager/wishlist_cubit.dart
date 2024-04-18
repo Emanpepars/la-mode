@@ -17,7 +17,7 @@ class WishlistCubit extends Cubit<WishlistState> {
 
   static WishlistCubit get(context) => BlocProvider.of(context);
 
-  List<DataEntity> wishlist = [];
+  List<ProductDataEntity> wishlist = [];
   double totalPrice = 0;
 
   getWishlist() async {
@@ -29,6 +29,18 @@ class WishlistCubit extends Cubit<WishlistState> {
     response.fold((l) => emit(GetWishlistFailure(l)), (r) {
       wishlist = r.data!;
       emit(GetWishlistSuccess());
+    });
+  }
+
+  addWish(String productId) async {
+    emit(AddWishLoading());
+    WishlistUseCase wishlistUseCase = WishlistUseCase(wishlistDomainRepo);
+
+    var response = await wishlistUseCase.getWishlist();
+
+    response.fold((l) => emit(AddWishFailure(l)), (r) {
+      wishlist = r.data!;
+      emit(AddWishSuccess());
     });
   }
 }

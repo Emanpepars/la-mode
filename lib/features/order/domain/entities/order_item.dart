@@ -1,7 +1,8 @@
-import '../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
+
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/domain/entities/cart_entity.dart';
 
 class OrderItem {
-  final int orderNumber;
+  final String orderNumber;
   final int price;
   final String state;
   final bool placed;
@@ -11,7 +12,7 @@ class OrderItem {
   final DateTime date;
   final int discount;
   final int delivery;
-  final List<ProductItem> items;
+  final List<CartProducts> items;
 
   OrderItem({
     required this.placed,

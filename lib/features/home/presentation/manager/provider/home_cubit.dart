@@ -231,7 +231,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   ///--- get all product---///
-  List<DataEntity> products = [];
+  List<ProductDataEntity> products = [];
 
   getAllProduct() async {
     emit(GetAllProductLoading());

@@ -7,22 +7,19 @@ import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_cubit.dart';
 import 'package:la_mode/features/check_out/checkout/presentation/manager/check_out_state.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/domain/entities/cart_entity.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_images.dart';
-import '../../../../auth/register/domain/entities/user_entity.dart';
-import '../../../../home/presentation/pages/bottom_tabs/cart_tab/domain/repositories/product_item.dart';
 import '../widgets/delivery_address.dart';
 import '../widgets/order_card.dart';
 import '../widgets/payment_alert_dialog.dart';
 import '../widgets/payment_methods_card.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  final UserEntity userEntity;
-  final List<ProductItem> items;
+  final List<CartProducts> cartProducts;
 
-  const CheckoutScreen(
-      {super.key, required this.userEntity, required this.items});
+  const CheckoutScreen({required this.cartProducts, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +104,12 @@ class CheckoutScreen extends StatelessWidget {
                     ),
                     MyButton(
                       text: 'Track Your Order'.tr(),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.myOrders,
+                        );
+                      },
                     ),
                     SizedBox(
                       height: 10.h,
@@ -142,7 +144,9 @@ class CheckoutScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                OrderCard(items: items),
+                OrderCard(
+                  items: cartProducts,
+                ),
                 SizedBox(
                   height: 15.h,
                 ),
@@ -297,6 +301,9 @@ class CheckoutScreen extends StatelessWidget {
                       );
                     }
                   },
+                ),
+                SizedBox(
+                  height: 15.h,
                 ),
               ],
             ),

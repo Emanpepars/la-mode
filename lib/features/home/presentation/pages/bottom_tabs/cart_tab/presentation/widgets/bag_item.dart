@@ -1,14 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import '../../../../../../../../core/utils/app_icons.dart';
-import '../../../../../../../../core/utils/app_images.dart';
-import '../../domain/repositories/product_item.dart';
+import '../../domain/entities/cart_entity.dart';
 
 class BagItem extends StatelessWidget {
-  final ProductItem productItem;
+  final CartProducts productItem;
 
   const BagItem({
     super.key,
@@ -41,12 +41,15 @@ class BagItem extends StatelessWidget {
               child: Stack(
                 alignment: AlignmentDirectional.bottomStart,
                 children: [
-                  Image(
-                    image: const AssetImage(
-                      AppImages.onboard1,
-                    ),
-                    width: 100.w,
+                  CachedNetworkImage(
+                    width: 110.w,
+                    height: 100.h,
                     fit: BoxFit.cover,
+                    imageUrl: productItem.product!.imageCover!,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   Padding(
                     padding:
@@ -84,48 +87,34 @@ class BagItem extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              productItem.name,
-                              style: roboto14(weight: FontWeight.w600),
+                            SizedBox(
+                              width: 170.w,
+                              child: Text(
+                                productItem.product!.title!,
+                                style: roboto14(
+                                  weight: FontWeight.w600,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
                             SizedBox(
                               height: 2.h,
                             ),
                             SizedBox(
-                              width: 140.w,
+                              width: 160.w,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Size: '.tr(),
-                                        style: roboto12W400().copyWith(
-                                          color: AppColors.silverDark,
-                                        ),
-                                      ),
-                                      Text(
-                                        productItem.size,
-                                        style: roboto12W400().copyWith(
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
+                                  Text(
+                                    'Size: '.tr(),
+                                    style: roboto12W400().copyWith(
+                                      color: AppColors.silverDark,
+                                    ),
                                   ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Color: '.tr(),
-                                        style: roboto12W400().copyWith(
-                                          color: AppColors.silverDark,
-                                        ),
-                                      ),
-                                      Text(
-                                        productItem.color,
-                                        style: roboto12W400().copyWith(
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
+                                  Text(
+                                    'One Size',
+                                    style: roboto12W400()
+                                        .copyWith(fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
@@ -140,74 +129,48 @@ class BagItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: double.infinity,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.w),
                     child: Text(
-                      '\$${productItem.price}',
+                      '\$${productItem.price!}',
                       style: roboto16W500().copyWith(
                         fontWeight: FontWeight.w600,
                       ),
-                      textAlign: TextAlign.end,
                     ),
                   ),
                   SizedBox(
                     height: 32.h,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          width: 129.w,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {},
-                                icon: const Icon(Icons.remove),
-                                style: IconButton.styleFrom(
-                                  backgroundColor: AppColors.lightYellow,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0.sp),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 13.w),
-                                child: Text(
-                                  "1",
-                                  style: roboto18W500(),
-                                ),
-                              ),
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {},
-                                icon: const Icon(Icons.add),
-                                style: IconButton.styleFrom(
-                                  backgroundColor: AppColors.lightYellow,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0.sp),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {},
+                          icon: const Icon(Icons.remove),
+                          style: IconButton.styleFrom(
+                            backgroundColor: AppColors.lightYellow,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0.sp),
+                            ),
                           ),
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              '\$35',
-                              style: roboto12W400().copyWith(
-                                decoration: TextDecoration.lineThrough,
-                                color: AppColors.silverDark,
-                              ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 13.w),
+                          child: Text(
+                            productItem.count.toString(),
+                            style: roboto18W500(),
+                          ),
+                        ),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {},
+                          icon: const Icon(Icons.add),
+                          style: IconButton.styleFrom(
+                            backgroundColor: AppColors.lightYellow,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0.sp),
                             ),
-                            Text(
-                              '-5%',
-                              style: roboto12W400().copyWith(
-                                color: AppColors.silverDark,
-                              ),
-                            ),
-                          ],
-                        )
+                          ),
+                        ),
                       ],
                     ),
                   )

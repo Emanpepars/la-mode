@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:la_mode/core/utils/app_images.dart';
@@ -9,6 +10,8 @@ import 'package:badges/badges.dart' as badges;
 import 'package:la_mode/features/filter_page/pages/filtter_screen.dart';
 import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_state.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -383,122 +386,130 @@ class MyButton extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  final DataEntity dataEntity;
+  final ProductDataEntity dataEntity;
 
   const ProductCard({required this.dataEntity, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        PersistentNavBarNavigator.pushNewScreen(
-          context,
-          screen: ProductDetailsScreen(
-            dataEntity: dataEntity,
+    return BlocConsumer<WishlistCubit, WishlistState>(
+      listener: (context, state) {},
+      builder: (context, state) => InkWell(
+        onTap: () {
+          PersistentNavBarNavigator.pushNewScreen(
+            context,
+            screen: ProductDetailsScreen(
+              dataEntity: dataEntity,
+            ),
+            withNavBar: false, // OPTIONAL VALUE. True by default.
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          );
+        },
+        child: Container(
+          width: 160.w,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: AppColors.silverM,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(11),
+            ),
           ),
-          withNavBar: false, // OPTIONAL VALUE. True by default.
-          pageTransitionAnimation: PageTransitionAnimation.cupertino,
-        );
-      },
-      child: Container(
-        width: 160.w,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.silverM,
-          ),
-          borderRadius: const BorderRadius.all(
-            Radius.circular(11),
-          ),
-        ),
-        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6.0),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomStart,
-                children: [
-                  CachedNetworkImage(
-                    width: 200.w,
-                    height: 120.h,
-                    fit: BoxFit.cover,
-                    imageUrl: dataEntity.imageCover ?? "",
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                    child: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: AppColors.lightGray,
-                      child: Image(
-                        image: const AssetImage(
-                          AppIcons.heart,
+          padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6.0),
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    CachedNetworkImage(
+                      width: 200.w,
+                      height: 120.h,
+                      fit: BoxFit.cover,
+                      imageUrl: dataEntity.imageCover ?? "",
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                      child: CustomInkWell(
+                        onTap: () {
+                          WishlistCubit.get(context).addWish(dataEntity.id!);
+                        },
+                        child: CircleAvatar(
+                          radius: 12,
+                          backgroundColor: AppColors.lightGray,
+                          child: Image(
+                            image: const AssetImage(
+                              AppIcons.heart,
+                            ),
+                            color: AppColors.lightColor,
+                            width: 15.w,
+                            height: 15.h,
+                          ),
                         ),
-                        color: AppColors.lightColor,
-                        width: 15.w,
-                        height: 15.h,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 100.w,
+                        child: Text(
+                          dataEntity.title!,
+                          style: roboto14(weight: FontWeight.w600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            size: 15,
+                            color: AppColors.gold,
+                          ),
+                          Text(
+                            dataEntity.ratingsAverage!.toString(),
+                            style: roboto12W400().copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.silverDark,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "\$${dataEntity.price!}",
+                        style: roboto18W500(),
+                      ),
+                      SizedBox(width: 5.w),
+                      const Text(""),
+                    ],
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 100.w,
-                      child: Text(
-                        dataEntity.title!,
-                        style: roboto14(weight: FontWeight.w600),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.star,
-                          size: 15,
-                          color: AppColors.gold,
-                        ),
-                        Text(
-                          dataEntity.ratingsAverage!.toString(),
-                          style: roboto12W400().copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.silverDark,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "\$${dataEntity.price!}",
-                      style: roboto18W500(),
-                    ),
-                    SizedBox(width: 5.w),
-                    const Text(""),
-                  ],
-                ),
-              ],
-            ),
-            MyYellowButton(text: "Add To Cart".tr(), onPressed: () {}),
-          ],
+              MyYellowButton(text: "Add To Cart".tr(), onPressed: () {}),
+            ],
+          ),
         ),
       ),
     );
@@ -506,7 +517,7 @@ class ProductCard extends StatelessWidget {
 }
 
 class ProductCardWithSeller extends StatelessWidget {
-  final DataEntity dataEntity;
+  final ProductDataEntity dataEntity;
 
   const ProductCardWithSeller({required this.dataEntity, super.key});
 
@@ -1281,4 +1292,23 @@ class ConstAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class CustomInkWell extends StatelessWidget {
+  final Function()? onTap;
+  final Widget child;
+
+  const CustomInkWell({this.onTap, required this.child, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      hoverColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      onTap: onTap,
+      child: child,
+    );
+  }
 }

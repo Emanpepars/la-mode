@@ -7,10 +7,9 @@ import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 
 import '../../../../../../../../core/utils/app_icons.dart';
-import '../../../../../../../../core/utils/app_images.dart';
 
 class WishlistItem extends StatelessWidget {
-  final DataEntity product;
+  final ProductDataEntity product;
 
   const WishlistItem({required this.product, super.key});
 
@@ -112,19 +111,29 @@ class WishlistItem extends StatelessWidget {
                                   ),
                           ],
                         ),
-                        CircleAvatar(
-                          radius: 20.sp,
-                          backgroundImage:
-                              const AssetImage(AppImages.fakeSeller),
+                        Container(
+                          width: 45.sp,
+                          height: 45.sp,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.gold),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(26.sp),
+                            ),
+                            image: DecorationImage(
+                              image: CachedNetworkImageProvider(
+                                  "${product.brand!.image}"),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
                           child: Align(
                             alignment: Alignment.bottomLeft,
                             child: CircleAvatar(
                               backgroundColor: AppColors.gold,
-                              radius: 9.sp,
+                              radius: 10.sp,
                               child: Icon(
                                 Icons.add,
+                                size: 16.sp,
                                 color: AppColors.lightColor,
-                                size: 14.5.sp,
                               ),
                             ),
                           ),
@@ -152,8 +161,8 @@ class WishlistItem extends StatelessWidget {
                                 children: [
                                   Text(
                                     "\$${product.priceAfterDiscount}",
-                                    style: roboto18W500().copyWith(
-                                        fontWeight: FontWeight.w600),
+                                    style: roboto18W500()
+                                        .copyWith(fontWeight: FontWeight.w600),
                                   ),
                                   Row(
                                     mainAxisAlignment:

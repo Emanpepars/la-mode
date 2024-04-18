@@ -6,6 +6,6 @@ class GetWishlistEntity {
     this.count,
   });
 
-  List<DataEntity>? data;
+  List<ProductDataEntity>? data;
   int? count;
 }
