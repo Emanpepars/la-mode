@@ -152,7 +152,7 @@ class BagItem extends StatelessWidget {
                         IconButton(
                           padding: EdgeInsets.zero,
                           onPressed: () {
-                            CartCubit.get(context).updateItemCountCart(
+                            CartCubit.get(context).decreaseItemCountCart(
                               productItem.product!.id!,
                               productItem.count! - 1,
                             );
@@ -177,8 +177,8 @@ class BagItem extends StatelessWidget {
                         IconButton(
                           padding: EdgeInsets.zero,
                           onPressed: () {
-                            CartCubit.get(context).updateItemCountCart(
-                              productItem.id!,
+                            CartCubit.get(context).increaseItemCountCart(
+                              productItem.product!.id!,
                               productItem.count! + 1,
                             );
                           },

@@ -403,7 +403,7 @@ class ProductCard extends StatelessWidget {
             screen: ProductDetailsScreen(
               dataEntity: dataEntity,
             ),
-            withNavBar: false, // OPTIONAL VALUE. True by default.
+            withNavBar: false,
             pageTransitionAnimation: PageTransitionAnimation.cupertino,
           );
         },
@@ -521,7 +521,7 @@ class ProductCard extends StatelessWidget {
                             IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                CartCubit.get(context).updateItemCountCart(
+                                CartCubit.get(context).decreaseItemCountCart(
                                     dataEntity.id!,
                                     (CartCubit.get(context)
                                             .products
@@ -529,10 +529,12 @@ class ProductCard extends StatelessWidget {
                                                 product.product!.id ==
                                                 dataEntity.id)
                                             .first
-                                            .count!) +
+                                            .count!) -
                                         1);
                               },
-                              icon: const Icon(Icons.remove),
+                              icon: const Icon(
+                                Icons.remove,
+                              ),
                               style: IconButton.styleFrom(
                                 backgroundColor: AppColors.lightYellow,
                                 shape: RoundedRectangleBorder(
@@ -556,10 +558,16 @@ class ProductCard extends StatelessWidget {
                             IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                CartCubit.get(context).updateItemCountCart(
-                                  dataEntity.id!,
-                                  20,
-                                );
+                                CartCubit.get(context).increaseItemCountCart(
+                                    dataEntity.id!,
+                                    (CartCubit.get(context)
+                                            .products
+                                            .where((product) =>
+                                                product.product!.id ==
+                                                dataEntity.id)
+                                            .first
+                                            .count!) +
+                                        1);
                               },
                               icon: const Icon(Icons.add),
                               style: IconButton.styleFrom(
@@ -718,8 +726,21 @@ class ProductCardWithSeller extends StatelessWidget {
                         children: [
                           IconButton(
                             padding: EdgeInsets.zero,
-                            onPressed: () {},
-                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              CartCubit.get(context).decreaseItemCountCart(
+                                  dataEntity.id!,
+                                  (CartCubit.get(context)
+                                          .products
+                                          .where((product) =>
+                                              product.product!.id ==
+                                              dataEntity.id)
+                                          .first
+                                          .count!) -
+                                      1);
+                            },
+                            icon: const Icon(
+                              Icons.remove,
+                            ),
                             style: IconButton.styleFrom(
                               backgroundColor: AppColors.lightYellow,
                               shape: RoundedRectangleBorder(
@@ -742,7 +763,18 @@ class ProductCardWithSeller extends StatelessWidget {
                           ),
                           IconButton(
                             padding: EdgeInsets.zero,
-                            onPressed: () {},
+                            onPressed: () {
+                              CartCubit.get(context).increaseItemCountCart(
+                                  dataEntity.id!,
+                                  (CartCubit.get(context)
+                                          .products
+                                          .where((product) =>
+                                              product.product!.id ==
+                                              dataEntity.id)
+                                          .first
+                                          .count!) +
+                                      1);
+                            },
                             icon: const Icon(Icons.add),
                             style: IconButton.styleFrom(
                               backgroundColor: AppColors.lightYellow,

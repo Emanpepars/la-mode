@@ -99,83 +99,74 @@ class CartTab extends StatelessWidget {
                     : BlocConsumer<CartCubit, CartState>(
                         listener: (context, state) {},
                         builder: (context, state) {
-                          if (state is GetCartItemLoadingState) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (state is GetCartItemSuccessState) {
-                            return SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 15.w,
-                                    right: 15.w,
-                                    top: 5.h,
-                                    bottom: 40.h),
-                                child: Column(
-                                  children: [
-                                    Items(
-                                        count: CartCubit.get(context)
-                                            .products
-                                            .length),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    ListView.separated(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) => BagItem(
-                                        productItem: CartCubit.get(context)
-                                            .products[index],
-                                      ),
-                                      itemCount: CartCubit.get(context)
+                          return SingleChildScrollView(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 15.w,
+                                  right: 15.w,
+                                  top: 5.h,
+                                  bottom: 40.h),
+                              child: Column(
+                                children: [
+                                  Items(
+                                      count: CartCubit.get(context)
                                           .products
-                                          .length,
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              SizedBox(
-                                        height: 10.h,
+                                          .length),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  ListView.separated(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) => BagItem(
+                                      productItem: CartCubit.get(context)
+                                          .products[index],
+                                    ),
+                                    itemCount:
+                                        CartCubit.get(context).products.length,
+                                    separatorBuilder:
+                                        (BuildContext context, int index) =>
+                                            SizedBox(
+                                      height: 10.h,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "Subtotal: ".tr(),
+                                        style:
+                                            roboto14(weight: FontWeight.w500),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "Subtotal: ".tr(),
-                                          style:
-                                              roboto14(weight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "\$${CartCubit.get(context).totalCartPrice}",
-                                          style: roboto18W500(),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    MyButton(
-                                      text: 'Checkout'.tr(),
-                                      onPressed: () {
-                                        PaymentCubit.get(context).getAuthToken(
-                                          "eman@gmail.com",
-                                          "01120744802",
-                                          "eman",
-                                          "ashraf",
-                                          "${CartCubit.get(context).totalCartPrice}",
-                                        );
-                                      },
-                                    )
-                                  ],
-                                ),
+                                      Text(
+                                        "\$${CartCubit.get(context).totalCartPrice}",
+                                        style: roboto18W500(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  MyButton(
+                                    text: 'Checkout'.tr(),
+                                    onPressed: () {
+                                      PaymentCubit.get(context).getAuthToken(
+                                        "eman@gmail.com",
+                                        "01120744802",
+                                        "eman",
+                                        "ashraf",
+                                        "${CartCubit.get(context).totalCartPrice}",
+                                      );
+                                    },
+                                  )
+                                ],
                               ),
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
+                            ),
+                          );
                         },
                       ),
                 drawer: MyDrawer(

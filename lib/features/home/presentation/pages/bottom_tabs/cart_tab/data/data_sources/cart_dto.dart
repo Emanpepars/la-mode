@@ -72,7 +72,7 @@ class RemoteCartDto extends CartDto {
   Future<Either<Failures, CartModel>> updateItemCountCart(
       String productId, int count) async {
     try {
-      var response = await apiConsumer.delete(
+      var response = await apiConsumer.put(
         "${AppConstants.baseUrl}${EndPoints.cart}/$productId",
         data: {
           "count": count,
