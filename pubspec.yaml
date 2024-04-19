@@ -28,6 +28,8 @@ dependencies:
   google_fonts: ^6.2.1
   ###----firebase----####
   #cloud_firestore: ^4.15.7
+  firebase_core: ^2.30.0
+  firebase_messaging: ^14.8.2
   ###----3D----####
   model_viewer_plus: ^1.7.0
   dio: ^5.4.1
@@ -47,6 +49,8 @@ dependencies:
   dotted_line: ^3.2.2
   image_picker: ^1.0.7
   cached_network_image: ^3.3.1
+
+  awesome_notifications: ^0.8.2
 
 
 dev_dependencies:
