@@ -7,12 +7,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/config/routes.dart';
 import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
 import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_state.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_cubit.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_components.dart';
 import '../../../../core/utils/text_styles.dart';
+import '../../../home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/payment/payment_cubit.dart';
 import '../widgets/color_container.dart';
 import '../widgets/property_button.dart';
 import '../widgets/rating.dart';
@@ -536,40 +539,73 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: Container(
-            width: double.infinity,
-            height: 80.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(25.sp),
+          bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
+            builder: (BuildContext context, CartState state) => Container(
+              width: double.infinity,
+              height: 80.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(25.sp),
+                ),
               ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 50.h,
-                      child: MyButton(
-                        text: "Add To Bag".tr(),
-                        textColor: AppColors.lightColor,
-                        color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: CartCubit.get(context)
+                        .products
+                        .any((product) => product.product!.id == dataEntity.id)
+                    ? Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15.h),
+                        child: MyButton(
+                          onPressed: () {
+                            PaymentCubit.get(context).getAuthToken(
+                              "eman@gmail.com",
+                              "01120744802",
+                              "eman",
+                              "ashraf",
+                              "${CartCubit.get(context).totalCartPrice}",
+                            );
+                          },
+                          text: "Buy Now".tr(),
+                        ),
+                      )
+                    : Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 50.h,
+                              child: MyButton(
+                                onPressed: () {
+                                  CartCubit.get(context)
+                                      .addItemToCart(dataEntity.id!);
+                                },
+                                text: "Add To Bag".tr(),
+                                textColor: AppColors.lightColor,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15.w,
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                              height: 50.h,
+                              child: MyButton(
+                                onPressed: () {
+                                  PaymentCubit.get(context).getAuthToken(
+                                    "eman@gmail.com",
+                                    "01120744802",
+                                    "eman",
+                                    "ashraf",
+                                    "${CartCubit.get(context).totalCartPrice}",
+                                  );
+                                },
+                                text: "Buy Now".tr(),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15.w,
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      height: 50.h,
-                      child: MyButton(
-                        text: "Buy Now".tr(),
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
           ),

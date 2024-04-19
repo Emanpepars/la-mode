@@ -3,7 +3,6 @@ abstract class ApiConsumer {
     path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
-
   });
 
   Future<dynamic> post(
@@ -12,7 +11,7 @@ abstract class ApiConsumer {
     Map<String, dynamic>? queryParameters,
   });
 
-  Future<dynamic> patch(
+  Future<dynamic> put(
     path, {
     Object? data,
     Map<String, dynamic>? queryParameters,

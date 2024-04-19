@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
+import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_state.dart';
 import '../../../../../../../../core/utils/app_icons.dart';
 import '../../domain/entities/cart_entity.dart';
 
@@ -122,6 +125,10 @@ class BagItem extends StatelessWidget {
                           ],
                         ),
                         GestureDetector(
+                          onTap: () {
+                            CartCubit.get(context)
+                                .removeItemFromCart(productItem.product!.id!);
+                          },
                           child: const Icon(
                             Icons.close,
                           ),
@@ -144,7 +151,12 @@ class BagItem extends StatelessWidget {
                       children: [
                         IconButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+                            CartCubit.get(context).updateItemCountCart(
+                              productItem.product!.id!,
+                              productItem.count! - 1,
+                            );
+                          },
                           icon: const Icon(Icons.remove),
                           style: IconButton.styleFrom(
                             backgroundColor: AppColors.lightYellow,
@@ -153,16 +165,23 @@ class BagItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 13.w),
-                          child: Text(
-                            productItem.count.toString(),
-                            style: roboto18W500(),
+                        BlocBuilder<CartCubit, CartState>(
+                          builder: (context, state) => Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 13.w),
+                            child: Text(
+                              productItem.count.toString(),
+                              style: roboto18W500(),
+                            ),
                           ),
                         ),
                         IconButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+                            CartCubit.get(context).updateItemCountCart(
+                              productItem.id!,
+                              productItem.count! + 1,
+                            );
+                          },
                           icon: const Icon(Icons.add),
                           style: IconButton.styleFrom(
                             backgroundColor: AppColors.lightYellow,

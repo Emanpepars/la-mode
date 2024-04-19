@@ -31,4 +31,43 @@ class CartCubit extends Cubit<CartState> {
       emit(GetCartItemSuccessState(r.data!));
     });
   }
+
+  addItemToCart(String productId) async {
+    emit(AddCartItemLoadingState());
+    CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
+    var response = await cartUseCase.addItemToCart(productId);
+
+    response.fold((l) {
+      emit(AddCartItemErrorState(l));
+    }, (r) {
+      getCartItems();
+      emit(AddCartItemSuccessState());
+    });
+  }
+
+  removeItemFromCart(String productId) async {
+    emit(RemoveCartItemLoadingState());
+    CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
+    var response = await cartUseCase.removeItemFromCart(productId);
+    response.fold((l) {
+      print(l.message.toString());
+      emit(RemoveCartItemErrorState(l));
+    }, (r) {
+      getCartItems();
+      emit(RemoveCartItemSuccessState());
+    });
+  }
+
+  updateItemCountCart(String productId, int count) async {
+    emit(UpdateItemCountLoadingState());
+    CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
+    var response = await cartUseCase.updateItemCountCart(productId, count);
+    response.fold((l) {
+      print(l.message.toString());
+      emit(UpdateItemCountErrorState(l));
+    }, (r) {
+      getCartItems();
+      emit(UpdateItemCountSuccessState());
+    });
+  }
 }

@@ -194,7 +194,7 @@ class WishlistItem extends StatelessWidget {
                         width: 129.w,
                         child: MyYellowButton(
                           text: 'Add To Cart',
-                          onPressed: () {},
+                          productId: product.id!,
                         ),
                       )
                     ],

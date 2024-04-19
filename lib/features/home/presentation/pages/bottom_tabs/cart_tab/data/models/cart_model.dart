@@ -21,7 +21,7 @@ class CartModel extends CartEntity {
 
 class Data extends CartDataEntity {
   Data({
-    this.id,
+    super.id,
     this.cartOwner,
     super.products,
     this.createdAt,
@@ -45,7 +45,6 @@ class Data extends CartDataEntity {
     totalCartPrice = json['totalCartPrice'];
   }
 
-  String? id;
   String? cartOwner;
   String? createdAt;
   String? updatedAt;
@@ -55,7 +54,7 @@ class Data extends CartDataEntity {
 class Products extends CartProducts {
   Products({
     super.count,
-    this.id,
+    super.id,
     super.product,
     super.price,
   });
@@ -67,8 +66,6 @@ class Products extends CartProducts {
         json['product'] != null ? Product.fromJson(json['product']) : null;
     price = json['price'];
   }
-
-  String? id;
 }
 
 class Product extends CartProduct {

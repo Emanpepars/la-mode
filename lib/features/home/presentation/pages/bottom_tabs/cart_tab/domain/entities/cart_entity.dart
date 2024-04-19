@@ -12,18 +12,24 @@ class CartDataEntity {
   CartDataEntity({
     this.products,
     this.totalCartPrice,
+    this.id,
   });
 
   List<CartProducts>? products;
   int? totalCartPrice;
+
+  String? id;
 }
 
 class CartProducts {
   CartProducts({
+    this.id,
     this.count,
     this.product,
     this.price,
   });
+
+  String? id;
 
   int? count;
 
