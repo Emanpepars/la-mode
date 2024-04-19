@@ -13,6 +13,7 @@ import '../../../../../../../../core/utils/text_styles.dart';
 import '../../../../../../../auth/register/domain/entities/user_entity.dart';
 import '../../../../../../../check_out/checkout/presentation/pages/check_out_screen.dart';
 import '../../../../../manager/provider/home_cubit.dart';
+import '../../../../../manager/provider/home_state.dart';
 import '../manager/payment/payment_state.dart';
 
 class CartTab extends StatelessWidget {
@@ -115,21 +116,45 @@ class CartTab extends StatelessWidget {
                                   SizedBox(
                                     height: 15.h,
                                   ),
-                                  ListView.separated(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) => BagItem(
-                                      productItem: CartCubit.get(context)
-                                          .products[index],
-                                    ),
-                                    itemCount:
-                                        CartCubit.get(context).products.length,
-                                    separatorBuilder:
-                                        (BuildContext context, int index) =>
-                                            SizedBox(
-                                      height: 10.h,
-                                    ),
+                                  BlocBuilder<HomeCubit, HomeState>(
+                                    builder: (context, state) {
+                                      if (state is GetAllProductSuccess) {
+                                        return ListView.separated(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) =>
+                                              BagItem(
+                                            productItem: CartCubit.get(context)
+                                                .products[index],
+                                          ),
+                                          itemCount: CartCubit.get(context)
+                                              .products
+                                              .length,
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  SizedBox(
+                                            height: 10.h,
+                                          ),
+                                        );
+                                      } else {
+                                        return ListView.separated(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) =>
+                                              const BagItemShimmer(),
+                                          itemCount: 10,
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  SizedBox(
+                                            height: 10.h,
+                                          ),
+                                        );
+                                      }
+                                    },
                                   ),
                                   SizedBox(
                                     height: 15.h,

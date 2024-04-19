@@ -5,6 +5,7 @@ import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/app_components.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/home/domain/entities/prduct_entity.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../../../core/utils/app_icons.dart';
 
@@ -44,8 +45,15 @@ class WishlistItem extends StatelessWidget {
                     height: 100.h,
                     fit: BoxFit.cover,
                     imageUrl: product.imageCover!,
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        color: Colors.white,
+                        width: 110.w,
+                        height: 100.h,
+                      ),
+                    ),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),

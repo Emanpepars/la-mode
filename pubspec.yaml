@@ -51,6 +51,7 @@ dependencies:
   cached_network_image: ^3.3.1
 
   awesome_notifications: ^0.8.2
+  shimmer: ^3.0.0
 
 
 dev_dependencies:

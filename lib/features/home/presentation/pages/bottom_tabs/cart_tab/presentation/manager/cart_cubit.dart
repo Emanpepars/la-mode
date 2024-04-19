@@ -76,14 +76,14 @@ class CartCubit extends Cubit<CartState> {
     CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
     var response = await cartUseCase.updateItemCountCart(productId, count);
     response.fold((l) {
-      print(l.message.toString());
+      // print(l.message.toString());
       emit(UpdateItemCountErrorState(l));
     }, (r) {
       if (r
-              .data!
-              .products![r.data!.products!
-                  .indexWhere((element) => element.product!.id == productId)]
-              .count ==
+          .data!
+          .products![r.data!.products!
+          .indexWhere((element) => element.product!.id == productId)]
+          .count ==
           0) {
         removeItemFromCart(productId);
         emit(UpdateItemCountSuccessState());

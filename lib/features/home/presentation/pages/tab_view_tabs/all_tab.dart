@@ -109,15 +109,31 @@ class AllTab extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 220.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => SizedBox(
-                      width: 10.w,
-                    ),
-                    separatorBuilder: (context, index) => ProductCard(
-                      dataEntity: HomeCubit.get(context).products[index],
-                    ),
-                    itemCount: HomeCubit.get(context).products.length,
+                  child: BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
+                      if (state is GetAllProductSuccess) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => SizedBox(
+                            width: 10.w,
+                          ),
+                          separatorBuilder: (context, index) => ProductCard(
+                            dataEntity: HomeCubit.get(context).products[index],
+                          ),
+                          itemCount: HomeCubit.get(context).products.length,
+                        );
+                      } else {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => SizedBox(
+                            width: 10.w,
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const ProductShimmerCart(),
+                          itemCount: 10,
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
@@ -176,15 +192,31 @@ class AllTab extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 220.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => SizedBox(
-                      width: 10.w,
-                    ),
-                    separatorBuilder: (context, index) => ProductCard(
-                      dataEntity: HomeCubit.get(context).products[index],
-                    ),
-                    itemCount: HomeCubit.get(context).products.length,
+                  child: BlocBuilder<HomeCubit, HomeState>(
+                    builder: (context, state) {
+                      if (state is GetAllProductSuccess) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => SizedBox(
+                            width: 10.w,
+                          ),
+                          separatorBuilder: (context, index) => ProductCard(
+                            dataEntity: HomeCubit.get(context).products[index],
+                          ),
+                          itemCount: HomeCubit.get(context).products.length,
+                        );
+                      } else {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => SizedBox(
+                            width: 10.w,
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const ProductShimmerCart(),
+                          itemCount: 10,
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
@@ -207,15 +239,34 @@ class AllTab extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => SizedBox(
-                            width: 10.w,
-                          ),
-                          separatorBuilder: (context, index) => ProductCard(
-                            dataEntity: HomeCubit.get(context).products[index],
-                          ),
-                          itemCount: HomeCubit.get(context).products.length,
+                        child: BlocBuilder<HomeCubit, HomeState>(
+                          builder: (context, state) {
+                            if (state is GetAllProductSuccess) {
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => SizedBox(
+                                  width: 10.w,
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    ProductCard(
+                                  dataEntity:
+                                      HomeCubit.get(context).products[index],
+                                ),
+                                itemCount:
+                                    HomeCubit.get(context).products.length,
+                              );
+                            } else {
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => SizedBox(
+                                  width: 10.w,
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const ProductShimmerCart(),
+                                itemCount: 10,
+                              );
+                            }
+                          },
                         ),
                       )
                     ],
