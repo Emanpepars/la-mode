@@ -21,3 +21,6 @@ class GetAllProductError extends HomeState {
 
   GetAllProductError(this.failures);
 }
+
+class GetFilterProductLoading extends HomeState {}
+class NotFoundFilterProduct extends HomeState {}

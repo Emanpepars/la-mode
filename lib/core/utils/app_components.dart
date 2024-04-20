@@ -121,13 +121,19 @@ class FirstPart extends StatelessWidget {
                                   ),
                                 ),
                                 child: TextField(
+                                  onChanged: (value) {
+                                    HomeCubit.get(context)
+                                        .getSearchProduct(value);
+                                  },
+                                  controller: HomeCubit.get(context)
+                                      .searchTextEditingController,
                                   cursorColor: AppColors.silverDark,
                                   style: roboto16().copyWith(
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
                                     contentPadding:
-                                        EdgeInsets.symmetric(vertical: 7.h),
+                                        EdgeInsets.only(bottom: 7.h, top:  7.h , right: 10.w),
                                     hintText: "Search".tr(),
                                     hintStyle: roboto16().copyWith(
                                       color: AppColors.silverDark,

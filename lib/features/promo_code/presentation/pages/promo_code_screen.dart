@@ -13,7 +13,7 @@ class PromoCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBag(
+      appBar: const AppBarWithBag(
         appBarTitle: "My Promocodes",
       ),
       body: Padding(
@@ -52,6 +52,7 @@ class PromoCodeScreen extends StatelessWidget {
             MyButton(
               text: 'Start Shopping'.tr(),
               onPressed: () {
+                Navigator.pop(context);
                 HomeCubit.get(context).controller.index = 0;
               },
             ),
