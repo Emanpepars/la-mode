@@ -1,10 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_mode/core/utils/app_images.dart';
-import 'package:la_mode/features/home/presentation/manager/provider/home_cubit.dart';
-import 'package:la_mode/features/home/presentation/manager/provider/home_state.dart';
+import 'package:la_mode/features/category/presentation/manager/category_cubit.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -32,7 +30,7 @@ class AllTab extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      HomeCubit.get(context).products.length.toString(),
+                      CategoryCubit.get(context).products.length.toString(),
                       style: roboto14(
                           weight: FontWeight.w400, color: AppColors.silverDark),
                     ),
@@ -82,31 +80,15 @@ class AllTab extends StatelessWidget {
               ),
               SizedBox(
                 height: 220.h,
-                child: BlocBuilder<HomeCubit, HomeState>(
-                  builder: (context, state) {
-                    if (state is GetAllProductSuccess) {
-                      return ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => SizedBox(
-                          width: 10.w,
-                        ),
-                        separatorBuilder: (context, index) => ProductCard(
-                          dataEntity: HomeCubit.get(context).products[index],
-                        ),
-                        itemCount: HomeCubit.get(context).products.length,
-                      );
-                    } else {
-                      return ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => SizedBox(
-                          width: 10.w,
-                        ),
-                        separatorBuilder: (context, index) =>
-                            const ProductShimmerCart(),
-                        itemCount: 10,
-                      );
-                    }
-                  },
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => SizedBox(
+                    width: 10.w,
+                  ),
+                  separatorBuilder: (context, index) => ProductCard(
+                    dataEntity: CategoryCubit.get(context).products[index],
+                  ),
+                  itemCount: CategoryCubit.get(context).products.length,
                 ),
               ),
             ],
@@ -150,41 +132,15 @@ class AllTab extends StatelessWidget {
               ),
               SizedBox(
                 height: 220.h,
-                child: Row(
-                  children: [
-                    BlocBuilder<HomeCubit, HomeState>(
-                      builder: (context, state) {
-                        if (state is GetAllProductSuccess) {
-                          return Expanded(
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => SizedBox(
-                                width: 10.w,
-                              ),
-                              separatorBuilder: (context, index) => ProductCard(
-                                dataEntity:
-                                    HomeCubit.get(context).products[index],
-                              ),
-                              itemCount: HomeCubit.get(context).products.length,
-                            ),
-                          );
-                        } else {
-                          return Expanded(
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => SizedBox(
-                                width: 10.w,
-                              ),
-                              separatorBuilder: (context, index) {
-                                return const ProductShimmerCart();
-                              },
-                              itemCount: 6,
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ],
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => SizedBox(
+                    width: 10.w,
+                  ),
+                  separatorBuilder: (context, index) => ProductCard(
+                    dataEntity: CategoryCubit.get(context).products[index + 3],
+                  ),
+                  itemCount: (CategoryCubit.get(context).products.length - 3),
                 ),
               ),
               SizedBox(
@@ -205,39 +161,19 @@ class AllTab extends StatelessWidget {
             },
           ),
           ShopBy(shopBy: "New Collection".tr()),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                if (state is GetAllProductSuccess) {
-                  return GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 6.6.h / 10.h,
-                        mainAxisSpacing: 10.h,
-                        crossAxisSpacing: 10.w),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => ProductCard(
-                      dataEntity: HomeCubit.get(context).products[index],
-                    ),
-                    itemCount: HomeCubit.get(context).products.length,
-                  );
-                } else {
-                  return GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 6.6.h / 10.h,
-                        mainAxisSpacing: 10.h,
-                        crossAxisSpacing: 10.w),
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => const ProductShimmerCart(),
-                    itemCount: 10,
-                  );
-                }
-              },
+          GridView.builder(
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 6.6.h / 10.h,
+                mainAxisSpacing: 10.h,
+                crossAxisSpacing: 10.w),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => ProductCard(
+              dataEntity: CategoryCubit.get(context).products[index],
             ),
+            itemCount: CategoryCubit.get(context).products.length,
           ),
           SizedBox(
             height: 30.h,

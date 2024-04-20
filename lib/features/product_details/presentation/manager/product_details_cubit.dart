@@ -79,3 +79,4 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     emit(ProductDetailsOnPageChangedState());
   }
 }
+

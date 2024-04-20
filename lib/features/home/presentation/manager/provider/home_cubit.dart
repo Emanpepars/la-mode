@@ -241,7 +241,7 @@ class HomeCubit extends Cubit<HomeState> {
 
     response.fold((l) => emit(GetAllProductError(l)), (r) {
       products = r.data!;
-      print(products.length);
+      print(products.first.toString());
       emit(GetAllProductSuccess());
     });
   }
