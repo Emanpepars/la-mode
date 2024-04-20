@@ -8,6 +8,7 @@ import 'package:la_mode/features/auth/login/presentation/pages/login_screen.dart
 import 'package:la_mode/features/edit_profile/presentation/pages/edit_profile_screen.dart';
 import 'package:la_mode/features/home/presentation/widgets/profile_row.dart';
 import 'package:la_mode/features/order/presentation/pages/my_orders.dart';
+import 'package:la_mode/features/promo_code/presentation/pages/promo_code_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_components.dart';
@@ -131,6 +132,14 @@ class ProfileTab extends StatelessWidget {
                 ),
               ),
               ProfileRow(
+                onPressed: () {
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: const PromoCodeScreen(),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                  );
+                },
                 title: 'Promocode / Vouchers'.tr(),
                 count: 0,
                 rowIcon: const Icon(

@@ -32,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.homeDto) : super(HomeInitial()) {
     homeDomainRepo = HomeDataRepo(homeDto);
-    timer = Timer.periodic(const Duration(milliseconds: 50000000), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 100000000), (timer) {
       nextPage();
     });
   }
@@ -44,12 +44,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onTabChanged(value) {
     currentTabIndex = value;
-    emit(HomeOnTabChangedState());
+    emit(GetAllProductSuccess());
   }
 
   void onPageChanged(value) {
     currentFlashSalePageIndex = value;
-    emit(HomeOnPageChangedState());
+    emit(GetAllProductSuccess());
   }
 
   var userBox = Hive.box(AppConstants.kUSerBox);
@@ -192,20 +192,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   PersistentTabController controller = PersistentTabController(initialIndex: 0);
 
+  ///--- Search ---///
+  bool isSearch = false;
+  TextEditingController searchTextEditingController = TextEditingController();
+
   ///---Flash sale---///
   void nextPage() {
     if (currentFlashSalePageIndex < sales.length - 1) {
       currentFlashSalePageIndex++;
     } else {
       currentFlashSalePageIndex = 0;
-      emit(HomeOnPageChangedState());
     }
     flashSalePageController.animateToPage(
       currentFlashSalePageIndex,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastLinearToSlowEaseIn,
     );
-    emit(HomeOnPageChangedState());
   }
 
   ///--- settings Lang ---///
@@ -232,6 +234,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   ///--- get all product---///
   List<ProductDataEntity> products = [];
+  List<ProductDataEntity> filteredProducts = [];
 
   getAllProduct() async {
     emit(GetAllProductLoading());
@@ -241,8 +244,29 @@ class HomeCubit extends Cubit<HomeState> {
 
     response.fold((l) => emit(GetAllProductError(l)), (r) {
       products = r.data!;
-      print(products.length);
       emit(GetAllProductSuccess());
     });
+  }
+
+  ///--- On Search ---///
+
+  getSearchProduct(String value) {
+    emit(GetFilterProductLoading());
+    searchTextEditingController.text.isEmpty
+        ? isSearch = false
+        : isSearch = true;
+    filteredProducts = products
+        .where((element) =>
+            element.title!.toLowerCase().startsWith(value) ||
+            element.title!.startsWith(value) ||
+            element.brand!.name!.toLowerCase() == value ||
+            element.brand!.name! == value)
+        .toList();
+
+    filteredProducts.isEmpty
+        ? value.isNotEmpty
+            ? emit(NotFoundFilterProduct())
+            : emit(GetAllProductSuccess())
+        : emit(GetAllProductSuccess());
   }
 }

@@ -16,7 +16,9 @@ import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/pr
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_state.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
+import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../config/routes.dart';
 import '../../features/home/presentation/widgets/tab_label.dart';
 import 'app_colors.dart';
@@ -119,13 +121,19 @@ class FirstPart extends StatelessWidget {
                                   ),
                                 ),
                                 child: TextField(
+                                  onChanged: (value) {
+                                    HomeCubit.get(context)
+                                        .getSearchProduct(value);
+                                  },
+                                  controller: HomeCubit.get(context)
+                                      .searchTextEditingController,
                                   cursorColor: AppColors.silverDark,
                                   style: roboto16().copyWith(
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.symmetric(vertical: 7.h),
+                                    contentPadding: EdgeInsets.only(
+                                        bottom: 7.h, top: 7.h, right: 10.w),
                                     hintText: "Search".tr(),
                                     hintStyle: roboto16().copyWith(
                                       color: AppColors.silverDark,
@@ -275,7 +283,6 @@ class AppBarWithBag extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       actions: [
         BagIcon(
-          bagCount: 4,
           onPressed: () {
             HomeCubit.get(context).controller.index = 1;
             Navigator.pop(context);
@@ -403,7 +410,7 @@ class ProductCard extends StatelessWidget {
             screen: ProductDetailsScreen(
               dataEntity: dataEntity,
             ),
-            withNavBar: false, // OPTIONAL VALUE. True by default.
+            withNavBar: false,
             pageTransitionAnimation: PageTransitionAnimation.cupertino,
           );
         },
@@ -432,29 +439,55 @@ class ProductCard extends StatelessWidget {
                       height: 120.h,
                       fit: BoxFit.cover,
                       imageUrl: dataEntity.imageCover ?? "",
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          color: Colors.white,
+                          width: 200.w,
+                          height: 120.h,
+                        ),
+                      ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
                     ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      child: CustomInkWell(
-                        onTap: () {
-                          WishlistCubit.get(context).addWish(dataEntity.id!);
-                        },
-                        child: CircleAvatar(
-                          radius: 12,
-                          backgroundColor: AppColors.lightGray,
-                          child: Image(
-                            image: const AssetImage(
-                              AppIcons.heart,
-                            ),
-                            color: AppColors.lightColor,
-                            width: 15.w,
-                            height: 15.h,
-                          ),
+                      child: CircleAvatar(
+                        radius: 18.sp,
+                        backgroundColor: AppColors.lightGray,
+                        child: BlocBuilder<WishlistCubit, WishlistState>(
+                          builder: (context, state) {
+                            if (WishlistCubit.get(context).wishlist.any(
+                                (element) => element.id == dataEntity.id)) {
+                              return CustomInkWell(
+                                onTap: () {
+                                  WishlistCubit.get(context)
+                                      .removeWish(dataEntity.id!);
+                                },
+                                child: Lottie.asset(
+                                  repeat: false,
+                                  "assets/animation/favorite.json",
+                                ),
+                              );
+                            } else {
+                              return CustomInkWell(
+                                onTap: () {
+                                  WishlistCubit.get(context)
+                                      .addWish(dataEntity.id!);
+                                },
+                                child: Image(
+                                  image: const AssetImage(
+                                    AppIcons.heart,
+                                  ),
+                                  color: AppColors.lightColor,
+                                  width: 18.w,
+                                  height: 20.h,
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -500,7 +533,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "\$${dataEntity.price!}",
+                        "\$${dataEntity.priceAfterDiscount ?? dataEntity.price!}",
                         style: roboto18W500(),
                       ),
                       SizedBox(width: 5.w),
@@ -521,7 +554,7 @@ class ProductCard extends StatelessWidget {
                             IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                CartCubit.get(context).updateItemCountCart(
+                                CartCubit.get(context).decreaseItemCountCart(
                                     dataEntity.id!,
                                     (CartCubit.get(context)
                                             .products
@@ -529,10 +562,12 @@ class ProductCard extends StatelessWidget {
                                                 product.product!.id ==
                                                 dataEntity.id)
                                             .first
-                                            .count!) +
+                                            .count!) -
                                         1);
                               },
-                              icon: const Icon(Icons.remove),
+                              icon: const Icon(
+                                Icons.remove,
+                              ),
                               style: IconButton.styleFrom(
                                 backgroundColor: AppColors.lightYellow,
                                 shape: RoundedRectangleBorder(
@@ -556,10 +591,16 @@ class ProductCard extends StatelessWidget {
                             IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                CartCubit.get(context).updateItemCountCart(
-                                  dataEntity.id!,
-                                  20,
-                                );
+                                CartCubit.get(context).increaseItemCountCart(
+                                    dataEntity.id!,
+                                    (CartCubit.get(context)
+                                            .products
+                                            .where((product) =>
+                                                product.product!.id ==
+                                                dataEntity.id)
+                                            .first
+                                            .count!) +
+                                        1);
                               },
                               icon: const Icon(Icons.add),
                               style: IconButton.styleFrom(
@@ -627,8 +668,15 @@ class ProductCardWithSeller extends StatelessWidget {
                     height: 120.h,
                     fit: BoxFit.cover,
                     imageUrl: dataEntity.imageCover ?? "",
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        color: Colors.white,
+                        width: 200.w,
+                        height: 120.h,
+                      ),
+                    ),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -636,15 +684,40 @@ class ProductCardWithSeller extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                     child: CircleAvatar(
-                      radius: 12,
+                      radius: 18.sp,
                       backgroundColor: AppColors.lightGray,
-                      child: Image(
-                        image: const AssetImage(
-                          AppIcons.heart,
-                        ),
-                        color: AppColors.lightColor,
-                        width: 15.w,
-                        height: 15.h,
+                      child: BlocBuilder<WishlistCubit, WishlistState>(
+                        builder: (context, state) {
+                          if (WishlistCubit.get(context)
+                              .wishlist
+                              .any((element) => element.id == dataEntity.id)) {
+                            return CustomInkWell(
+                              onTap: () {
+                                WishlistCubit.get(context)
+                                    .removeWish(dataEntity.id!);
+                              },
+                              child: Lottie.asset(
+                                repeat: false,
+                                "assets/animation/favorite.json",
+                              ),
+                            );
+                          } else {
+                            return CustomInkWell(
+                              onTap: () {
+                                WishlistCubit.get(context)
+                                    .addWish(dataEntity.id!);
+                              },
+                              child: Image(
+                                image: const AssetImage(
+                                  AppIcons.heart,
+                                ),
+                                color: AppColors.lightColor,
+                                width: 18.w,
+                                height: 20.h,
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -678,7 +751,7 @@ class ProductCardWithSeller extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "\$${dataEntity.price}",
+                              "\$${dataEntity.priceAfterDiscount ?? dataEntity.price}",
                               style: roboto18W500(),
                             ),
                             SizedBox(width: 5.w),
@@ -718,8 +791,21 @@ class ProductCardWithSeller extends StatelessWidget {
                         children: [
                           IconButton(
                             padding: EdgeInsets.zero,
-                            onPressed: () {},
-                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              CartCubit.get(context).decreaseItemCountCart(
+                                  dataEntity.id!,
+                                  (CartCubit.get(context)
+                                          .products
+                                          .where((product) =>
+                                              product.product!.id ==
+                                              dataEntity.id)
+                                          .first
+                                          .count!) -
+                                      1);
+                            },
+                            icon: const Icon(
+                              Icons.remove,
+                            ),
                             style: IconButton.styleFrom(
                               backgroundColor: AppColors.lightYellow,
                               shape: RoundedRectangleBorder(
@@ -742,7 +828,18 @@ class ProductCardWithSeller extends StatelessWidget {
                           ),
                           IconButton(
                             padding: EdgeInsets.zero,
-                            onPressed: () {},
+                            onPressed: () {
+                              CartCubit.get(context).increaseItemCountCart(
+                                  dataEntity.id!,
+                                  (CartCubit.get(context)
+                                          .products
+                                          .where((product) =>
+                                              product.product!.id ==
+                                              dataEntity.id)
+                                          .first
+                                          .count!) +
+                                      1);
+                            },
                             icon: const Icon(Icons.add),
                             style: IconButton.styleFrom(
                               backgroundColor: AppColors.lightYellow,
@@ -1018,20 +1115,16 @@ class CategoryName extends StatelessWidget {
 }
 
 class BagIcon extends StatelessWidget {
-  final int bagCount;
   final Function()? onPressed;
 
   const BagIcon({
     this.onPressed,
-    required this.bagCount,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool showCounter = bagCount > 0;
-
-    return showCounter
+    return CartCubit.get(context).products.isNotEmpty
         ? badges.Badge(
             position: badges.BadgePosition.topEnd(
               top: 0.h,
@@ -1043,12 +1136,14 @@ class BagIcon extends StatelessWidget {
             badgeStyle: const badges.BadgeStyle(
               badgeColor: AppColors.gold,
             ),
-            badgeContent: Text(
-              "$bagCount",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 10.sp,
+            badgeContent: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) => Text(
+                "${CartCubit.get(context).products.length}",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 10.sp,
+                ),
               ),
             ),
             child: IconButton(
@@ -1431,6 +1526,180 @@ class CustomInkWell extends StatelessWidget {
       splashColor: Colors.transparent,
       onTap: onTap,
       child: child,
+    );
+  }
+}
+
+class CuShimmer extends StatelessWidget {
+  final double width;
+  final double height;
+
+  const CuShimmer({required this.width, required this.height, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(6.sp))),
+        width: width,
+        height: height,
+      ),
+    );
+  }
+}
+
+class ProductShimmerCart extends StatelessWidget {
+  const ProductShimmerCart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 160.w,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.silverM,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(11),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CuShimmer(
+            width: 200.w,
+            height: 120.h,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CuShimmer(
+                width: 100.w,
+                height: 10.h,
+              ),
+              CuShimmer(
+                width: 30.w,
+                height: 10.h,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          CuShimmer(
+            width: 50.w,
+            height: 10.h,
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          CuShimmer(
+            width: 200.w,
+            height: 32.h,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class BagItemShimmer extends StatelessWidget {
+  const BagItemShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.silverM,
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            12.sp,
+          ),
+        ),
+      ),
+      padding: EdgeInsets.symmetric(
+        vertical: 5.h,
+      ),
+      height: 110.h,
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 5.w),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(6.0),
+              child: CuShimmer(width: 110.w, height: 100.h),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.0.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 5.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CuShimmer(width: 170.w, height: 10.h),
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            SizedBox(
+                              width: 160.w,
+                              child: Row(
+                                children: [
+                                  CuShimmer(width: 40.w, height: 10.h),
+                                  CuShimmer(width: 20.w, height: 10.h),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        CuShimmer(width: 20.w, height: 20.h),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.w),
+                    child: CuShimmer(
+                      width: 40.w,
+                      height: 10.h,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 32.h,
+                    child: Row(
+                      children: [
+                        CuShimmer(width: 40.w, height: double.infinity),
+                        CuShimmer(width: 20.w, height: double.infinity),
+                        CuShimmer(width: 40.w, height: double.infinity),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

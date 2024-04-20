@@ -11,11 +11,15 @@ import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/pr
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_state.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_cubit.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
+import 'package:lottie/lottie.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_components.dart';
+import '../../../../core/utils/app_icons.dart';
 import '../../../../core/utils/text_styles.dart';
 import '../../../home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/payment/payment_cubit.dart';
+import '../../../home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_cubit.dart';
+import '../../../home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_state.dart';
 import '../widgets/color_container.dart';
 import '../widgets/property_button.dart';
 import '../widgets/rating.dart';
@@ -28,7 +32,8 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ProductDetailsCubit(),
+      create: (BuildContext context) =>
+          ProductDetailsCubit(dataEntity.images!.length),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
@@ -50,7 +55,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       child: PageView.builder(
                         scrollDirection: Axis.horizontal,
                         controller: ProductDetailsCubit.get(context)
-                            .flashSalePageController,
+                            .currentPageController,
                         onPageChanged: (value) {
                           ProductDetailsCubit.get(context).onPageChanged(value);
                         },
@@ -76,11 +81,47 @@ class ProductDetailsScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(12),
                                     color: Colors.white,
                                   ),
-                                  padding: const EdgeInsets.all(6),
-                                  child: const Icon(
-                                    Icons.favorite_border,
-                                    size: 24,
-                                    color: AppColors.lightColor,
+                                  child:
+                                      BlocBuilder<WishlistCubit, WishlistState>(
+                                    builder: (context, state) {
+                                      if (WishlistCubit.get(context)
+                                          .wishlist
+                                          .any((element) =>
+                                              element.id == dataEntity.id)) {
+                                        return CustomInkWell(
+                                          onTap: () {
+                                            WishlistCubit.get(context)
+                                                .removeWish(dataEntity.id!);
+                                          },
+                                          child: Lottie.asset(
+                                            repeat: false,
+                                            fit: BoxFit.cover,
+                                            "assets/animation/favorite.json",
+                                            width: 32.w,
+                                            height: 32.h,
+                                          ),
+                                        );
+                                      } else {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 6.w, vertical: 6.h),
+                                          child: CustomInkWell(
+                                            onTap: () {
+                                              WishlistCubit.get(context)
+                                                  .addWish(dataEntity.id!);
+                                            },
+                                            child: Image(
+                                              image: const AssetImage(
+                                                AppIcons.heart,
+                                              ),
+                                              color: AppColors.lightColor,
+                                              width: 20.w,
+                                              height: 20.h,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
                                   ),
                                 ),
                               ],
@@ -104,21 +145,21 @@ class ProductDetailsScreen extends StatelessWidget {
                         onTap: () {
                           ProductDetailsCubit.get(context).onPageChanged(index);
                           ProductDetailsCubit.get(context)
-                              .flashSalePageController
+                              .currentPageController
                               .animateToPage(index,
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.fastLinearToSlowEaseIn);
                         },
                         child: Container(
                           width: ProductDetailsCubit.get(context)
-                                      .currentFlashSalePageIndex ==
+                                      .currentPageIndex ==
                                   index
                               ? 110.w
                               : 110.w,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: ProductDetailsCubit.get(context)
-                                            .currentFlashSalePageIndex ==
+                                            .currentPageIndex ==
                                         index
                                     ? AppColors.gold
                                     : Colors.white,
@@ -163,14 +204,14 @@ class ProductDetailsScreen extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              "\$${dataEntity.price!}",
+                              "\$${dataEntity.priceAfterDiscount ?? dataEntity.price!}",
                               style: roboto18W500(),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 5.h,
                       ),
                       Text(
                         "Available in stock".tr(),
@@ -468,30 +509,22 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 220.h,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: ListView.separated(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          index == 0
-                                              ? SizedBox(
-                                                  width: 0.w,
-                                                )
-                                              : SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                      separatorBuilder: (context, index) =>
-                                          ProductCard(
-                                            dataEntity: HomeCubit.get(context)
-                                                .products[index],
-                                          ),
-                                      itemCount: HomeCubit.get(context)
-                                          .products
-                                          .length),
-                                )
-                              ],
-                            ),
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => index == 0
+                                    ? SizedBox(
+                                        width: 0.w,
+                                      )
+                                    : SizedBox(
+                                        width: 5.w,
+                                      ),
+                                separatorBuilder: (context, index) =>
+                                    ProductCard(
+                                      dataEntity: HomeCubit.get(context)
+                                          .products[index],
+                                    ),
+                                itemCount:
+                                    HomeCubit.get(context).products.length),
                           ),
                         ],
                       ),

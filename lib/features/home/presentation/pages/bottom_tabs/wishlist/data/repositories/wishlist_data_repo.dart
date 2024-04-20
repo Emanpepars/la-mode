@@ -18,4 +18,8 @@ class WishlistDataRepo implements WishlistDomainRepo {
   @override
   Future<Either<Failures, AddWishEntity>> addWish(String productId) =>
       wishlistDto.addWish(productId);
+
+  @override
+  Future<Either<Failures, AddWishEntity>> removeWish(String productId) =>
+      wishlistDto.removeWish(productId);
 }

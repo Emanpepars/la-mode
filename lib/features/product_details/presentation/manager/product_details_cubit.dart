@@ -3,43 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
 
-import '../../../../core/utils/app_images.dart';
-
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   late Timer timer;
 
-  ProductDetailsCubit() : super(ProductDetailsInitial()) {
-    timer = Timer.periodic(const Duration(milliseconds: 50000000), (timer) {
-      nextPage();
+  final int length;
+
+  ProductDetailsCubit(this.length) : super(ProductDetailsInitial()) {
+    timer = Timer.periodic(const Duration(milliseconds: 1000000), (timer) {
+      nextPage(length);
     });
   }
 
   static ProductDetailsCubit get(context) => BlocProvider.of(context);
 
-  int currentFlashSalePageIndex = 0;
+  int currentPageIndex = 0;
   int colorIndex = 0;
   int sizeSelectedIndex = 0;
-  List<Map<String, String>> sales = const [
-    {
-      "image": AppImages.slider1,
-      "title": "Gucci Bubble Suit - Multiple Colors",
-      "description":
-          "Specifically a number of colored blazers characterized by constructed shoulders, elegant buttons and comfy pants. It's available in multiple. ",
-      "price": "150",
-    },
-    {
-      "image": AppImages.slider2,
-      "title": "Accessories sale",
-      "description": "Accessories edition promo on all accessories",
-      "price": "150",
-    },
-    {
-      "image": AppImages.slider3,
-      "title": "Winter sale",
-      "description": "Winter edition promo on all winter collection",
-      "price": "150",
-    },
-  ];
   List<Color> colors = const [
     Color(0xFF010203),
     Color(0xFF6C3A22),
@@ -47,17 +26,17 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     Color(0xFFD0D0CC)
   ];
   List<String> sizes = const ["S", "M", "L", "XL", "XXL"];
-  PageController flashSalePageController = PageController(initialPage: 0);
+  PageController currentPageController = PageController(initialPage: 0);
 
-  void nextPage() {
-    if (currentFlashSalePageIndex < sales.length - 1) {
-      currentFlashSalePageIndex++;
+  void nextPage(int length) {
+    if (currentPageIndex < length - 1) {
+      currentPageIndex++;
     } else {
-      currentFlashSalePageIndex = 0;
+      currentPageIndex = 0;
       emit(ProductDetailsOnPageChangedState());
     }
-    flashSalePageController.animateToPage(
-      currentFlashSalePageIndex,
+    currentPageController.animateToPage(
+      currentPageIndex,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastLinearToSlowEaseIn,
     );
@@ -65,7 +44,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   void onPageChanged(value) {
-    currentFlashSalePageIndex = value;
+    currentPageIndex = value;
     emit(ProductDetailsOnPageChangedState());
   }
 

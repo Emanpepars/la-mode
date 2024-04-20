@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "223718398582",
-    "project_id": "la-mode-1a23d",
-    "storage_bucket": "la-mode-1a23d.appspot.com"
+    "project_number": "875645807484",
+    "project_id": "la-mode-418300",
+    "storage_bucket": "la-mode-418300.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:223718398582:android:b7acf93f20dd0aa5c25d57",
+        "mobilesdk_app_id": "1:875645807484:android:34ec8f47455296de9d52f9",
         "android_client_info": {
           "package_name": "com.example.la_mode"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD7LaDCx50HUlXsgpNReGx1lU6ex42YCJs"
+          "current_key": "AIzaSyBzhpGSB51M2GZgXq6ZCgXJkdcsUWyfbpE"
         }
       ],
       "services": {

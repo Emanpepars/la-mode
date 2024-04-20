@@ -58,7 +58,7 @@ class CartCubit extends Cubit<CartState> {
     });
   }
 
-  updateItemCountCart(String productId, int count) async {
+  increaseItemCountCart(String productId, int count) async {
     emit(UpdateItemCountLoadingState());
     CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
     var response = await cartUseCase.updateItemCountCart(productId, count);
@@ -68,6 +68,29 @@ class CartCubit extends Cubit<CartState> {
     }, (r) {
       getCartItems();
       emit(UpdateItemCountSuccessState());
+    });
+  }
+
+  decreaseItemCountCart(String productId, int count) async {
+    emit(UpdateItemCountLoadingState());
+    CartUseCase cartUseCase = CartUseCase(cartDomainRepo);
+    var response = await cartUseCase.updateItemCountCart(productId, count);
+    response.fold((l) {
+      // print(l.message.toString());
+      emit(UpdateItemCountErrorState(l));
+    }, (r) {
+      if (r
+          .data!
+          .products![r.data!.products!
+          .indexWhere((element) => element.product!.id == productId)]
+          .count ==
+          0) {
+        removeItemFromCart(productId);
+        emit(UpdateItemCountSuccessState());
+      } else {
+        getCartItems();
+        emit(UpdateItemCountSuccessState());
+      }
     });
   }
 }

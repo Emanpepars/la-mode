@@ -13,6 +13,7 @@ import '../../../../../../../../core/utils/text_styles.dart';
 import '../../../../../../../auth/register/domain/entities/user_entity.dart';
 import '../../../../../../../check_out/checkout/presentation/pages/check_out_screen.dart';
 import '../../../../../manager/provider/home_cubit.dart';
+import '../../../../../manager/provider/home_state.dart';
 import '../manager/payment/payment_state.dart';
 
 class CartTab extends StatelessWidget {
@@ -99,83 +100,98 @@ class CartTab extends StatelessWidget {
                     : BlocConsumer<CartCubit, CartState>(
                         listener: (context, state) {},
                         builder: (context, state) {
-                          if (state is GetCartItemLoadingState) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (state is GetCartItemSuccessState) {
-                            return SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 15.w,
-                                    right: 15.w,
-                                    top: 5.h,
-                                    bottom: 40.h),
-                                child: Column(
-                                  children: [
-                                    Items(
-                                        count: CartCubit.get(context)
-                                            .products
-                                            .length),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    ListView.separated(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) => BagItem(
-                                        productItem: CartCubit.get(context)
-                                            .products[index],
-                                      ),
-                                      itemCount: CartCubit.get(context)
+                          return SingleChildScrollView(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: 15.w,
+                                  right: 15.w,
+                                  top: 5.h,
+                                  bottom: 40.h),
+                              child: Column(
+                                children: [
+                                  Items(
+                                      count: CartCubit.get(context)
                                           .products
-                                          .length,
-                                      separatorBuilder:
-                                          (BuildContext context, int index) =>
-                                              SizedBox(
-                                        height: 10.h,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          "Subtotal: ".tr(),
-                                          style:
-                                              roboto14(weight: FontWeight.w500),
-                                        ),
-                                        Text(
-                                          "\$${CartCubit.get(context).totalCartPrice}",
-                                          style: roboto18W500(),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                    MyButton(
-                                      text: 'Checkout'.tr(),
-                                      onPressed: () {
-                                        PaymentCubit.get(context).getAuthToken(
-                                          "eman@gmail.com",
-                                          "01120744802",
-                                          "eman",
-                                          "ashraf",
-                                          "${CartCubit.get(context).totalCartPrice}",
+                                          .length),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  BlocBuilder<HomeCubit, HomeState>(
+                                    builder: (context, state) {
+                                      if (state is GetAllProductSuccess) {
+                                        return ListView.separated(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) =>
+                                              BagItem(
+                                            productItem: CartCubit.get(context)
+                                                .products[index],
+                                          ),
+                                          itemCount: CartCubit.get(context)
+                                              .products
+                                              .length,
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  SizedBox(
+                                            height: 10.h,
+                                          ),
                                         );
-                                      },
-                                    )
-                                  ],
-                                ),
+                                      } else {
+                                        return ListView.separated(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemBuilder: (context, index) =>
+                                              const BagItemShimmer(),
+                                          itemCount: 10,
+                                          separatorBuilder:
+                                              (BuildContext context,
+                                                      int index) =>
+                                                  SizedBox(
+                                            height: 10.h,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "Subtotal: ".tr(),
+                                        style:
+                                            roboto14(weight: FontWeight.w500),
+                                      ),
+                                      Text(
+                                        "\$${CartCubit.get(context).totalCartPrice}",
+                                        style: roboto18W500(),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  MyButton(
+                                    text: 'Checkout'.tr(),
+                                    onPressed: () {
+                                      PaymentCubit.get(context).getAuthToken(
+                                        "eman@gmail.com",
+                                        "01120744802",
+                                        "eman",
+                                        "ashraf",
+                                        "${CartCubit.get(context).totalCartPrice}",
+                                      );
+                                    },
+                                  )
+                                ],
                               ),
-                            );
-                          } else {
-                            return const SizedBox();
-                          }
+                            ),
+                          );
                         },
                       ),
                 drawer: MyDrawer(

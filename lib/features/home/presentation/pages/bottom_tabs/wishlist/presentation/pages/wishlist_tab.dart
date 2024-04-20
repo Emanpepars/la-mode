@@ -10,6 +10,7 @@ import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/pr
 import '../../../../../../../../core/utils/app_components.dart';
 import '../../../../../../../../core/utils/app_images.dart';
 import '../../../../../../../../core/utils/text_styles.dart';
+import '../../../../../manager/provider/home_state.dart';
 
 class FavTab extends StatelessWidget {
   final UserEntity userEntity;
@@ -77,15 +78,33 @@ class FavTab extends StatelessWidget {
                       height: 15.h,
                     ),
                     Expanded(
-                      child: ListView.separated(
-                        itemBuilder: (context, index) => WishlistItem(
-                          product: WishlistCubit.get(context).wishlist[index],
-                        ),
-                        itemCount: WishlistCubit.get(context).wishlist.length,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            SizedBox(
-                          height: 10.h,
-                        ),
+                      child: BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          if (state is GetAllProductSuccess) {
+                            return ListView.separated(
+                              itemBuilder: (context, index) => WishlistItem(
+                                product:
+                                    WishlistCubit.get(context).wishlist[index],
+                              ),
+                              itemCount:
+                                  WishlistCubit.get(context).wishlist.length,
+                              separatorBuilder:
+                                  (BuildContext context, int index) => SizedBox(
+                                height: 10.h,
+                              ),
+                            );
+                          } else {
+                            return ListView.separated(
+                              itemBuilder: (context, index) =>
+                                  const BagItemShimmer(),
+                              itemCount: 10,
+                              separatorBuilder:
+                                  (BuildContext context, int index) => SizedBox(
+                                height: 10.h,
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ],

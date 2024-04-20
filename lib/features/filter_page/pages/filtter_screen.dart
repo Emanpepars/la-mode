@@ -39,7 +39,6 @@ class FilterScreen extends StatelessWidget {
                     centerTitle: false,
                     actions: [
                       BagIcon(
-                        bagCount: 4,
                         onPressed: () {
                           HomeCubit.get(context).controller.index = 1;
                           Navigator.pop(context);

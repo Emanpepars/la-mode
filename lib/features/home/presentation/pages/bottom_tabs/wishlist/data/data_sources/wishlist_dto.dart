@@ -11,6 +11,8 @@ abstract class WishlistDto {
   Future<Either<Failures, GetWishlistModel>> getWishlist();
 
   Future<Either<Failures, AddWishModel>> addWish(String productId);
+
+  Future<Either<Failures, AddWishModel>> removeWish(String productId);
 }
 
 class RemoteWishlistDto extends WishlistDto {
@@ -38,9 +40,25 @@ class RemoteWishlistDto extends WishlistDto {
       var response = await api.post(
         "${AppConstants.baseUrl}${EndPoints.wishlist}",
         data: {
-          {
-            "productId": productId,
-          }
+          "productId": productId,
+        },
+      );
+
+      AddWishModel addWishModel = AddWishModel.fromJson(response);
+      return Right(addWishModel);
+    } catch (e) {
+      print(e.toString());
+      return Left(ServerFailures(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, AddWishModel>> removeWish(String productId) async {
+    try {
+      var response = await api.delete(
+        "${AppConstants.baseUrl}${EndPoints.wishlist}/$productId",
+        data: {
+          "productId": productId,
         },
       );
 

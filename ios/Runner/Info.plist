@@ -18,8 +18,6 @@
 	<string>la_mode</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>Add User Image</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -28,12 +26,14 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>I need the location to deliver the order in this location.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-   	<string>I need the location to deliver the order in this location.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-   	<string>I need the location to deliver the order in this location.</string>
+	<string>I need the location to deliver the order in this location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>I need the location to deliver the order in this location.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add User Image</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
