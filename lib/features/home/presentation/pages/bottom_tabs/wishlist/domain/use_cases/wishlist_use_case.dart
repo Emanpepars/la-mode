@@ -15,4 +15,7 @@ class WishlistUseCase {
 
   Future<Either<Failures, AddWishEntity>> addWish(String productId) =>
       wishlistDomainRepo.addWish(productId);
+
+  Future<Either<Failures, AddWishEntity>> removeWish(String productId) =>
+      wishlistDomainRepo.removeWish(productId);
 }

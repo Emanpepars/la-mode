@@ -52,6 +52,8 @@ dependencies:
 
   awesome_notifications: ^0.8.2
   shimmer: ^3.0.0
+  connectivity_plus: ^6.0.2
+  lottie: ^3.1.0
 
 
 dev_dependencies:
@@ -90,6 +92,7 @@ flutter:
     - assets/icons/media/
     - assets/translations/
     - assets/3d/
+    - assets/animation/
 
   # fonts:
   #   - family: Schyler

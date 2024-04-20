@@ -16,6 +16,7 @@ import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/pr
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/presentation/manager/wishlist_state.dart';
 import 'package:la_mode/features/notification/presentation/pages/notification_screen.dart';
 import 'package:la_mode/features/product_details/presentation/pages/product_details_screen.dart';
+import 'package:lottie/lottie.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../config/routes.dart';
@@ -447,21 +448,40 @@ class ProductCard extends StatelessWidget {
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      child: CustomInkWell(
-                        onTap: () {
-                          WishlistCubit.get(context).addWish(dataEntity.id!);
-                        },
-                        child: CircleAvatar(
-                          radius: 15.sp,
-                          backgroundColor: AppColors.lightGray,
-                          child: Image(
-                            image: const AssetImage(
-                              AppIcons.heart,
-                            ),
-                            color: AppColors.lightColor,
-                            width: 18.w,
-                            height: 20.h,
-                          ),
+                      child: CircleAvatar(
+                        radius: 18.sp,
+                        backgroundColor: AppColors.lightGray,
+                        child: BlocBuilder<WishlistCubit, WishlistState>(
+                          builder: (context, state) {
+                            if (WishlistCubit.get(context).wishlist.any(
+                                (element) => element.id == dataEntity.id)) {
+                              return CustomInkWell(
+                                onTap: () {
+                                  WishlistCubit.get(context)
+                                      .removeWish(dataEntity.id!);
+                                },
+                                child: Lottie.asset(
+                                  repeat: false,
+                                  "assets/animation/favorite.json",
+                                ),
+                              );
+                            } else {
+                              return CustomInkWell(
+                                onTap: () {
+                                  WishlistCubit.get(context)
+                                      .addWish(dataEntity.id!);
+                                },
+                                child: Image(
+                                  image: const AssetImage(
+                                    AppIcons.heart,
+                                  ),
+                                  color: AppColors.lightColor,
+                                  width: 18.w,
+                                  height: 20.h,
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -658,15 +678,40 @@ class ProductCardWithSeller extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                     child: CircleAvatar(
-                      radius: 15.sp,
+                      radius: 18.sp,
                       backgroundColor: AppColors.lightGray,
-                      child: Image(
-                        image: const AssetImage(
-                          AppIcons.heart,
-                        ),
-                        color: AppColors.lightColor,
-                        width: 18.w,
-                        height: 20.h,
+                      child: BlocBuilder<WishlistCubit, WishlistState>(
+                        builder: (context, state) {
+                          if (WishlistCubit.get(context)
+                              .wishlist
+                              .any((element) => element.id == dataEntity.id)) {
+                            return CustomInkWell(
+                              onTap: () {
+                                WishlistCubit.get(context)
+                                    .removeWish(dataEntity.id!);
+                              },
+                              child: Lottie.asset(
+                                repeat: false,
+                                "assets/animation/favorite.json",
+                              ),
+                            );
+                          } else {
+                            return CustomInkWell(
+                              onTap: () {
+                                WishlistCubit.get(context)
+                                    .addWish(dataEntity.id!);
+                              },
+                              child: Image(
+                                image: const AssetImage(
+                                  AppIcons.heart,
+                                ),
+                                color: AppColors.lightColor,
+                                width: 18.w,
+                                height: 20.h,
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ),

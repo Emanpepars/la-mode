@@ -6,5 +6,6 @@ import 'package:la_mode/features/home/presentation/pages/bottom_tabs/wishlist/do
 abstract class WishlistDomainRepo {
   Future<Either<Failures, GetWishlistEntity>> getWishlist();
   Future<Either<Failures, AddWishEntity>> addWish(String productId);
+  Future<Either<Failures, AddWishEntity>> removeWish(String productId);
 
 }

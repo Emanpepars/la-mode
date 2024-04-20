@@ -7,8 +7,12 @@ import 'package:la_mode/core/utils/app_colors.dart';
 import 'package:la_mode/core/utils/text_styles.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_cubit.dart';
 import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/presentation/manager/cart_state.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../../../../../../../core/utils/app_components.dart';
 import '../../../../../../../../core/utils/app_icons.dart';
+import '../../../wishlist/presentation/manager/wishlist_cubit.dart';
+import '../../../wishlist/presentation/manager/wishlist_state.dart';
 import '../../domain/entities/cart_entity.dart';
 
 class BagItem extends StatelessWidget {
@@ -66,15 +70,40 @@ class BagItem extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                     child: CircleAvatar(
-                      radius: 12,
+                      radius: 15.sp,
                       backgroundColor: AppColors.lightGray,
-                      child: Image(
-                        image: const AssetImage(
-                          AppIcons.heart,
-                        ),
-                        color: AppColors.lightColor,
-                        width: 15.w,
-                        height: 15.h,
+                      child: BlocBuilder<WishlistCubit, WishlistState>(
+                        builder: (context, state) {
+                          if (WishlistCubit.get(context).wishlist.any(
+                              (element) =>
+                                  element.id == productItem.product!.id)) {
+                            return CustomInkWell(
+                              onTap: () {
+                                WishlistCubit.get(context)
+                                    .removeWish(productItem.product!.id!);
+                              },
+                              child: Lottie.asset(
+                                repeat: false,
+                                "assets/animation/favorite.json",
+                              ),
+                            );
+                          } else {
+                            return CustomInkWell(
+                              onTap: () {
+                                WishlistCubit.get(context)
+                                    .addWish(productItem.product!.id!);
+                              },
+                              child: Image(
+                                image: const AssetImage(
+                                  AppIcons.heart,
+                                ),
+                                color: AppColors.lightColor,
+                                width: 18.w,
+                                height: 20.h,
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ),

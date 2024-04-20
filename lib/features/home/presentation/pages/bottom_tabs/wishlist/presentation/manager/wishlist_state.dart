@@ -23,3 +23,13 @@ class AddWishFailure extends WishlistState {
 
   AddWishFailure(this.failures);
 }
+
+class RemoveWishLoading extends WishlistState {}
+
+class RemoveWishSuccess extends WishlistState {}
+
+class RemoveWishFailure extends WishlistState {
+  Failures failures;
+
+  RemoveWishFailure(this.failures);
+}
