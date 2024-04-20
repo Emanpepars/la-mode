@@ -32,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.homeDto) : super(HomeInitial()) {
     homeDomainRepo = HomeDataRepo(homeDto);
-    timer = Timer.periodic(const Duration(milliseconds: 50000000), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 100000000), (timer) {
       nextPage();
     });
   }
@@ -44,12 +44,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   void onTabChanged(value) {
     currentTabIndex = value;
-    emit(HomeOnTabChangedState());
+    emit(GetAllProductSuccess());
   }
 
   void onPageChanged(value) {
     currentFlashSalePageIndex = value;
-    emit(HomeOnPageChangedState());
+    emit(GetAllProductSuccess());
   }
 
   var userBox = Hive.box(AppConstants.kUSerBox);
@@ -202,14 +202,12 @@ class HomeCubit extends Cubit<HomeState> {
       currentFlashSalePageIndex++;
     } else {
       currentFlashSalePageIndex = 0;
-      emit(HomeOnPageChangedState());
     }
     flashSalePageController.animateToPage(
       currentFlashSalePageIndex,
       duration: const Duration(milliseconds: 500),
       curve: Curves.fastLinearToSlowEaseIn,
     );
-    emit(HomeOnPageChangedState());
   }
 
   ///--- settings Lang ---///
@@ -246,7 +244,6 @@ class HomeCubit extends Cubit<HomeState> {
 
     response.fold((l) => emit(GetAllProductError(l)), (r) {
       products = r.data!;
-      print(products.first.toString());
       emit(GetAllProductSuccess());
     });
   }

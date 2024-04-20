@@ -32,7 +32,8 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => ProductDetailsCubit(),
+      create: (BuildContext context) =>
+          ProductDetailsCubit(dataEntity.images!.length),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
@@ -54,7 +55,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       child: PageView.builder(
                         scrollDirection: Axis.horizontal,
                         controller: ProductDetailsCubit.get(context)
-                            .flashSalePageController,
+                            .currentPageController,
                         onPageChanged: (value) {
                           ProductDetailsCubit.get(context).onPageChanged(value);
                         },
@@ -92,14 +93,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                             WishlistCubit.get(context)
                                                 .removeWish(dataEntity.id!);
                                           },
-                                          child: Expanded(
-                                            child: Lottie.asset(
-                                              repeat: false,
-                                              fit: BoxFit.cover,
-                                              "assets/animation/favorite.json",
-                                              width: 32.w,
-                                              height: 32.h,
-                                            ),
+                                          child: Lottie.asset(
+                                            repeat: false,
+                                            fit: BoxFit.cover,
+                                            "assets/animation/favorite.json",
+                                            width: 32.w,
+                                            height: 32.h,
                                           ),
                                         );
                                       } else {
@@ -146,21 +145,21 @@ class ProductDetailsScreen extends StatelessWidget {
                         onTap: () {
                           ProductDetailsCubit.get(context).onPageChanged(index);
                           ProductDetailsCubit.get(context)
-                              .flashSalePageController
+                              .currentPageController
                               .animateToPage(index,
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.fastLinearToSlowEaseIn);
                         },
                         child: Container(
                           width: ProductDetailsCubit.get(context)
-                                      .currentFlashSalePageIndex ==
+                                      .currentPageIndex ==
                                   index
                               ? 110.w
                               : 110.w,
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: ProductDetailsCubit.get(context)
-                                            .currentFlashSalePageIndex ==
+                                            .currentPageIndex ==
                                         index
                                     ? AppColors.gold
                                     : Colors.white,
@@ -205,14 +204,14 @@ class ProductDetailsScreen extends StatelessWidget {
                           Expanded(
                             flex: 1,
                             child: Text(
-                              "\$${dataEntity.price!}",
+                              "\$${dataEntity.priceAfterDiscount ?? dataEntity.price!}",
                               style: roboto18W500(),
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 5.h,
                       ),
                       Text(
                         "Available in stock".tr(),
@@ -510,30 +509,22 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 220.h,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: ListView.separated(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) =>
-                                          index == 0
-                                              ? SizedBox(
-                                                  width: 0.w,
-                                                )
-                                              : SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                      separatorBuilder: (context, index) =>
-                                          ProductCard(
-                                            dataEntity: HomeCubit.get(context)
-                                                .products[index],
-                                          ),
-                                      itemCount: HomeCubit.get(context)
-                                          .products
-                                          .length),
-                                )
-                              ],
-                            ),
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => index == 0
+                                    ? SizedBox(
+                                        width: 0.w,
+                                      )
+                                    : SizedBox(
+                                        width: 5.w,
+                                      ),
+                                separatorBuilder: (context, index) =>
+                                    ProductCard(
+                                      dataEntity: HomeCubit.get(context)
+                                          .products[index],
+                                    ),
+                                itemCount:
+                                    HomeCubit.get(context).products.length),
                           ),
                         ],
                       ),

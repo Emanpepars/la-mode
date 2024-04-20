@@ -132,8 +132,8 @@ class FirstPart extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.only(bottom: 7.h, top:  7.h , right: 10.w),
+                                    contentPadding: EdgeInsets.only(
+                                        bottom: 7.h, top: 7.h, right: 10.w),
                                     hintText: "Search".tr(),
                                     hintStyle: roboto16().copyWith(
                                       color: AppColors.silverDark,
@@ -533,7 +533,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "\$${dataEntity.price!}",
+                        "\$${dataEntity.priceAfterDiscount ?? dataEntity.price!}",
                         style: roboto18W500(),
                       ),
                       SizedBox(width: 5.w),
@@ -751,7 +751,7 @@ class ProductCardWithSeller extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              "\$${dataEntity.price}",
+                              "\$${dataEntity.priceAfterDiscount ?? dataEntity.price}",
                               style: roboto18W500(),
                             ),
                             SizedBox(width: 5.w),
