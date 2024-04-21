@@ -9,7 +9,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   final int length;
 
   ProductDetailsCubit(this.length) : super(ProductDetailsInitial()) {
-    timer = Timer.periodic(const Duration(milliseconds: 1000000), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 10000), (timer) {
       nextPage(length);
     });
   }

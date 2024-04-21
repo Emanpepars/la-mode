@@ -59,24 +59,21 @@ void main() async {
       );
 
       FirebaseMessaging.onMessage.listen((event) {
-        print("on message");
-        print(event.data.toString());
         AwesomeNotifications().createNotification(
           content: NotificationContent(
             id: 2,
             channelKey: 'basic_channel',
             title: event.notification?.title ?? 'Notification',
-            body: event.notification?.body ?? 'This is an awesome notification!',
+            body:
+                event.notification?.body ?? 'This is an awesome notification!',
           ),
         );
       });
-      FirebaseMessaging.onMessageOpenedApp.listen((event) {
-        print("on message opened app");
-        print(event.data.toString());
-      });
+      FirebaseMessaging.onMessageOpenedApp.listen((event) {});
 
       ///--- background fcm ---///
-      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+      FirebaseMessaging.onBackgroundMessage(
+          _firebaseMessagingBackgroundHandler);
       runApp(
         EasyLocalization(
           supportedLocales: const [
@@ -95,7 +92,6 @@ void main() async {
         ),
       );
     } else {
-      print("Notifications are disabled");
       runApp(
         EasyLocalization(
           supportedLocales: const [
@@ -114,8 +110,7 @@ void main() async {
         ),
       );
     }
-  }
-  else{
+  } else {
     runApp(
       EasyLocalization(
         supportedLocales: const [
@@ -135,4 +130,3 @@ void main() async {
     );
   }
 }
-
