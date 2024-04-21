@@ -21,6 +21,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
         listener: (context, state) {},
         builder: (context, state) => Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
               'Forget Password',

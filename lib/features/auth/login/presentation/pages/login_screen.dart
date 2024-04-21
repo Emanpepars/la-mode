@@ -140,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: 5.h,
                       ),
-                      InkWell(
+                      CustomInkWell(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.forgetPassword);
                         },
