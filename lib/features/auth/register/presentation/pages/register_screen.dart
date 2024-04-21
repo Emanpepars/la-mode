@@ -136,6 +136,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 2.h,
                         ),
                         CuTextFormField(
+                          obscure: RegisterCubit.get(context).isPasswordSecure,
                           validator: (value) => RegisterCubit.get(context)
                               .validatePassword(value),
                           controller:
@@ -146,11 +147,18 @@ class RegisterScreen extends StatelessWidget {
                             color: AppColors.silverDark,
                           ),
                           suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                              color: AppColors.silverDark,
-                            ),
+                            onPressed: () {
+                              RegisterCubit.get(context).onPasswordEyeTap();
+                            },
+                            icon: RegisterCubit.get(context).isPasswordSecure
+                                ? const Icon(
+                                    Icons.remove_red_eye_outlined,
+                                    color: AppColors.silverDark,
+                                  )
+                                : Image.asset(
+                                    AppIcons.secureEye,
+                                    width: 20.w,
+                                  ),
                           ),
                         ),
                         SizedBox(
@@ -174,6 +182,8 @@ class RegisterScreen extends StatelessWidget {
                           height: 2.h,
                         ),
                         CuTextFormField(
+                          obscure:
+                              RegisterCubit.get(context).isConPasswordSecure,
                           validator: (value) => RegisterCubit.get(context)
                               .validatePassword(value),
                           controller: RegisterCubit.get(context)
@@ -184,11 +194,19 @@ class RegisterScreen extends StatelessWidget {
                             color: AppColors.silverDark,
                           ),
                           suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.remove_red_eye_outlined,
-                              color: AppColors.silverDark,
-                            ),
+                            onPressed: () {
+                              RegisterCubit.get(context)
+                                  .onConfirmPasswordEyeTap();
+                            },
+                            icon: RegisterCubit.get(context).isConPasswordSecure
+                                ? const Icon(
+                                    Icons.remove_red_eye_outlined,
+                                    color: AppColors.silverDark,
+                                  )
+                                : Image.asset(
+                                    AppIcons.secureEye,
+                                    width: 20.w,
+                                  ),
                           ),
                         ),
                         SizedBox(

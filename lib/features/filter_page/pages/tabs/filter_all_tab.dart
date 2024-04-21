@@ -121,7 +121,7 @@ class FilterAllTab extends StatelessWidget {
                             : Colors.white,
                     inactiveColor:
                         Theme.of(context).brightness == Brightness.light
-                            ? AppColors.lightColor
+                            ? AppColors.lightGray
                             : Colors.white10,
                     values: RangeValues(
                       FilterCubit.get(context).startValue,

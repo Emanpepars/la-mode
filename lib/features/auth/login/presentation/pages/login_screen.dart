@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
           }
         },
         builder: (context, state) => Scaffold(
-          resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
               'Sign In'.tr(),
@@ -113,6 +113,7 @@ class LoginScreen extends StatelessWidget {
                         height: 2.h,
                       ),
                       CuTextFormField(
+                        obscure: LoginCubit.get(context).isSecure,
                         controller: LoginCubit.get(context).passwordController,
                         validator: (value) =>
                             LoginCubit.get(context).validatePassword(value),
@@ -122,17 +123,24 @@ class LoginScreen extends StatelessWidget {
                           color: AppColors.silverDark,
                         ),
                         suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.remove_red_eye_outlined,
-                            color: AppColors.silverDark,
-                          ),
+                          onPressed: () {
+                            LoginCubit.get(context).onEyeTap();
+                          },
+                          icon: LoginCubit.get(context).isSecure
+                              ? const Icon(
+                                  Icons.remove_red_eye_outlined,
+                                  color: AppColors.silverDark,
+                                )
+                              : Image.asset(
+                                  AppIcons.secureEye,
+                                  width: 25.w,
+                                ),
                         ),
                       ),
                       SizedBox(
                         height: 5.h,
                       ),
-                      InkWell(
+                      CustomInkWell(
                         onTap: () {
                           Navigator.pushNamed(context, Routes.forgetPassword);
                         },

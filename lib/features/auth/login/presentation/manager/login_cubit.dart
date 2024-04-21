@@ -23,6 +23,8 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  bool isSecure = true;
+
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your email';
@@ -79,5 +81,10 @@ class LoginCubit extends Cubit<LoginState> {
       autoValidateMode = AutovalidateMode.always;
       emit(LoginUpdateState());
     }
+  }
+
+  onEyeTap() {
+    isSecure = !isSecure;
+    emit(LoginUpdateState());
   }
 }

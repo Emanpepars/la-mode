@@ -1,14 +1,64 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../core/utils/app_images.dart';
 import 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(MainInitial());
+  final StreamController<bool> internetStreamController =
+      StreamController<bool>.broadcast();
+
+  MainCubit() : super(MainInitial()) {
+    // Listen for connectivity changes
+    Connectivity().onConnectivityChanged.listen((result) {
+      checkConnectivity();
+    });
+
+    // Listen for internet connection changes using InternetConnectionChecker
+    listenForInternetConnectionChanges();
+  }
+
+  // Check connectivity status initially
+  void checkConnectivity() async {
+    // Use Connectivity to check internet connectivity
+    final List<ConnectivityResult> connectivityResult =
+        await Connectivity().checkConnectivity();
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      emit(ConnectionPlusNotConnected());
+    } else {
+      emit(ConnectionPlusConnected());
+    }
+  }
+
+  // Listen for connectivity changes
+  void listenForConnectivityChanges() {
+    Connectivity().onConnectivityChanged.listen((result) {
+      checkConnectivity();
+    });
+  }
+
+  // Listen for internet connection changes using InternetConnectionChecker
+  void listenForInternetConnectionChanges() {
+    InternetConnectionChecker().onStatusChange.listen((status) {
+      if (status == InternetConnectionStatus.connected) {
+        emit(InternetCheckerConnected());
+      } else {
+        emit(InternetCheckerNotConnected());
+      }
+    });
+  }
 
   static MainCubit get(context) => BlocProvider.of(context);
+
+  @override
+  Future<void> close() {
+    internetStreamController.close();
+    return super.close();
+  }
 
   ThemeMode themeMode = ThemeMode.light;
   Locale locale = const Locale('en');

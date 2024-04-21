@@ -22,6 +22,48 @@ class CategoryCubit extends Cubit<CategoryState> {
     emit(CategoryOnTabChangedState());
   }
 
+  var sneaker3d = ProductDataEntity(
+    sold: 100,
+    images: [
+      'https://firebasestorage.googleapis.com/v0/b/la-mode-418300.appspot.com/o/sneakers%2F1%2F1.1.jpg?alt=media&token=902f6372-75aa-4be3-a59f-8bb122b7dbec',
+      'https://firebasestorage.googleapis.com/v0/b/la-mode-418300.appspot.com/o/sneakers%2F1%2F1.2.jpg?alt=media&token=3c8f0fc4-1dc0-47f3-a922-462671111b67',
+      'https://firebasestorage.googleapis.com/v0/b/la-mode-418300.appspot.com/o/sneakers%2F1%2F1.3.jpg?alt=media&token=bc6dc172-a616-4d95-8474-88a3a62147a1',
+    ],
+    subcategory: [
+      SubcategoryEntity(
+        id: "6439d5b90049ad0b52b90048",
+        name: 'Sneakers',
+        slug: 'sneakers',
+        category: 'Shoes',
+      ),
+    ],
+    ratingsQuantity: 50,
+    id: '1',
+    title: 'White Sneakers',
+    slug: 'white-sneakers',
+    description:
+        'Step out in style with these trendy white sneakers. Crafted with durable materials, these sneakers are perfect for everyday wear. Whether you\'re running errands or hitting the gym, these sneakers will keep you comfortable and stylish. Pair them with jeans and a t-shirt for a casual look, or dress them up with a dress for a more fashion-forward ensemble.',
+    quantity: 10,
+    price: 250,
+    imageCover:
+        'https://firebasestorage.googleapis.com/v0/b/la-mode-418300.appspot.com/o/sneakers%2F1%2F1.1.jpg?alt=media&token=902f6372-75aa-4be3-a59f-8bb122b7dbec',
+    category: CategoryEntity(
+      id: '6439d58a0049ad0b52b9003f',
+      name: 'Shoes',
+      slug: 'shoes',
+      image:
+          'https://res.cloudinary.com/dwp0imlbj/image/upload/v1680747343/Route-Academy-categories/1681511818071.jpeg',
+    ),
+    brand: BrandEntity(
+      id: '64089bbe24b25627a253158b',
+      name: 'Nike',
+      slug: 'nike',
+      image:
+          'https://ecommerce.routemisr.com/Route-Academy-brands/1678285758109.png',
+    ),
+    ratingsAverage: 4.9,
+    priceAfterDiscount: 250,
+  );
   List<ProductDataEntity> products = [
     ProductDataEntity(
       sold: 100,

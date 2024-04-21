@@ -11,7 +11,6 @@ import 'package:la_mode/features/auth/register/presentation/manager/register_sta
 
 import '../../../../../core/utils/app_constants.dart';
 
-
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterDto sources;
 
@@ -29,6 +28,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   TextEditingController confirmPasswordController = TextEditingController();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
+  bool isPasswordSecure = true;
+  bool isConPasswordSecure = true;
 
   void register() async {
     emit(RegisterLoading());
@@ -95,5 +96,15 @@ class RegisterCubit extends Cubit<RegisterState> {
       autoValidateMode = AutovalidateMode.always;
       emit(RegisterUpdateState());
     }
+  }
+
+  onPasswordEyeTap() {
+    isPasswordSecure = !isPasswordSecure;
+    emit(RegisterPasswordState());
+  }
+
+  onConfirmPasswordEyeTap() {
+    isConPasswordSecure = !isConPasswordSecure;
+    emit(RegisterConfirmPasswordState());
   }
 }

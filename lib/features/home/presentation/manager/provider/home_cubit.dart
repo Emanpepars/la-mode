@@ -32,7 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.homeDto) : super(HomeInitial()) {
     homeDomainRepo = HomeDataRepo(homeDto);
-    timer = Timer.periodic(const Duration(milliseconds: 100000000), (timer) {
+    timer = Timer.periodic(const Duration(milliseconds: 10000), (timer) {
       nextPage();
     });
   }

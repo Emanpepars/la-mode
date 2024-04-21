@@ -12,6 +12,7 @@ import 'package:la_mode/features/home/presentation/pages/bottom_tabs/cart_tab/pr
 import 'package:la_mode/features/product_details/presentation/manager/product_details_cubit.dart';
 import 'package:la_mode/features/product_details/presentation/manager/product_details_state.dart';
 import 'package:lottie/lottie.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_components.dart';
@@ -23,6 +24,7 @@ import '../../../home/presentation/pages/bottom_tabs/wishlist/presentation/manag
 import '../widgets/color_container.dart';
 import '../widgets/property_button.dart';
 import '../widgets/rating.dart';
+import '3d_model_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final ProductDataEntity dataEntity;
@@ -75,6 +77,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 vertical: 10, horizontal: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
@@ -122,6 +125,29 @@ class ProductDetailsScreen extends StatelessWidget {
                                         );
                                       }
                                     },
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.transparent,
+                                  ),
+                                  child: CustomInkWell(
+                                    onTap: () {
+                                      PersistentNavBarNavigator.pushNewScreen(
+                                        context,
+                                        screen: const Model3d(
+                                          productName: 'White Sneaker',
+                                        ),
+                                        withNavBar: false,
+                                        pageTransitionAnimation:
+                                            PageTransitionAnimation.cupertino,
+                                      );
+                                    },
+                                    child: Image.asset(
+                                      AppIcons.model3D,
+                                      width: 25.w,
+                                    ),
                                   ),
                                 ),
                               ],
