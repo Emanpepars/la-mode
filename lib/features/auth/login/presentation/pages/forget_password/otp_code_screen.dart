@@ -15,6 +15,7 @@ class OtpCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'OTP Code',
@@ -57,7 +58,7 @@ class OtpCodeScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                           Text(
-                            'yourmail@example.com',
+                            isPhone ? '0111010200' : 'emanpepars2@gmail.com',
                             style: roboto16W500(),
                             textAlign: TextAlign.center,
                           ),
@@ -95,14 +96,9 @@ class OtpCodeScreen extends StatelessWidget {
                     animationDuration: const Duration(milliseconds: 300),
                     backgroundColor: Colors.white,
                     enableActiveFill: true,
-                    onCompleted: (v) {
-                      print("Completed");
-                    },
-                    onChanged: (value) {
-                      print(value);
-                    },
+                    onCompleted: (v) {},
+                    onChanged: (value) {},
                     beforeTextPaste: (text) {
-                      print("Allowing to paste $text");
                       return true;
                     },
                     appContext: context,

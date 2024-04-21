@@ -136,25 +136,3 @@ void main() async {
   }
 }
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(title: const Text('Model Viewer')),
-//         body:
-//         const ModelViewer(
-//           backgroundColor: Colors.transparent,
-//           src: 'assets/3d/sport_sneakers_3d_model.glb',
-//           alt: 'A 3D model of an sport sneakers',
-//           ar: true,
-//           autoRotate: true,
-//           iosSrc: 'assets/3d/sport_sneakers_3d_model.glb',
-//           disableZoom: true,
-//         ),
-//       ),
-//     );
-//   }
-// }

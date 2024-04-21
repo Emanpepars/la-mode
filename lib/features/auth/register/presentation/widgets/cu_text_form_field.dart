@@ -4,7 +4,6 @@ import 'package:la_mode/core/utils/app_colors.dart';
 
 import '../../../../../core/utils/text_styles.dart';
 
-
 class CuTextFormField extends StatelessWidget {
   final String hintText;
   final Widget? prefixIcon;
@@ -12,17 +11,21 @@ class CuTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
+  final bool obscure;
+
   const CuTextFormField(
       {required this.hintText,
       super.key,
       this.prefixIcon,
       this.suffixIcon,
       this.controller,
-      this.validator});
+      this.validator,
+      this.obscure = false});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscure,
       validator: validator,
       controller: controller,
       scrollPadding: EdgeInsets.zero,

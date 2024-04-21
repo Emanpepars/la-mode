@@ -93,10 +93,15 @@ class ForgotPasswordScreen extends StatelessWidget {
                   hintText: ForgetPasswordCubit.get(context).isPhone
                       ? 'Enter your phone number'
                       : 'Enter your email',
-                  prefixIcon: const Icon(
-                    Icons.email_outlined,
-                    color: AppColors.silverDark,
-                  ),
+                  prefixIcon: ForgetPasswordCubit.get(context).isPhone
+                      ? const Icon(
+                          Icons.phone,
+                          color: AppColors.silverDark,
+                        )
+                      : const Icon(
+                          Icons.email_outlined,
+                          color: AppColors.silverDark,
+                        ),
                 ),
                 SizedBox(
                   height: 20.h,
