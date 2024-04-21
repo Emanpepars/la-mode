@@ -74,7 +74,8 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: BlocConsumer<MainCubit, MainState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+          },
           builder: (context, state) => MaterialApp(
             /// --- localization ---- ///
             localizationsDelegates: context.localizationDelegates,

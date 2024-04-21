@@ -54,6 +54,60 @@ class AppComponents {
   }
 }
 
+class ConnectionErrorAlertDialogWidget extends StatelessWidget {
+  final Widget? actionWidget;
+  final VoidCallback? onPressed;
+
+  const ConnectionErrorAlertDialogWidget(
+      {super.key, this.onPressed, this.actionWidget});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      contentPadding: EdgeInsets.zero,
+      content: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.black,
+          borderRadius: BorderRadius.all(
+            Radius.circular(30.sp),
+          ),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              color: AppColors.gold,
+              size: 60.sp,
+            ),
+            SizedBox(
+              height: 6.h,
+            ),
+            Text(
+              "Whoops!!".tr(),
+              style: roboto20(),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              "No internet connection was found. check your connection.",
+              style: roboto16W400(),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class FirstPart extends StatelessWidget {
   final String appBarTitle;
   final IconData? leadingIcon;

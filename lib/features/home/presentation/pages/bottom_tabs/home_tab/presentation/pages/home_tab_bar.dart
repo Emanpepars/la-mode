@@ -157,7 +157,7 @@ class HomeTab extends StatelessWidget {
                           ),
                         ),
                       );
-                    } else {
+                    }else {
                       return Container(
                         color: Colors.white,
                         child: SingleChildScrollView(

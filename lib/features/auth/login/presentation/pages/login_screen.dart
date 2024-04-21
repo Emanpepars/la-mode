@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
           }
         },
         builder: (context, state) => Scaffold(
-          resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             title: Text(
               'Sign In'.tr(),

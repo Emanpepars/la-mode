@@ -122,6 +122,17 @@ class AllTab extends StatelessWidget {
                           ),
                           itemCount: HomeCubit.get(context).products.length,
                         );
+                      } else if (HomeCubit.get(context).products.isNotEmpty) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => SizedBox(
+                            width: 10.w,
+                          ),
+                          separatorBuilder: (context, index) => ProductCard(
+                            dataEntity: HomeCubit.get(context).products[index],
+                          ),
+                          itemCount: HomeCubit.get(context).products.length,
+                        );
                       } else {
                         return ListView.separated(
                           scrollDirection: Axis.horizontal,
@@ -205,6 +216,17 @@ class AllTab extends StatelessWidget {
                           ),
                           itemCount: HomeCubit.get(context).products.length,
                         );
+                      } else if (HomeCubit.get(context).products.isNotEmpty) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => SizedBox(
+                            width: 10.w,
+                          ),
+                          separatorBuilder: (context, index) => ProductCard(
+                            dataEntity: HomeCubit.get(context).products[index],
+                          ),
+                          itemCount: HomeCubit.get(context).products.length,
+                        );
                       } else {
                         return ListView.separated(
                           scrollDirection: Axis.horizontal,
@@ -242,6 +264,22 @@ class AllTab extends StatelessWidget {
                         child: BlocBuilder<HomeCubit, HomeState>(
                           builder: (context, state) {
                             if (state is GetAllProductSuccess) {
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => SizedBox(
+                                  width: 10.w,
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    ProductCard(
+                                  dataEntity:
+                                      HomeCubit.get(context).products[index],
+                                ),
+                                itemCount:
+                                    HomeCubit.get(context).products.length,
+                              );
+                            } else if (HomeCubit.get(context)
+                                .products
+                                .isNotEmpty) {
                               return ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) => SizedBox(
