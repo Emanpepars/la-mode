@@ -5,7 +5,9 @@
 </p>
 
   <h1>La Moda E-Commerce App</h1>
-  <p>Stylish and user-friendly e-commerce app offering a seamless shopping experience. Inspired by the modern and elegant UI design on <a href="https://www.behance.net/gallery/185462555/La-Mode-Mobile-App-UX-UI-Case-Study?tracking_source=search_projects&l=11">Nada Badawy's Behance</a>, it features easy navigation, personalized recommendations, social media integration, and responsiveness.</p>
+  <p>Stylish and user-friendly e-commerce app offering a seamless shopping experience. Inspired by the modern and elegant UI design on <a href="https://www.behance.net/gallery/185462555/La-Mode-Mobile-App-UX-UI-Case-Study?tracking_source=search_projects&l=11">Nada Badawy's Behance</a>, it features easy navigation, personalized recommendations, social media integration, and responsiveness.</p><a href="https://www.linkedin.com/posts/eman-pe-pars-26293a220_lamoda-ecommerce-fashion-activity-7188235126760235008-Mlyf?utm_source=share&utm_medium=member_desktop">Demo</a>
+
+  
 
 
 <img align='right' src="http://cdn.lowgif.com/small/9cb12f51dffbaaa6-character-typing-by-vincent-mokuenko-dribbble.gif" width="250" height="210">
